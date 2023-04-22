@@ -1,4 +1,5 @@
 <x-app-layout>
+    {{-- @dd($posts) --}}
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -24,18 +25,6 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($posts as $post)
-                    <tr>
-                        <td> {{ $loop->iteration }}</td>
-                        <td> {{ $post->name }}</td>
-                        <td> {{ $post->created_at }}</td>
-                        <td> {{ $post->updated_at }}</td>
-                        <td>
-                            <x-edit-icon :href="route('kecamatanEdit', ['id' => $post->id])"></x-edit-icon>
-                            <x-delete-icon :action="route('kecamatanDestroy', ['id' => $post->id])"></x-delete-icon>
-                        </td>
-                    </tr>
-                @endforeach
             </tbody>
         </table>
     </div>
@@ -44,8 +33,20 @@
 <script>
     $(document).ready( function () {
         $('#kecamatanTable').DataTable({
-            responsive: true
-            
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{{ route('ApiMasterKecamatan') }}",
+            "columns" : [
+                {"data" : "id"},
+                {"data" : "name"},
+                {"data" : "created_at"},
+                {"data" : "updated_at"},
+                {
+                    "data" : null,
+                    "defaultContent": ,
+                }
+            ]
         });
     } );
 </script>

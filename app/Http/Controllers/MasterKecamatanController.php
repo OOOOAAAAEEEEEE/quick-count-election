@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\MasterKecamatan;
 use Illuminate\Http\Request;
 
+
 class MasterKecamatanController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return view('master.kecamatan.index', [
-            'posts'=> MasterKecamatan::all(),
+            
         ]);
     }
 
