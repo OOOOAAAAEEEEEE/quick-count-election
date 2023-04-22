@@ -13,29 +13,18 @@
     </x-slot>
 
     <div class="max-w-max sm:max-w-7xl mx-auto my-10">
-        <table id="kecamatanTable" class="display">
+        <table id="kelurahanTable" class="display">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
+                    <th>Kecamatan</th>
                     <th>Dibuat</th>
                     <th>Diedit</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($posts as $post)
-                    <tr>
-                        <td> {{ $loop->iteration }}</td>
-                        <td> {{ $post->name }}</td>
-                        <td> {{ $post->created_at }}</td>
-                        <td> {{ $post->updated_at }}</td>
-                        <td> 
-                            <x-edit-icon :href="route('kelurahanEdit', ['id' => $post->id])"></x-edit-icon>
-                            <x-delete-icon :action="route('kelurahanDestroy', ['id' => $post->id])"></x-delete-icon>
-                        </td>
-                    </tr>
-                @endforeach
             </tbody>
         </table>
     </div>
@@ -43,6 +32,19 @@
 
 <script>
     $(document).ready( function () {
-        $('#kecamatanTable').DataTable();
-    } );
+        $('#kelurahanTable').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{{ route('ApiMasterKelurahan') }}",
+            "columns" : [
+                {"data" : "id"},
+                {"data" : "name"},
+                {"data" : "kecamatan_id"},
+                {"data" : "created_at"},
+                {"data" : "updated_at"},
+                {"data" : "action"}
+            ]
+        });
+    });
 </script>

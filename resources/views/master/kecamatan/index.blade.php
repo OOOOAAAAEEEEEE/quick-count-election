@@ -1,5 +1,5 @@
 <x-app-layout>
-    {{-- @dd($posts) --}}
+    {{-- @dd(url()->current() == route('kecamatanIndex')) --}}
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -42,11 +42,8 @@
                 {"data" : "name"},
                 {"data" : "created_at"},
                 {"data" : "updated_at"},
-                {
-                    "data" : null,
-                    "defaultContent": ,
-                }
+                {"data" : "action"}
             ]
         });
-    } );
+    });
 </script>
