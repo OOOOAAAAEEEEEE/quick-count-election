@@ -1,4 +1,5 @@
 <x-app-layout>
+    {{-- @dd($posts) --}}
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -39,8 +40,8 @@
             "ajax": "{{ route('ApiMasterKelurahan') }}",
             "columns" : [
                 {"data" : "id"},
-                {"data" : "name"},
-                {"data" : "kecamatan_id"},
+                {"data" : "kelurahan"},
+                {"data" : "kecamatan"},
                 {"data" : "created_at"},
                 {"data" : "updated_at"},
                 {"data" : "action"}

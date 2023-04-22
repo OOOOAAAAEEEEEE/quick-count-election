@@ -13,7 +13,15 @@ class MasterKelurahanController extends Controller
     public function index()
     {
         return view('master.kelurahan.index',[
-            'posts' => MasterKelurahan::all(),
+            'posts' => MasterKelurahan::selectRaw("
+                master_kelurahans.id,
+                master_kelurahans.name AS kelurahan,
+                master_kecamatans.name AS kecamatan,
+                master_kelurahans.created_at,
+                master_kelurahans.updated_at
+            ")
+            ->join('master_kecamatans', 'master_kelurahans.kecamatan_id', '=', 'master_kecamatans.id')
+            ->get()
         ]);
     }
 
