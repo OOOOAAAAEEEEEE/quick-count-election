@@ -12,7 +12,9 @@ class MasterCalegController extends Controller
      */
     public function index()
     {
-        //
+        return view('master.caleg.index',[
+
+        ]);
     }
 
     /**

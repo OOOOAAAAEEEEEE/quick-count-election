@@ -5,6 +5,7 @@ use App\Http\Controllers\DataLengkapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MasterKecamatanController;
 use App\Http\Controllers\MasterKelurahanController;
+use App\Http\Controllers\MasterCalegController;
 
 /*
 |--------------------------------------------------------------------------

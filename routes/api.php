@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/api/data/master-kecamatan', [APiFetchController::class, 'MasterKecamatanData'])->name('ApiMasterKecamatan');
 Route::get('/api/data/master-kelurahan', [APiFetchController::class, 'MasterKelurahanData'])->name('ApiMasterKelurahan');
+Route::get('/api/data/master-caleg', [APiFetchController::class, 'MasterCalegData'])->name('ApiMasterCaleg');
+

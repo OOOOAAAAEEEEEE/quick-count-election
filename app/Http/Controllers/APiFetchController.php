@@ -18,6 +18,12 @@ class APiFetchController extends Controller
         ->make(true);
     }
 
+    public function MasterCalegData(){
+        return DataTables::of(MasterCaleg::query())
+        ->addColumn('action', 'components.edit-icon')
+        ->make(true);
+    }
+
     public function MasterKelurahanData(){
         return DataTables::of(MasterKelurahan::selectRaw('
                 master_kelurahans.id,
