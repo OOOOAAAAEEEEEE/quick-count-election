@@ -13,7 +13,7 @@
         </div>
     </x-slot>
 
-    <div class="max-w-max sm:max-w-7xl mx-auto my-10">
+    <div class="max-w-sm sm:max-w-7xl mx-auto my-10">
         <table id="kelurahanTable" class="display">
             <thead>
                 <tr>
@@ -37,6 +37,7 @@
             "responsive": true,
             "processing": true,
             "serverSide": true,
+            "fixedHeader": true,
             "ajax": "{{ route('ApiMasterKelurahan') }}",
             "columns" : [
                 {"data" : "id"},

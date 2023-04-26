@@ -12,8 +12,8 @@ class DataLengkapController extends Controller
      */
     public function index()
     {
-        return view('dashboard', [
-            'posts' => DataLengkap::all(),
+        return view('details', [
+            
         ]);
     }
 

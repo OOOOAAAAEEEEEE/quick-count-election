@@ -31,7 +31,7 @@ class DataLengkapFactory extends Factory
             'pemilih_tidak_hadir' => fake()->randomNumber(1, true),
             'caleg_id' => fake()->numberBetween(1, 2),
             'perolehan_suara' => fake()->randomNumber(2, true),
-            'image' => 'image/plano/mOUM1sAsB3KQh2FMbTM7MoNOkst6rkMxVe6fdTCT.jpg',
+            'image' => 'plano/mOUM1sAsB3KQh2FMbTM7MoNOkst6rkMxVe6fdTCT.jpg',
         ];
     }
 }

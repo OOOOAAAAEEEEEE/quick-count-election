@@ -3,10 +3,10 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Master Kecamatan') }}
+                {{ __('Master Partai') }}
             </h2>
             <x-button-group-init>
-                <x-button-group-content-middle :href="route('kecamatanCreate')">
+                <x-button-group-content-middle :href="route('partaiCreate')">
                     <i class="fa fa-plus text-blue-600 text-lg"></i>
                 </x-button-group-content-middle>
             </x-button-group-init>
@@ -14,13 +14,13 @@
     </x-slot>
 
     <div class="max-w-sm sm:max-w-7xl mx-auto my-10">
-        <table id="kecamatanTable" class="display">
+        <table id="partaiTable" class="display">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
                     <th>Dibuat</th>
-                    <th>Diupdate</th>
+                    <th>Diedit</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -31,13 +31,13 @@
 </x-app-layout>
 
 <script>
-    $(document).ready( function () {~
-        $('#kecamatanTable').DataTable({
+    $(document).ready( function () {
+        $('#partaiTable').DataTable({
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "fixedHeader": true,
-            "ajax": "{{ route('ApiMasterKecamatan') }}",
+            "ajax": "{{ route('ApiMasterPartai') }}",
             "columns" : [
                 {"data" : "id"},
                 {"data" : "name"},

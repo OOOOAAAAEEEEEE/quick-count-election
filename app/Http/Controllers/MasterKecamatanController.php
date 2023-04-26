@@ -24,7 +24,9 @@ class MasterKecamatanController extends Controller
      */
     public function create()
     {
-        //
+        return view('master.kecamatan.create',[
+            
+        ]);
     }
 
     /**

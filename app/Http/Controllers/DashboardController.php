@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MasterPartai;
+use App\Models\DataLengkap;
 use Illuminate\Http\Request;
 
-class MasterPartaiController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('master.partai.index', [
-            
+        return view('dashboard.index', [
+            'posts' => DataLengkap::selectRaw('
+                master_calegs.name AS caleg,
+                sum(perolehan_suara) AS total
+                ')
+            ->join('master_calegs', 'data_lengkaps.caleg_id', 'master_calegs.id')
+            ->groupBy('master_calegs.name')
+            ->get(),
         ]);
     }
 
@@ -22,7 +28,7 @@ class MasterPartaiController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -36,7 +42,7 @@ class MasterPartaiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MasterPartai $masterPartai)
+    public function show(DataLengkap $dataLengkap)
     {
         //
     }
@@ -44,7 +50,7 @@ class MasterPartaiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MasterPartai $masterPartai)
+    public function edit(DataLengkap $dataLengkap)
     {
         //
     }
@@ -52,7 +58,7 @@ class MasterPartaiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MasterPartai $masterPartai)
+    public function update(Request $request, DataLengkap $dataLengkap)
     {
         //
     }
@@ -60,7 +66,7 @@ class MasterPartaiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MasterPartai $masterPartai)
+    public function destroy(DataLengkap $dataLengkap)
     {
         //
     }

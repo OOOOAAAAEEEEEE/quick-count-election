@@ -3,10 +3,10 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Master Kecamatan') }}
+                {{ __('Details') }}
             </h2>
             <x-button-group-init>
-                <x-button-group-content-middle :href="route('kecamatanCreate')">
+                <x-button-group-content-middle :href="route('dataLengkapCreate')">
                     <i class="fa fa-plus text-blue-600 text-lg"></i>
                 </x-button-group-content-middle>
             </x-button-group-init>
@@ -18,7 +18,13 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
+                    <th>Pengirim</th>
+                    <th>Kecamatan</th>
+                    <th>Kelurahan</th>
+                    <th>TPS</th>
+                    <th>Caleg</th>
+                    <th>Perolehan Suara</th>
+                    <th>Gambar</th>
                     <th>Dibuat</th>
                     <th>Diupdate</th>
                     <th>Aksi</th>
@@ -37,10 +43,21 @@
             "processing": true,
             "serverSide": true,
             "fixedHeader": true,
-            "ajax": "{{ route('ApiMasterKecamatan') }}",
+            "ajax": "{{ route('ApiDataLengkap') }}",
             "columns" : [
                 {"data" : "id"},
-                {"data" : "name"},
+                {"data" : "pengirim"},
+                {"data" : "kecamatan"},
+                {"data" : "kelurahan"},
+                {"data" : "no_tps"},
+                {"data" : "caleg"},
+                {"data" : "perolehan_suara"},
+                {
+                    "data" : "image",
+                    "render" : function(data, type, row){
+                        return '<img src="/storage/' +data+ '" '+ 'alt="plano" ' + '/>'
+                    }
+                },
                 {"data" : "created_at"},
                 {"data" : "updated_at"},
                 {"data" : "action"}

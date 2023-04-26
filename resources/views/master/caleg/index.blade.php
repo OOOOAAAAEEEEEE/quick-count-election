@@ -13,12 +13,13 @@
         </div>
     </x-slot>
 
-    <div class="max-w-max sm:max-w-7xl mx-auto my-10">
+    <div class="max-w-sm sm:max-w-7xl mx-auto my-10">
         <table id="calegTable" class="display">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
+                    <th>Partai</th>
                     <th>Dibuat</th>
                     <th>Diupdate</th>
                     <th>Aksi</th>
@@ -36,10 +37,12 @@
             "responsive": true,
             "processing": true,
             "serverSide": true,
+            "fixedHeader": true,
             "ajax": "{{ route('ApiMasterCaleg') }}",
             "columns" : [
                 {"data" : "id"},
-                {"data" : "name"},
+                {"data" : "caleg"},
+                {"data" : "partai"},
                 {"data" : "created_at"},
                 {"data" : "updated_at"},
                 {"data" : "action"}

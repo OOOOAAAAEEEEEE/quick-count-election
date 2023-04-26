@@ -14,4 +14,12 @@
     <a href="{{ route('partaiEdit', ['id' => $model->id]) }}" >
         <i class="fa fa-pencil-square text-yellow-300 text-3xl"></i>
     </a>
+@elseif (url()->current() == route('ApiMasterUser'))
+    <a href="{{ route('userEdit', ['id' => $model->id]) }}" >
+        <i class="fa fa-pencil-square text-yellow-300 text-3xl"></i>
+    </a>
+@elseif (url()->current() == route('ApiDataLengkap'))
+    <a href="{{ route('dataLengkapEdit', ['id' => $model->id]) }}" >
+        <i class="fa fa-pencil-square text-yellow-300 text-3xl"></i>
+    </a>
 @endif

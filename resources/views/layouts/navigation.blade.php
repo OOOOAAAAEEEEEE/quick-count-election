@@ -9,7 +9,7 @@
         <ul class="space-y-2 font-medium">
             <li>
                 <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                    <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 hover:text-indigo-300 text-gray-500 transition duration-75 group-hover:text-indigo-300 dark:text-gray-400 dark:group-hover:text-white {{ Request::is('admin/master*') ? 'text-indigo-500' : '' }}" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+                    <i class="fa fa-key {{ Request::is('admin/master*') ? 'text-indigo-500' : '' }}"></i>
                     <span class="flex-1 ml-3 text-left hover:text-indigo-300 whitespace-nowrap {{ Request::is('admin/master*') ? 'text-indigo-500' : '' }}">Master </span>
                     <svg class="w-6 h-6 hover:text-indigo-300 {{ Request::is('admin/master*') ? 'text-indigo-500' : '' }}" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </button>
@@ -18,6 +18,7 @@
                     <a href="{{ route('kelurahanIndex') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 active:text-slate-300 {{ Request::is('admin/master-kelurahan*') ? 'text-indigo-500' : '' }}"> {{ __("Master Kelurahan") }}</a>
                     <a href="{{ route('partaiIndex') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 active:text-slate-300 {{ Request::is('admin/master-partai*') ? 'text-indigo-500' : '' }}"> {{ __("Master Partai") }}</a>
                     <a href="{{ route('calegIndex') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 active:text-slate-300 {{ Request::is('admin/master-caleg*') ? 'text-indigo-500' : '' }}"> {{ __("Master Caleg") }}</a>
+                    <a href="{{ route('userIndex') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 active:text-slate-300 {{ Request::is('admin/master-user*') ? 'text-indigo-500' : '' }}"> {{ __("Master User") }}</a>
                 </ul>
             </li>
             
@@ -51,6 +52,10 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('dataLengkap')" :active="request()->routeIs('dataLengkap')">
+                        {{ __('Details') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -108,6 +113,10 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
+            <x-responsive-nav-link :href="route('dataLengkap')" :active="request()->routeIs('dataLengkap')">
+                {{ __('Details') }}
+            </x-responsive-nav-link>
+
             <x-responsive-nav-link :href="route('kecamatanIndex')" :active="request()->routeIs('kecamatanIndex')">
                 {{ __('Master Kecamatan') }}
             </x-responsive-nav-link>
@@ -124,7 +133,7 @@
                 {{ __('Master Caleg') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('kecamatanIndex')" :active="request()->routeIs('kecamatanIndex')">
+            <x-responsive-nav-link :href="route('userIndex')" :active="request()->routeIs('userIndex')">
                 {{ __('Master User') }}
             </x-responsive-nav-link>
         </div>

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MasterPartai;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class MasterPartaiController extends Controller
+class MasterUserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('master.partai.index', [
+        return view('master.user.index', [
             
         ]);
     }
@@ -36,7 +36,7 @@ class MasterPartaiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MasterPartai $masterPartai)
+    public function show(User $user)
     {
         //
     }
@@ -44,7 +44,7 @@ class MasterPartaiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MasterPartai $masterPartai)
+    public function edit(User $user)
     {
         //
     }
@@ -52,7 +52,7 @@ class MasterPartaiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MasterPartai $masterPartai)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -60,7 +60,7 @@ class MasterPartaiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MasterPartai $masterPartai)
+    public function destroy(User $user)
     {
         //
     }

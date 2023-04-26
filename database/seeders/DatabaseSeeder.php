@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\MasterKecamatan;
 use App\Models\MasterKelurahan;
 use App\Models\MasterCaleg;
+use App\Models\MasterPartai;
 use App\Models\DataLengkap;
 use App\Models\User;
 
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'Superadmin',
             'name' => 'Arif Laksonodhewo',
             'email' => 'arifldhewo234@gmail.com',
-            'no_telp' => '087882552668',
+            'telp' => '087882552668',
             'password' => bcrypt('password'),
         ]);
 
@@ -29,7 +30,15 @@ class DatabaseSeeder extends Seeder
             'role' => 'Admin',
             'name' => 'Arif Laksonodhewo',
             'email' => 'arifldhewo@gmail.com',
-            'no_telp' => '087882552669',
+            'telp' => '087882552669',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::create([
+            'role' => 'Member',
+            'name' => 'Rohim Nur Islam',
+            'email' => 'ghaunther@gmail.com',
+            'telp' => '081111111111',
             'password' => bcrypt('password'),
         ]);
 
@@ -38,8 +47,8 @@ class DatabaseSeeder extends Seeder
 
         //MASTER CALEG
 
-        MasterCaleg::create(['name' => 'Gembong Warsono']);
-        MasterCaleg::create(['name' => 'Ochi']);
+        MasterCaleg::create(['name' => 'Gembong Warsono', 'partai_id' => '1']);
+        MasterCaleg::create(['name' => 'Ochi', 'partai_id' => '1']);
 
         //END MASTER CALEG
 
@@ -176,11 +185,11 @@ class DatabaseSeeder extends Seeder
 
         //MASTER PARTAI
 
-        // MasterPartai::create(['name' => 'PDIP']);
-        // MasterPartai::create(['name' => 'PAN']);
-        // MasterPartai::create(['name' => 'PKS']);
-        // MasterPartai::create(['name' => 'GOLKAR']);
-        // MasterPartai::create(['name' => 'DEMOKRAT']);
+        MasterPartai::create(['name' => 'PDIP']);
+        MasterPartai::create(['name' => 'PAN']);
+        MasterPartai::create(['name' => 'PKS']);
+        MasterPartai::create(['name' => 'GOLKAR']);
+        MasterPartai::create(['name' => 'DEMOKRAT']);
 
         //END MASTER PARTAI
     }

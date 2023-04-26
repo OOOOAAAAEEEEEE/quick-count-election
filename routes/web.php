@@ -2,10 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataLengkapController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MasterKecamatanController;
 use App\Http\Controllers\MasterKelurahanController;
 use App\Http\Controllers\MasterCalegController;
+use App\Http\Controllers\MasterPartaiController;
+use App\Http\Controllers\MasterUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +26,20 @@ Route::get('/', function () {
 })->middleware("guest");
 
 Route::controller(DataLengkapController::class)->group(function(){
-    Route::get('/dashboard', 'index')->name('dashboard');
-    Route::get('/dashboard/create', 'create')->name('dashboardCreate');
-    Route::post('/dashboard/store', 'store')->name('dashboardStore');
-    Route::get('/dashboard/{id}/show', 'show')->name('dashboardShow');
+    Route::get('dataLengkap', 'index')->name('dataLengkap');
+    Route::get('dataLengkap/create', 'create')->name('dataLengkapCreate');
+    Route::post('dataLengkap/store', 'store')->name('dataLengkapStore');
+    Route::get('dataLengkap/{id}/show', 'show')->name('dataLengkapShow');
+    Route::get('dataLengkap/{id}/edit', 'edit')->name('dataLengkapEdit');
+    Route::put('dataLengkap/{id}', 'update')->name('dataLengkapUpdate');
+    Route::put('dataLengkap/{id}', 'delete')->name('dataLengkapDelete');
+});
+
+Route::controller(DashboardController::class)->group(function(){
+    Route::get('dashboard', 'index')->name('dashboard');
+    Route::get('dashboard/create', 'create')->name('dashboardCreate');
+    Route::post('dashboard/store', 'store')->name('dashboardStore');
+    Route::get('dashboard/{id}/show', 'show')->name('dashboardShow');
     Route::get('dashboard/{id}/edit', 'edit')->name('dashboardEdit');
     Route::put('dashboard/{id}', 'update')->name('dashboardUpdate');
     Route::put('dashboard/{id}', 'delete')->name('dashboardDelete');
@@ -91,5 +104,14 @@ Route::prefix('/admin/')->middleware(['auth', 'check.role'])->group(function () 
 
     //END MASTER PARTAI
     
+    // MASTER USER
+
+    Route::get('master-user', [MasterUserController::class, 'index'])->name('userIndex');
+    Route::get('master-user/create', [MasterUserController::class, 'create'])->name('userCreate');
+    Route::post('master-user', [MasterUserController::class, 'store'])->name('userStore');
+    Route::get('master-user/{id}', [MasterUserController::class, 'show'])->name('userShow');
+    Route::get('master-user/{id}/edit', [MasterUserController::class, 'edit'])->name('userEdit');
+    Route::patch('master-user/{id}', [MasterUserController::class, 'update'])->name('userUpdate');
+    Route::delete('master-user/{id}', [MasterUserController::class, 'destroy'])->name('userDestroy');
     
 });

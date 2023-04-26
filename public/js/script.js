@@ -20,3 +20,8 @@
 //             }
 //         })
 //     }
+
+$(window).on("load", function () {
+    $("#loader").hide();
+    $("#content").removeClass("hidden");
+});
