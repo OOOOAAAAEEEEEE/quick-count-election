@@ -25,7 +25,7 @@ class APiFetchController extends Controller
         ->addColumn('action', 'components.edit-icon')
         ->make(true);
     }
-    
+
     public function MasterUserData(){
         return DataTables::of(User::query())
         ->addColumn('action', 'components.edit-icon')

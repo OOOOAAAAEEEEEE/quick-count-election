@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MasterCaleg;
+use App\Models\MasterPartai;
 use Illuminate\Http\Request;
 
 class MasterCalegController extends Controller
@@ -22,7 +23,9 @@ class MasterCalegController extends Controller
      */
     public function create()
     {
-        //
+        return view('master.caleg.create', [
+            'posts' => MasterPartai::all(),
+        ]);
     }
 
     /**
@@ -30,7 +33,14 @@ class MasterCalegController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'partai_id' => 'required|numeric',
+            'name' => 'required|string|max:50',
+        ]);
+
+        MasterCaleg::create($validatedData);
+
+        return redirect()->route('calegIndex')->with('success', 'Your data has been added successfully!');
     }
 
     /**

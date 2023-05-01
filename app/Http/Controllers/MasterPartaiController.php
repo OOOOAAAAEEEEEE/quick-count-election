@@ -22,7 +22,9 @@ class MasterPartaiController extends Controller
      */
     public function create()
     {
-        //
+        return view('master.partai.create',[
+            
+        ]);
     }
 
     /**
@@ -30,7 +32,13 @@ class MasterPartaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:20',
+        ]);
+
+        MasterPartai::create($validatedData);
+
+        return redirect()->route('partaiIndex')->with('success', 'Your data has been added successfully!');
     }
 
     /**

@@ -25,7 +25,7 @@ class MasterKecamatanController extends Controller
     public function create()
     {
         return view('master.kecamatan.create',[
-            
+
         ]);
     }
 
@@ -34,7 +34,13 @@ class MasterKecamatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = request()->validate([
+            'name' => 'required|string|max:50'
+        ]);
+
+        MasterKecamatan::create($validatedData);
+
+        return redirect()->route('kecamatanIndex')->with('success', 'Your data has been add successfully!');
     }
 
     /**

@@ -17,7 +17,6 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-50 hidden" id="content">
             @include('layouts.navigation')
-
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">
@@ -26,9 +25,15 @@
                     </div>
                 </header>
             @endif
-
+            
             <!-- Page Content -->
             <main>
+                @if (session()->has('success'))
+                    <x-alert-success></x-alert-success>
+                @endif
+                @if (session()->has('failed'))
+                    <x-alert-failed></x-alert-failed>
+                @endif
                 {{ $slot }}
             </main>
         </div>

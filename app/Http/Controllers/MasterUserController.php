@@ -22,7 +22,9 @@ class MasterUserController extends Controller
      */
     public function create()
     {
-        //
+        return view('master.user.create',[
+
+        ]);
     }
 
     /**
@@ -30,7 +32,17 @@ class MasterUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'telp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11',
+            'password' => 'required|string',
+            'role' => 'required|string'
+        ]);
+
+        // User::create($validatedData);
+
+        return redirect()->route('userIndex')->with('success', 'Your data has been added successfully!');
     }
 
     /**

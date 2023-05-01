@@ -14,7 +14,7 @@
     </x-slot>
 
     <div class="max-w-sm sm:max-w-7xl mx-auto my-10">
-        <table id="kecamatanTable" class="display">
+        <table id="detailTable" class="display">
             <thead>
                 <tr>
                     <th>No</th>
@@ -38,7 +38,7 @@
 
 <script>
     $(document).ready( function () {~
-        $('#kecamatanTable').DataTable({
+        $('#detailTable').DataTable({
             "responsive": true,
             "processing": true,
             "serverSide": true,
