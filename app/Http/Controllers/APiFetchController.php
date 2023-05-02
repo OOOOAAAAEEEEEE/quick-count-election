@@ -16,19 +16,19 @@ class APiFetchController extends Controller
 {
     public function MasterKecamatanData(){
         return DataTables::of(MasterKecamatan::query())
-        ->addColumn('action', 'components.edit-icon')
+        ->addColumn('action', 'components.action-icon')
         ->make(true);
     }
 
     public function MasterPartaiData(){
         return DataTables::of(MasterPartai::query())
-        ->addColumn('action', 'components.edit-icon')
+        ->addColumn('action', 'components.action-icon')
         ->make(true);
     }
 
     public function MasterUserData(){
         return DataTables::of(User::query())
-        ->addColumn('action', 'components.edit-icon')
+        ->addColumn('action', 'components.action-icon')
         ->make(true);
     }
 
@@ -52,7 +52,7 @@ class APiFetchController extends Controller
         ->join('master_kelurahans', 'data_lengkaps.kelurahan_id', 'master_kelurahans.id')
         ->join('master_calegs', 'data_lengkaps.caleg_id', 'master_calegs.id')
         ->get())
-        ->addColumn('action', 'components.edit-icon')
+        ->addColumn('action', 'components.action-icon')
         ->make(true);
     }
 
@@ -66,7 +66,7 @@ class APiFetchController extends Controller
         ')
         ->join('master_partais', 'master_calegs.partai_id', '=', 'master_partais.id')
         ->get())
-        ->addColumn('action', 'components.edit-icon')
+        ->addColumn('action', 'components.action-icon')
         ->make(true);
     }
 
@@ -79,7 +79,7 @@ class APiFetchController extends Controller
                 master_kelurahans.updated_at ')
         ->join('master_kecamatans', 'master_kelurahans.kecamatan_id', '=', 'master_kecamatans.id')
         ->get())
-        ->addColumn('action', 'components.edit-icon')
+        ->addColumn('action', 'components.action-icon')
         ->make(true);
     }
 }

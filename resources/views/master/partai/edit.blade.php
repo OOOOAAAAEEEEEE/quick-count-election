@@ -2,11 +2,11 @@
     {{-- @dd($posts) --}}
     <x-slot name="header">
         <div class="flex justify-between">
-            <a href="{{ route('kecamatanIndex') }}" class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Tambah Kecamatan') }}
+            <a href="{{ route('partaiIndex') }}" class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Edit Partai') }}
             </a>
             <x-button-group-init>
-                <x-button-group-content-middle :href="route('kecamatanCreate')">
+                <x-button-group-content-middle :href="route('partaiCreate')">
                     <i class="fa fa-plus text-blue-600 text-lg"></i>
                 </x-button-group-content-middle>
             </x-button-group-init>
@@ -14,11 +14,12 @@
     </x-slot>
 
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
-        <form method="POST" action="{{ route('kecamatanStore') }}">
+        <form method="POST" action="{{ route('partaiUpdate', ['id' => $post->id]) }}">
             @csrf
+            @method('patch')
                 <div class="mb-6">
-                    <x-input-label for="name">Kecamatan</x-input-label>
-                    <x-input-text value="{{ old('name') }}" type="text" id="name"  name="name" placeholder="Nama Kecamatan"></x-input-text>
+                    <x-input-label for="name">Partai</x-input-label>
+                    <x-input-text value="{{ $post->name }}" type="text" id="name"  name="name" placeholder="Nama Partai"></x-input-text>
                     @error('name')
                         <p class="text-red-500 text-sm">
                             {{ $message }}

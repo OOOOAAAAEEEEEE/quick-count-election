@@ -1,9 +1,9 @@
 <x-app-layout>
-    {{-- @dd($posts) --}}
+    {{-- @dd($post) --}}
     <x-slot name="header">
         <div class="flex justify-between">
             <a href="{{ route('kecamatanIndex') }}" class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Tambah Kecamatan') }}
+                {{ __('Edit Kecamatan') }}
             </a>
             <x-button-group-init>
                 <x-button-group-content-middle :href="route('kecamatanCreate')">
@@ -14,11 +14,12 @@
     </x-slot>
 
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
-        <form method="POST" action="{{ route('kecamatanStore') }}">
+        <form method="POST" action="{{ route('kecamatanUpdate', ['id' => $post->id]) }}">
             @csrf
+            @method('patch')
                 <div class="mb-6">
                     <x-input-label for="name">Kecamatan</x-input-label>
-                    <x-input-text value="{{ old('name') }}" type="text" id="name"  name="name" placeholder="Nama Kecamatan"></x-input-text>
+                    <x-input-text value="{{ $post->name }}" type="text" id="name"  name="name" placeholder="Nama Kecamatan"></x-input-text>
                     @error('name')
                         <p class="text-red-500 text-sm">
                             {{ $message }}

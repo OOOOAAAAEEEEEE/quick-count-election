@@ -2,9 +2,9 @@
     {{-- @dd($posts) --}}
     <x-slot name="header">
         <div class="flex justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <a href="{{ route('calegIndex') }}" class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Tambah Caleg') }}
-            </h2>
+            </a>
             <x-button-group-init>
                 <x-button-group-content-middle :href="route('calegCreate')">
                     <i class="fa fa-plus text-blue-600 text-lg"></i>
@@ -30,7 +30,7 @@
                 </div>
                 <div>
                     <x-input-label for="name">Caleg</x-input-label>
-                    <x-input-text type="text" name="name" id="name" placeholder="Isi nama caleg"></x-input-text>
+                    <x-input-text value="{{ old('name') }}" type="text" name="name" id="name" placeholder="Isi nama caleg"></x-input-text>
                     @error('name')
                         <p class="text-red-500 text-sm"> {{ $message }} </p>
                     @enderror

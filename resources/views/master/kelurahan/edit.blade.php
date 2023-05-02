@@ -3,7 +3,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <a href="{{ route('kelurahanIndex') }}" class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Tambah Kelurahan') }}
+                {{ __('Edit Kelurahan') }}
             </a>
             <x-button-group-init>
                 <x-button-group-content-middle :href="route('kelurahanCreate')">
@@ -14,14 +14,15 @@
     </x-slot>
 
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
-        <form method="POST" action="{{ route('kelurahanStore') }}">
+        <form method="POST" action="{{ route('kelurahanUpdate', ['id' => $post->id]) }}">
             @csrf
+            @method('patch')
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                     <x-input-label for="kecamatan_id">Kecamatan</x-input-label>
                     <x-select-input id="kecamatan_id" name="kecamatan_id">
-                        @foreach ($posts as $post)
-                            <option value="{{ $post->id }}"> {{ $post->name }} </option>
+                        @foreach ($datas as $data)
+                            <option value="{{ $data->id }}"> {{ $data->name }} </option>
                         @endforeach
                     </x-select-input>
                     @error('kecamatan_id')
@@ -30,7 +31,7 @@
                 </div>
                 <div>
                     <x-input-label for="name">Kelurahan</x-input-label>
-                    <x-input-text value="{{ old('name') }}" type="text" name="name" id="name" placeholder="Isi nama kelurahan"></x-input-text>
+                    <x-input-text value="{{ $post->name }}" type="text" name="name" id="name" placeholder="Isi nama kelurahan"></x-input-text>
                     @error('name')
                         <p class="text-red-500 text-sm"> {{ $message }} </p>
                     @enderror

@@ -13,7 +13,7 @@ class MasterKelurahan extends Model
         'id'
     ];
 
-    public function fetchCreate(){
+    public function fetchData(){
         MasterKelurahan::selectRaw("
         master_kelurahans.id,
         master_kelurahans.name AS kelurahan,

@@ -46,30 +46,40 @@ class MasterPartaiController extends Controller
      */
     public function show(MasterPartai $masterPartai)
     {
-        //
+        return redirect()->route('partaiIndex');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MasterPartai $masterPartai)
+    public function edit(MasterPartai $masterPartai, $id)
     {
-        //
+        return view('master.partai.edit',[
+            'post' => $masterPartai->where('id', $id)->first(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MasterPartai $masterPartai)
+    public function update(Request $request, MasterPartai $masterPartai, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string'
+        ]);
+
+        $masterPartai->where('id', $id)->update($validatedData);
+
+        return redirect()->route('partaiIndex')->with('success', 'Your data has been updated!!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MasterPartai $masterPartai)
+    public function destroy(MasterPartai $masterPartai, $id)
     {
-        //
+        $masterPartai->where('id', $id)->delete();
+
+        return redirect()->route('partaiIndex')->with('success', 'Your data has been deleted');
     }
 }

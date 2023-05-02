@@ -48,30 +48,42 @@ class MasterCalegController extends Controller
      */
     public function show(MasterCaleg $masterCaleg)
     {
-        //
+        return redirect()->route('calegIndex');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MasterCaleg $masterCaleg)
+    public function edit(MasterCaleg $masterCaleg, $id)
     {
-        //
+        return view('master.caleg.edit',[
+            'post' => $masterCaleg->where('id', $id)->first(),
+            'datas' => MasterPartai::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MasterCaleg $masterCaleg)
+    public function update(Request $request, MasterCaleg $masterCaleg, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'partai_id' => 'required|numeric'
+        ]);
+
+        $masterCaleg->where('id', $id)->update($validatedData);
+
+        return redirect()->route('calegIndex')->with('success', 'Your data has been updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MasterCaleg $masterCaleg)
+    public function destroy(MasterCaleg $masterCaleg, $id)
     {
-        //
+        $masterCaleg->where('id', $id)->delete();
+
+        return redirect()->route('calegIndex')->with('success', 'Your data has been deleted successfully!');
     }
 }

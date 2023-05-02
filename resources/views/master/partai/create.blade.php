@@ -2,9 +2,9 @@
     {{-- @dd($posts) --}}
     <x-slot name="header">
         <div class="flex justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <a href="{{ route('partaiIndex') }}" class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Tambah Partai') }}
-            </h2>
+            </a>
             <x-button-group-init>
                 <x-button-group-content-middle :href="route('partaiCreate')">
                     <i class="fa fa-plus text-blue-600 text-lg"></i>
@@ -18,7 +18,7 @@
             @csrf
                 <div class="mb-6">
                     <x-input-label for="name">Partai</x-input-label>
-                    <x-input-text type="text" id="name"  name="name" placeholder="Nama Partai"></x-input-text>
+                    <x-input-text value="{{ old('name') }}" type="text" id="name"  name="name" placeholder="Nama Partai"></x-input-text>
                     @error('name')
                         <p class="text-red-500 text-sm">
                             {{ $message }}

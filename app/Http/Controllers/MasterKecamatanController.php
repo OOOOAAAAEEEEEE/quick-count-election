@@ -48,30 +48,40 @@ class MasterKecamatanController extends Controller
      */
     public function show(MasterKecamatan $masterKecamatan)
     {
-        //
+        return redirect()->route('kecamatanIndex');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MasterKecamatan $masterKecamatan)
+    public function edit(MasterKecamatan $masterKecamatan, $id)
     {
-        //
+        return view('master.kecamatan.edit',[
+            'post' => $masterKecamatan->where('id', $id)->first(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MasterKecamatan $masterKecamatan)
+    public function update(Request $request, MasterKecamatan $masterKecamatan, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string'
+        ]);
+
+        $masterKecamatan->where('id', $id)->update($validatedData);
+
+        return redirect()->route('kecamatanIndex')->with('success', 'Your data has been updated successfully!!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MasterKecamatan $masterKecamatan)
+    public function destroy(MasterKecamatan $masterKecamatan, $id)
     {
-        return redirect()->route('kecamatanIndex');
+        $masterKecamatan->where('id', $id)->delete();
+
+        return redirect()->route('kecamatanIndex')->with('success', 'Your data has been deleted');
     }
 }
