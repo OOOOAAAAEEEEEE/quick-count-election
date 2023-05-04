@@ -17,7 +17,9 @@ class DataLengkapController extends Controller
      */
     public function index()
     {
-        return view('details.index');
+        return view('details.index', [
+            'posts' => MasterCaleg::get()
+        ]);
     }
 
     /**

@@ -13,48 +13,10 @@
         </div>
     </x-slot>
 
-    <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-
-    // Load the Visualization API and the piechart package.
-    google.charts.load('current', {'packages':['corechart']});
-
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawChart);
-
-    // Callback that creates and populates a data table, 
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-    function drawChart() {
-
-    // Create the data table.
-    // var data = new google.visualization.DataTable();
-
-    var data = new google.visualization.arrayToDataTable([
-        ['Caleg', 'Perolehan Suara'],
-        @php
-            foreach($posts as $post){
-                echo "['" . $post->caleg . "', " . $post->total. "],";
-            }
-        @endphp
-    ],
-      false); // 'false' means that the first row contains labels, not data.
-
-    // Set chart options
-    var options = {
-                    'title':'How Much Pizza I Ate Last Night',
-                    'width':800,
-                    'height':600,
-                    'is3D': true,
-                };
-
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-}
-</script>
-
-<div id="chart_div" style="width:800px; height:600px"></div>
+    <div class="p-6 m-20 bg-white rounded shadow">
+        {!! $chart->container() !!}
+    </div>
 
 </x-app-layout>
+<script src="{{ $chart->cdn() }}"></script>
+{{ $chart->script() }}
