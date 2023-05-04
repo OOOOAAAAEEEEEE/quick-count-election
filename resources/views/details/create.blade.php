@@ -1,5 +1,5 @@
 <x-app-layout>
-    {{-- @dd($post->image) --}}
+    {{-- @dd($posts) --}}
     <x-slot name="header">
         <div class="flex justify-between">
             <a href="{{ route('dataLengkap') }}" class="font-semibold text-xl text-gray-800 leading-tight">

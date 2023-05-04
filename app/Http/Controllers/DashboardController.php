@@ -4,22 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\DataLengkap;
 use Illuminate\Http\Request;
+use App\Charts\Summary;
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Summary $chart)
     {
         return view('dashboard.index', [
-            'posts' => DataLengkap::selectRaw('
-                master_calegs.name AS caleg,
-                sum(perolehan_suara) AS total
-                ')
-            ->join('master_calegs', 'data_lengkaps.caleg_id', 'master_calegs.id')
-            ->groupBy('master_calegs.name')
-            ->get(),
+            'chart' => $chart->build()
         ]);
     }
 
