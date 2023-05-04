@@ -6,9 +6,12 @@
                 {{ __('Details') }}
             </h2>
             <x-button-group-init>
-                <x-button-group-content-middle :href="route('dataLengkapCreate')">
-                    <i class="fa fa-plus text-blue-600 text-lg"></i>
-                </x-button-group-content-middle>
+                <x-button-group-content-start :href="route('dataLengkapExport')">
+                    <i class="bi bi-file-excel-fill text-green-500 text-2xl" aria-hidden="true"></i>
+                </x-button-group-content-start>
+                <x-button-group-content-end :href="route('dataLengkapCreate')">
+                    <i class="fa fa-plus text-blue-600 text-2xl"></i>
+                </x-button-group-content-end>
             </x-button-group-init>
         </div>
     </x-slot>
@@ -17,11 +20,18 @@
         <table id="detailTable" class="display">
             <thead>
                 <tr>
-                    <th>No</th>
                     <th>Pengirim</th>
                     <th>Kecamatan</th>
                     <th>Kelurahan</th>
+                    <th>RT</th>
+                    <th>RW</th>
                     <th>TPS</th>
+                    <th>DPT</th>
+                    <th>Surat Sah</th>
+                    <th>Surat Tidak Sah</th>
+                    <th>Surat Rusak</th>
+                    <th>Pemilih Hadir</th>
+                    <th>Pemilih Tidak Hadir</th>
                     <th>Caleg</th>
                     <th>Perolehan Suara</th>
                     <th>Gambar</th>
@@ -45,11 +55,18 @@
             "fixedHeader": true,
             "ajax": "{{ route('ApiDataLengkap') }}",
             "columns" : [
-                {"data" : "id"},
                 {"data" : "pengirim"},
                 {"data" : "kecamatan"},
                 {"data" : "kelurahan"},
+                {"data" : "rt"},
+                {"data" : "rw"},
                 {"data" : "no_tps"},
+                {"data" : "total_dpt"},
+                {"data" : "total_sss"},
+                {"data" : "total_ssts"},
+                {"data" : "total_ssr"},
+                {"data" : "pemilih_hadir"},
+                {"data" : "pemilih_tidak_hadir"},
                 {"data" : "caleg"},
                 {"data" : "perolehan_suara"},
                 {

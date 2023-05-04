@@ -53,10 +53,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-
-                    <x-nav-link :href="route('dataLengkap')" :active="request()->routeIs('dataLengkap')">
-                        {{ __('Details') }}
-                    </x-nav-link>
+                    @if (auth()->user()->role == 'Superadmin' || auth()->user()->role == 'Admin')
+                        <x-nav-link :href="route('dataLengkap')" :active="request()->routeIs('dataLengkap')">
+                            {{ __('Details') }}
+                        </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('dataLengkapMember')" :active="request()->routeIs('dataLengkapMember')">
+                            {{ __('Details') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

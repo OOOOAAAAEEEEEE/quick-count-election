@@ -25,3 +25,4 @@ Route::get('/data/master-caleg', [APiFetchController::class, 'MasterCalegData'])
 Route::get('/data/master-partai', [APiFetchController::class, 'MasterPartaiData'])->name('ApiMasterPartai');
 Route::get('/data/master-user', [APiFetchController::class, 'MasterUserData'])->name('ApiMasterUser');
 Route::get('/data/dataLengkap', [APiFetchController::class, 'DataLengkap'])->name('ApiDataLengkap');
+Route::get('/data/dataLengkapMember/{user_id}', [APiFetchController::class, 'DataLengkapMember'])->name('ApiDataLengkapMember');

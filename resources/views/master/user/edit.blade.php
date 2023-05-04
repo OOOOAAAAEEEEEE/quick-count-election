@@ -3,7 +3,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <a href="{{ route('userIndex') }}" class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Tambah User') }}
+                {{ __('Edit User') }}
             </a>
             <x-button-group-init>
                 <x-button-group-content-middle :href="route('userCreate')">
@@ -14,19 +14,20 @@
     </x-slot>
 
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
-        <form method="POST" action="{{ route('userStore') }}">
+        <form method="POST" action="{{ route('userUpdate', ['id' => $post->id]) }}">
             @csrf
+            @method('patch')
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                     <x-input-label for="name">Nama</x-input-label>
-                    <x-input-text value="{{ old('name') }}" type="text" name="name" id="name" placeholder="Harus huruf"></x-input-text>
+                    <x-input-text value="{{ $post->name }}" type="text" name="name" id="name" placeholder="Harus huruf"></x-input-text>
                     @error('name')
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
                 </div>  
                 <div>
                     <x-input-label for="email">Email</x-input-label>
-                    <x-input-text value="{{ old('email') }}" type="email" name="email" id="email" placeholder="Harus huruf"></x-input-text>
+                    <x-input-text value="{{ $post->email }}" type="email" name="email" id="email" placeholder="Harus huruf"></x-input-text>
                     @error('email')
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
@@ -35,14 +36,14 @@
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div class="mb-6">
                     <x-input-label for="telp">No Telepon</x-input-label>
-                    <x-input-text value="{{ old('telp') }}" type="tel" name="telp" id="telp" placeholder="Harus angka"></x-input-text>
+                    <x-input-text value="{{ $post->telp }}" type="tel" name="telp" id="telp" placeholder="Harus angka"></x-input-text>
                     @error('telp')
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="mb-6">
                     <x-input-label for="password">Password</x-input-label>
-                    <x-input-text value="{{ old('password') }}" type="password" name="password" id="password" placeholder="Password"></x-input-text>
+                    <x-input-text value="{{ $post->password }}" type="password" name="password" id="password" placeholder="Password"></x-input-text>
                     @error('password')
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
@@ -51,8 +52,11 @@
             <div class="mb-6">
                 <x-input-label for="role">Role</x-input-label>
                 <x-select-input id="role" name="role">
+                    <option value="{{ $post->role }}"> {{ $post->role }} | Current</option>
                     <option value="Member">Member</option>
-                    <option value="Admin">Admin</option>
+                    @if (auth()->user()->role == 'Superadmin')
+                        <option value="Admin">Admin</option>
+                    @endif
                 </x-select-input>
                 @error('role')
                     <p class="text-red-500 text-sm">{{ $message }}</p>
