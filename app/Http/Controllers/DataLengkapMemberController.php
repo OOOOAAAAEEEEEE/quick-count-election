@@ -3,29 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataLengkap;
+use Illuminate\Http\Request;
 use App\Models\MasterKecamatan;
 use App\Models\MasterCaleg;
-use Illuminate\Http\Request;
-use App\Exports\DataExport;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
-class DataLengkapController extends Controller
+class DataLengkapMemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('details.index');
+        return view('details.member.index');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(DataLengkap  $dataLengkap){
-    
-        return view('details.create', [
+    public function create(DataLengkap $dataLengkap)
+    {
+        return view('details.member.create',[
             'kecamatans' => MasterKecamatan::all(),
             'kelurahans' => $dataLengkap->fetchKelurahan()->toJson(),
             'calegs' => MasterCaleg::all()
@@ -60,15 +58,15 @@ class DataLengkapController extends Controller
         $validatedData['image'] = $request->file('image')->store('plano');
         DataLengkap::create($validatedData);
 
-        return redirect()->route('dataLengkap')->with('success', 'Your data has been added successfully!');
+        return redirect()->route('dataLengkapMember')->with('success', 'Your data has been added successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(DataLengkap $dataLengkap, $id)
+    public function show(DataLengkap $dataLengkap)
     {
-        return redirect()->route('dataLengkap');
+        return redirect()->route('dataLengkapMember');
     }
 
     /**
@@ -76,7 +74,7 @@ class DataLengkapController extends Controller
      */
     public function edit(DataLengkap $dataLengkap, $id)
     {
-        return view('details.edit', [
+        return view('details.member.edit', [
             'post' => $dataLengkap->fetchDataLengkap($id),
             'kecamatans' => MasterKecamatan::all(),
             'kelurahans' => $dataLengkap->fetchKelurahan()->toJson(),
@@ -89,7 +87,6 @@ class DataLengkapController extends Controller
      */
     public function update(Request $request, DataLengkap $dataLengkap, $id)
     {
-
         $validatedData = $request->validate([
             'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
@@ -120,7 +117,7 @@ class DataLengkapController extends Controller
 
         $dataLengkap->where('uuid', $id)->update($validatedData);
 
-        return redirect()->route('dataLengkap')->with('success', 'Your data has been updated successfully!');
+        return redirect()->route('dataLengkapMember')->with('success', 'Your data has been updated successfully!');
     }
 
     /**
@@ -134,11 +131,6 @@ class DataLengkapController extends Controller
 
         DataLengkap::where('id', '=', $id)->delete();
 
-        return redirect()->route('dataLengkap')->with('success', 'Your data has been deleted successfully!');
-    }
-
-    public function export() 
-    {
-        return Excel::download(new DataExport, 'dataLengkap.xlsx');
+        return redirect()->route('dataLengkapMember')->with('success', 'Your data has been deleted successfully!');
     }
 }

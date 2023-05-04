@@ -2,11 +2,11 @@
     {{-- @dd($post->image) --}}
     <x-slot name="header">
         <div class="flex justify-between">
-            <a href="{{ route('dataLengkap') }}" class="font-semibold text-xl text-gray-800 leading-tight">
+            <a href="{{ route('dataLengkapMember') }}" class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Tambah Data') }}
             </a>
             <x-button-group-init>
-                <x-button-group-content-middle :href="route('dataLengkapCreate')">
+                <x-button-group-content-middle :href="route('dataLengkapMemberCreate')">
                     <i class="fa fa-plus text-blue-600 text-lg"></i>
                 </x-button-group-content-middle>
             </x-button-group-init>
@@ -14,7 +14,7 @@
     </x-slot>
 
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
-        <form method="POST" action="{{ route('dataLengkapStore') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('dataLengkapMemberStore') }}" enctype="multipart/form-data">
             @csrf
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>

@@ -59,9 +59,29 @@
         <button id="confirmDelete{{ $model->id }}" class="hidden"></button>
     </form>
 @elseif (url()->current() == route('ApiDataLengkap'))
-    <a href="{{ route('dataLengkapEdit', ['id' => $model->id]) }}" >
+    <a href="{{ route('dataLengkapEdit', ['id' => $model->uuid]) }}" >
         <i class="fa fa-pencil-square text-yellow-300 text-3xl"></i>
     </a>
+    <div class="inline" onclick="return validateDelete()">
+        <i class="fa fa-trash text-red-600 text-2xl" role="button"></i>
+    </div>
+    <form action="{{ route('dataLengkapDelete', ['id' => $model->id]) }}" method="post">
+        @csrf
+        @method('delete')
+        <button id="confirmDelete{{ $model->id }}" class="hidden"></button>
+    </form>
+@elseif (url()->current() == route('ApiDataLengkapMember', ['user_id' => $model->user_id]))
+    <a href="{{ route('dataLengkapMemberEdit', ['id' => $model->uuid]) }}" >
+        <i class="fa fa-pencil-square text-yellow-300 text-3xl"></i>
+    </a>
+    <div class="inline" onclick="return validateDelete()">
+        <i class="fa fa-trash text-red-600 text-2xl" role="button"></i>
+    </div>
+    <form action="{{ route('dataLengkapMemberDelete', ['id' => $model->id]) }}" method="post">
+        @csrf
+        @method('delete')
+        <button id="confirmDelete{{ $model->id }}" class="hidden"></button>
+    </form>
 @endif
 
 <script>

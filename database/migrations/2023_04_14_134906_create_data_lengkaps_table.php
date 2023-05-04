@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('data_lengkaps', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->foreignId('user_id');
             $table->foreignId('kecamatan_id')->nullable();
             $table->foreignId('kelurahan_id')->nullable();

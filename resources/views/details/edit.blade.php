@@ -3,7 +3,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <a href="{{ route('dataLengkap') }}" class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Tambah Data') }}
+                {{ __('Edit Data') }}
             </a>
             <x-button-group-init>
                 <x-button-group-content-middle :href="route('dataLengkapCreate')">
@@ -14,38 +14,29 @@
     </x-slot>
 
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
-        <form method="POST" action="{{ route('dataLengkapStore') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('dataLengkapUpdate', ['id' => $post->uuid]) }}" enctype="multipart/form-data">
             @csrf
+            @method('patch')
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                     <input type="hidden" name="uuid" value="{{ Str::uuid() }}">
                     <x-input-label for="kecamatan_id">Kecamatan</x-input-label>
                     <x-select-input id="kecamatan_id" name="kecamatan_id">
-                        <option value="">PILIH KECAMATAN</option>
+                        <option value="{{ $post->kecamatan_id }}">{{ $post->kecamatan }} | Current</option>
                         @foreach ($kecamatans as $kecamatan)
-                            <option value="{{ $kecamatan->id }}">{{ $kecamatan->name }}</option>
+                            <option value="{{ $kecamatan->id }}"> {{ $kecamatan->name }} </option>
                         @endforeach
                     </x-select-input>
-                    @error('kecamatan_id')
-                        <p class="text-red-500 text-sm">
-                            {{ $message }}
-                        </p>
-                    @enderror
                 </div>
                 <div>
                     <x-input-label for="kelurahan_id">Kelurahan</x-input-label>
                     <x-select-input id="kelurahan_id" name="kelurahan_id">
-                        <option value="">PILIH KECAMATAN TERLEBIH DAHULU</option>
+                        <option value="{{ $post->kelurahan_id }}"> {{ $post->kelurahan }} | Current</option>
                     </x-select-input>
-                    @error('kelurahan_id')
-                        <p class="text-red-500 text-sm">
-                            {{ $message }}
-                        </p>
-                    @enderror
                 </div>
                 <div>
                     <x-input-label for="rw">RW</x-input-label>
-                    <x-input-text type="number" value="{{ old('rw') }}" name="rw" id="rw" placeholder="Harus angka"></x-input-text>
+                    <x-input-text type="number" value="{{ $post->rw }}" name="rw" id="rw" placeholder="Harus angka"></x-input-text>
                     @error('rw')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -54,7 +45,7 @@
                 </div>
                 <div>
                     <x-input-label for="rt">RT</x-input-label>
-                    <x-input-text type="number" value="{{ old('rt') }}" name="rt" id="rt" placeholder="Harus angka"></x-input-text>
+                    <x-input-text type="number" value="{{ $post->rt }}" name="rt" id="rt" placeholder="Harus angka"></x-input-text>
                     @error('rt')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -64,7 +55,7 @@
             </div>
             <div class="mb-6">
                 <x-input-label for="no_tps">TPS</x-input-label>
-                <x-input-text type="number" value="{{ old('no_tps') }}" name="no_tps" id="no_tps" placeholder="Harus angka"></x-input-text>
+                <x-input-text type="number" value="{{ $post->no_tps }}" name="no_tps" id="no_tps" placeholder="Harus angka"></x-input-text>
                 @error('no_tps')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -74,7 +65,7 @@
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div class="mb-6">
                     <x-input-label for="perolehan_suara">Perolehan Suara</x-input-label>
-                    <x-input-text type="number" value="{{ old('perolehan_suara') }}" name="perolehan_suara" id="perolehan_suara" placeholder="Harus angka"></x-input-text>
+                    <x-input-text type="number" value="{{ $post->perolehan_suara }}" name="perolehan_suara" id="perolehan_suara" placeholder="Harus angka"></x-input-text>
                     @error('perolehan_suara')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -83,7 +74,7 @@
                 </div>
                 <div class="mb-6">
                     <x-input-label for="total_dpt">Total DPT</x-input-label>
-                    <x-input-text type="number" value="{{ old('total_dpt') }}" name="total_dpt" id="total_dpt" placeholder="Harus angka"></x-input-text>
+                    <x-input-text type="number" value="{{ $post->total_dpt }}" name="total_dpt" id="total_dpt" placeholder="Harus angka"></x-input-text>
                     @error('total_dpt')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -92,7 +83,7 @@
                 </div> 
                 <div class="mb-6">
                     <x-input-label for="total_sss">Total Surat Suara Sah</x-input-label>
-                    <x-input-text type="number" value="{{ old('total_sss') }}" name="total_sss" id="total_sss" placeholder="Harus angka"></x-input-text>
+                    <x-input-text type="number" value="{{ $post->total_sss }}" name="total_sss" id="total_sss" placeholder="Harus angka"></x-input-text>
                     @error('total_sss')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -101,7 +92,7 @@
                 </div> 
                 <div class="mb-6">
                     <x-input-label for="total_ssts">Total Surat Suara Tidak Sah</x-input-label>
-                    <x-input-text type="number" value="{{ old('total_ssts') }}" name="total_ssts" id="total_ssts" placeholder="Harus angka"></x-input-text>
+                    <x-input-text type="number" value="{{ $post->total_ssts }}" name="total_ssts" id="total_ssts" placeholder="Harus angka"></x-input-text>
                     @error('total_ssts')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -110,7 +101,7 @@
                 </div> 
                 <div class="mb-6">
                     <x-input-label for="total_ssr">Total Surat Suara Rusak</x-input-label>
-                    <x-input-text type="number" value="{{ old('total_ssr') }}" name="total_ssr" id="total_ssr" placeholder="Harus angka"></x-input-text>
+                    <x-input-text type="number" value="{{ $post->total_ssr }}" name="total_ssr" id="total_ssr" placeholder="Harus angka"></x-input-text>
                     @error('total_ssr')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -119,7 +110,7 @@
                 </div> 
                 <div class="mb-6">
                     <x-input-label for="pemilih_hadir">Total Pemilih Hadir</x-input-label>
-                    <x-input-text type="number" value="{{ old('pemilih_hadir') }}" name="pemilih_hadir" id="pemilih_hadir" placeholder="Harus angka"></x-input-text>
+                    <x-input-text type="number" value="{{ $post->pemilih_hadir }}" name="pemilih_hadir" id="pemilih_hadir" placeholder="Harus angka"></x-input-text>
                     @error('pemilih_hadir')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -128,7 +119,7 @@
                 </div> 
                 <div class="mb-6">
                     <x-input-label for="pemilih_tidak_hadir">Total Pemilih Tidak Hadir</x-input-label>
-                    <x-input-text type="number" value="{{ old('pemilih_tidak_hadir') }}" name="pemilih_tidak_hadir" id="pemilih_tidak_hadir" placeholder="Harus angka"></x-input-text>
+                    <x-input-text type="number" value="{{ $post->pemilih_tidak_hadir }}" name="pemilih_tidak_hadir" id="pemilih_tidak_hadir" placeholder="Harus angka"></x-input-text>
                     @error('pemilih_tidak_hadir')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
@@ -139,19 +130,15 @@
             <div class="mb-6">
                 <x-input-label for="caleg_id">Caleg</x-input-label>
                 <x-select-input id="caleg_id" name="caleg_id">
-                    <option value="">PILIH CALEG</option>
+                    <option value="{{ $post->caleg_id }}"> {{ $post->caleg }} | Current</option>
                     @foreach ($calegs as $caleg)
                         <option value="{{ $caleg->id }}">{{ $caleg->name }}</option>
                     @endforeach
                 </x-select-input>
-                    @error('caleg_id')
-                        <p class="text-red-500 text-sm">
-                            {{ $message }}
-                        </p>
-                    @enderror
             </div>
             <div class="mb-6">
                 <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload Gambar Plano</label>
+                <a class="text-indigo-500 active:text-indigo-900 hover:text-indigo-700" href="/storage/{{ $post->image }}">{{ $post->image }}</a>
                 <input name="image" id="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
                 @error('image')
                     <p class="text-red-500 text-sm">
@@ -161,7 +148,7 @@
             </div>
             <div class="flex items-start my-10">
                 <div class="flex items-center h-5">
-                <input id="agree" name="agree" type="checkbox" value="true" class="w-9 h-9 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
+                <input id="agree" required name="agree" type="checkbox" class="w-9 h-9 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
                 </div>
                 <label for="agree" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Klik tombol ini jika anda sudah yakin dengan isian anda!! </label>
                 @error('agree')
