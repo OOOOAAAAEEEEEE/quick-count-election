@@ -18,7 +18,7 @@ class DataLengkapController extends Controller
     public function index()
     {
         return view('details.index', [
-            'posts' => DataLengkap::selectRaw('SUM(data_lengkaps.perolehan_suara) AS perolehan_suara')->groupByRaw('caleg_id')->pluck('perolehan_suara')->toArray()
+            
         ]);
     }
 

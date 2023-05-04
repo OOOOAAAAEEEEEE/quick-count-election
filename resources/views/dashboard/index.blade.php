@@ -12,7 +12,7 @@
         </div>
     </x-slot>
 
-    <div class="sm:m-28 sm:mt-0 sm:p-6 bg-white rounded shadow">
+    <div class="md:m-1 2xl:max-w-7xl xl:translate-x-16 lg:w-1/2 2xl:relative 2xl:translate-x-1/2 2xl:w-1/3 md:p-3 p-0 bg-white rounded-xl shadow">
         {!! $chart->container() !!}
     </div>
 

@@ -53,7 +53,7 @@ class DataLengkap extends Model
             ->join('master_kelurahans', 'data_lengkaps.kelurahan_id', 'master_kelurahans.id')
             ->join('master_calegs', 'data_lengkaps.caleg_id', 'master_calegs.id')
             ->where('data_lengkaps.uuid', $id)
-            ->first();
+            ->firstOrFail();
     }
 
     public function fetchKelurahan()
