@@ -118,29 +118,37 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('dataLengkap')" :active="request()->routeIs('dataLengkap')">
-                {{ __('Details') }}
-            </x-responsive-nav-link>
+            @if (auth()->user()->role == 'Superadmin' || auth()->user()->role == 'Admin')
+                <x-responsive-nav-link :href="route('dataLengkap')" :active="request()->routeIs('dataLengkap')">
+                    {{ __('Details') }}
+                </x-responsive-nav-link>
+            @else
+                <x-responsive-nav-link :href="route('dataLengkapMember')" :active="request()->routeIs('dataLengkapMember')">
+                    {{ __('Details') }}
+                </x-responsive-nav-link>
+            @endif
 
-            <x-responsive-nav-link :href="route('kecamatanIndex')" :active="request()->routeIs('kecamatanIndex')">
-                {{ __('Master Kecamatan') }}
-            </x-responsive-nav-link>
+            @if (auth()->user()->role == 'Superadmin' || auth()->user()->role == 'Admin')
+                <x-responsive-nav-link :href="route('kecamatanIndex')" :active="request()->routeIs('kecamatanIndex')">
+                    {{ __('Master Kecamatan') }}
+                </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('kelurahanIndex')" :active="request()->routeIs('kelurahanIndex')">
-                {{ __('Master Kelurahan') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('kelurahanIndex')" :active="request()->routeIs('kelurahanIndex')">
+                    {{ __('Master Kelurahan') }}
+                </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('partaiIndex')" :active="request()->routeIs('partaiIndex')">
-                {{ __('Master Partai') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('partaiIndex')" :active="request()->routeIs('partaiIndex')">
+                    {{ __('Master Partai') }}
+                </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('calegIndex')" :active="request()->routeIs('calegIndex')">
-                {{ __('Master Caleg') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('calegIndex')" :active="request()->routeIs('calegIndex')">
+                    {{ __('Master Caleg') }}
+                </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('userIndex')" :active="request()->routeIs('userIndex')">
-                {{ __('Master User') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('userIndex')" :active="request()->routeIs('userIndex')">
+                    {{ __('Master User') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

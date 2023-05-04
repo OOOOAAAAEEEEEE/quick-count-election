@@ -1,5 +1,4 @@
 <x-app-layout>
-    {{-- @dd($posts) --}}
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -13,7 +12,7 @@
         </div>
     </x-slot>
 
-    <div class="p-6 m-20 bg-white rounded shadow">
+    <div class="sm:m-28 sm:mt-0 sm:p-6 bg-white rounded shadow">
         {!! $chart->container() !!}
     </div>
 
