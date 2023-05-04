@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-"yajra/laravel-datatables-oracle",
-"maatwebsite/excel",<?php 
-=======
-<?php 
->>>>>>> experiment
-
+<?php
 return [
 
     /*
