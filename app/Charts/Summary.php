@@ -21,7 +21,7 @@ class Summary
         return $this->chart->pieChart()
             ->setTitle('Summary Perolehan Suara By Caleg')
             ->setSubtitle('Season 2021.')
-            ->addData(DataLengkap::selectRaw('SUM(data_lengkaps.perolehan_suara) AS perolehan_suara')->pluck('perolehan_suara')->toArray())
+            ->addData(DataLengkap::selectRaw('SUM(data_lengkaps.perolehan_suara) AS perolehan_suara')->groupByRaw('caleg_id')->pluck('perolehan_suara')->toArray())
             ->setLabels(MasterCaleg::select('name')->pluck('name')->toArray());
     }
 }
