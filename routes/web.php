@@ -65,7 +65,8 @@ Route::prefix('/admin/')->middleware(['auth', 'check.role'])->group(function () 
     Route::get('dataLengkap/{id}/edit', [DataLengkapController::class, 'edit'])->name('dataLengkapEdit');
     Route::patch('dataLengkap/{id}', [DataLengkapController::class, 'update'])->name('dataLengkapUpdate');
     Route::delete('dataLengkap/delete/{id}/', [DataLengkapController::class, 'destroy'])->name('dataLengkapDelete');
-    Route::get('dataLengkap/export/', [DataLengkapController::class, 'export'])->name('dataLengkapExport');
+    // Route::get('dataLengkap/export/queue', [DataLengkapController::class, 'export'])->name('dataLengkapExport');
+    Route::get('dataLengkap/export/queue/spatie', [DataLengkapController::class, 'spatie'])->name('spatie');
 
     //END DATA LENGKAP
 

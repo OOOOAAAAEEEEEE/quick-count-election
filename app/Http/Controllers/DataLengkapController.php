@@ -7,7 +7,7 @@ use App\Models\MasterKecamatan;
 use App\Models\MasterCaleg;
 use Illuminate\Http\Request;
 use App\Exports\DataExport;
-use Maatwebsite\Excel\Facades\Excel;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Support\Facades\Storage;
 
 class DataLengkapController extends Controller
@@ -139,8 +139,48 @@ class DataLengkapController extends Controller
         return redirect()->route('dataLengkap')->with('success', 'Your data has been deleted successfully!');
     }
 
-    public function export() 
+    public function export(Request $request) 
     {
-        return Excel::download(new DataExport, 'dataLengkap.xlsx');
+        (new DataExport)->queue('dataLengkap.xlsx');
+
+        return back()->withSuccess('Data Export in progress, please wait');
+    }
+
+    public function spatie()
+    {
+        $rows = [];
+
+        DataLengkap::query()->selectRaw('
+            users.name AS pengirim,
+            master_kecamatans.name AS kecamatan,
+            master_kelurahans.name AS kelurahan,
+            data_lengkaps.rt,
+            data_lengkaps.rw,
+            data_lengkaps.no_tps,
+            data_lengkaps.total_dpt,
+            data_lengkaps.total_sss,
+            data_lengkaps.total_ssts,
+            data_lengkaps.total_ssr,
+            data_lengkaps.pemilih_hadir,
+            data_lengkaps.pemilih_tidak_hadir,
+            master_calegs.name AS caleg,
+            data_lengkaps.perolehan_suara,
+            data_lengkaps.image,
+            data_lengkaps.created_at,
+            data_lengkaps.updated_at
+        ')
+        ->join('users', 'data_lengkaps.user_id', 'users.id')
+        ->join('master_kecamatans', 'data_lengkaps.kecamatan_id', 'master_kecamatans.id')
+        ->join('master_kelurahans', 'data_lengkaps.kelurahan_id', 'master_kelurahans.id')
+        ->join('master_calegs', 'data_lengkaps.caleg_id', 'master_calegs.id')
+        ->chunk(2000, function($dataLengkaps) use (&$rows){
+            foreach ($dataLengkaps->toArray() as $dataLengkap) {
+                $rows[] = $dataLengkap;
+            }
+        });
+
+        SimpleExcelWriter::streamDownload('dataLengkap.csv')
+            ->noHeaderRow()
+            ->addRows($rows);
     }
 }

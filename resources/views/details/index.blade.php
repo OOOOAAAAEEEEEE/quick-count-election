@@ -6,11 +6,17 @@
                 {{ __('Details') }}
             </h2>
             <x-button-group-init>
-                <x-button-group-content-start :href="route('dataLengkapExport')">
+                {{-- <x-button-group-content-start :href="route('dataLengkapExport')">
                     <i class="bi bi-file-excel-fill text-green-500 text-2xl" aria-hidden="true"></i>
-                </x-button-group-content-start>
-                <x-button-group-content-end :href="route('dataLengkapCreate')">
+                </x-button-group-content-start> --}}
+                <x-button-group-content-start :href="route('dataLengkapCreate')">
                     <i class="fa fa-plus text-blue-600 text-2xl"></i>
+                </x-button-group-content-start>
+                {{-- <x-button-group-content-end href="/storage/dataLengkap.xlsx">
+                    <i class="fa fa-download text-green-500 text-2xl"></i>
+                </x-button-group-content-end> --}}
+                <x-button-group-content-end href="{{ route('spatie') }}">
+                    <i class="fa fa-download text-green-500 text-2xl"></i>
                 </x-button-group-content-end>
             </x-button-group-init>
         </div>
