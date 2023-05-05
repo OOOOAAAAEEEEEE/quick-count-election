@@ -33,17 +33,17 @@ Route::controller(DataLengkapMemberController::class)->prefix('/member/')->group
     Route::get('dataLengkap/{id}/show', 'show')->name('dataLengkapMemberShow')->middleware('auth');
     Route::get('dataLengkap/{id}/edit', 'edit')->name('dataLengkapMemberEdit')->middleware('auth');
     Route::patch('dataLengkap/{id}', 'update')->name('dataLengkapMemberUpdate')->middleware('auth');
-    Route::delete('dataLengkap/{id}', 'destroy')->name('dataLengkapMemberDelete')->middleware('auth');
+    Route::delete('dataLengkap/delete/{id}', 'destroy')->name('dataLengkapMemberDelete')->middleware('auth');
 });
 
 Route::controller(DashboardController::class)->group(function(){
-    Route::get('dashboard', 'index')->name('dashboard');
-    Route::get('dashboard/create', 'create')->name('dashboardCreate')->middleware('auth');
-    Route::post('dashboard/store', 'store')->name('dashboardStore')->middleware('auth');
-    Route::get('dashboard/{id}/show', 'show')->name('dashboardShow')->middleware('auth');
-    Route::get('dashboard/{id}/edit', 'edit')->name('dashboardEdit')->middleware('auth');
-    Route::patch('dashboard/{id}', 'update')->name('dashboardUpdate')->middleware('auth');
-    Route::delete('dashboard/{id}', 'delete')->name('dashboardDelete')->middleware('auth');
+    Route::get('dashboard', 'index')->name('dashboard')->middleware('auth');
+    Route::get('dashboard/create', 'create')->name('dashboardCreate')->middleware(['auth','check.role']);
+    Route::post('dashboard/store', 'store')->name('dashboardStore')->middleware(['auth','check.role']);
+    Route::get('dashboard/{id}/show', 'show')->name('dashboardShow')->middleware(['auth','check.role']);
+    Route::get('dashboard/{id}/edit', 'edit')->name('dashboardEdit')->middleware(['auth','check.role']);
+    Route::patch('dashboard/{id}', 'update')->name('dashboardUpdate')->middleware(['auth','check.role']);
+    Route::delete('dashboard/delete/{id}', 'delete')->name('dashboardDelete')->middleware(['auth','check.role']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -64,7 +64,7 @@ Route::prefix('/admin/')->middleware(['auth', 'check.role'])->group(function () 
     Route::get('dataLengkap/{id}/show', [DataLengkapController::class, 'show'])->name('dataLengkapShow');
     Route::get('dataLengkap/{id}/edit', [DataLengkapController::class, 'edit'])->name('dataLengkapEdit');
     Route::patch('dataLengkap/{id}', [DataLengkapController::class, 'update'])->name('dataLengkapUpdate');
-    Route::delete('dataLengkap/{id}', [DataLengkapController::class, 'destroy'])->name('dataLengkapDelete');
+    Route::delete('dataLengkap/delete/{id}/', [DataLengkapController::class, 'destroy'])->name('dataLengkapDelete');
     Route::get('dataLengkap/export/', [DataLengkapController::class, 'export'])->name('dataLengkapExport');
 
     //END DATA LENGKAP
@@ -77,7 +77,7 @@ Route::prefix('/admin/')->middleware(['auth', 'check.role'])->group(function () 
     Route::get('master-kecamatan/{id}', [MasterKecamatanController::class, 'show'])->name('kecamatanShow');
     Route::get('master-kecamatan/{id}/edit', [MasterKecamatanController::class, 'edit'])->name('kecamatanEdit');
     Route::patch('master-kecamatan/{id}', [MasterKecamatanController::class, 'update'])->name('kecamatanUpdate');
-    Route::delete('master-kecamatan/{id}', [MasterKecamatanController::class, 'destroy'])->name('kecamatanDestroy');
+    Route::delete('master-kecamatan/delete/{id}', [MasterKecamatanController::class, 'destroy'])->name('kecamatanDestroy');
 
     //END MASTER KECAMATAN
 
@@ -89,7 +89,7 @@ Route::prefix('/admin/')->middleware(['auth', 'check.role'])->group(function () 
     Route::get('master-kelurahan/{id}', [MasterKelurahanController::class, 'show'])->name('kelurahanShow');
     Route::get('master-kelurahan/{id}/edit', [MasterKelurahanController::class, 'edit'])->name('kelurahanEdit');
     Route::patch('master-kelurahan/{id}', [MasterKelurahanController::class, 'update'])->name('kelurahanUpdate');
-    Route::delete('master-kelurahan/{id}', [MasterKelurahanController::class, 'destroy'])->name('kelurahanDestroy');
+    Route::delete('master-kelurahan/delete/{id}', [MasterKelurahanController::class, 'destroy'])->name('kelurahanDestroy');
 
     //END MASTER KELURAHAN
 
@@ -101,7 +101,7 @@ Route::prefix('/admin/')->middleware(['auth', 'check.role'])->group(function () 
     Route::get('master-caleg/{id}', [MasterCalegController::class, 'show'])->name('calegShow');
     Route::get('master-caleg/{id}/edit', [MasterCalegController::class, 'edit'])->name('calegEdit');
     Route::patch('master-caleg/{id}', [MasterCalegController::class, 'update'])->name('calegUpdate');
-    Route::delete('master-caleg/{id}', [MasterCalegController::class, 'destroy'])->name('calegDestroy');
+    Route::delete('master-caleg/delete/{id}', [MasterCalegController::class, 'destroy'])->name('calegDestroy');
 
     //END MASTER CALEG
 
@@ -113,7 +113,7 @@ Route::prefix('/admin/')->middleware(['auth', 'check.role'])->group(function () 
     Route::get('master-partai/{id}', [MasterPartaiController::class, 'show'])->name('partaiShow');
     Route::get('master-partai/{id}/edit', [MasterPartaiController::class, 'edit'])->name('partaiEdit');
     Route::patch('master-partai/{id}', [MasterPartaiController::class, 'update'])->name('partaiUpdate');
-    Route::delete('master-partai/{id}', [MasterPartaiController::class, 'destroy'])->name('partaiDestroy');
+    Route::delete('master-partai/delete/{id}', [MasterPartaiController::class, 'destroy'])->name('partaiDestroy');
 
     //END MASTER PARTAI
 
@@ -125,5 +125,5 @@ Route::prefix('/admin/')->middleware(['auth', 'check.role'])->group(function () 
     Route::get('master-user/{id}', [MasterUserController::class, 'show'])->name('userShow');
     Route::get('master-user/{id}/edit', [MasterUserController::class, 'edit'])->name('userEdit');
     Route::patch('master-user/{id}', [MasterUserController::class, 'update'])->name('userUpdate');
-    Route::delete('master-user/{id}', [MasterUserController::class, 'destroy'])->name('userDestroy');
+    Route::delete('master-user/delete/{id}', [MasterUserController::class, 'destroy'])->name('userDestroy');
 });

@@ -55,7 +55,7 @@ class MasterPartaiController extends Controller
     public function edit(MasterPartai $masterPartai, $id)
     {
         return view('master.partai.edit',[
-            'post' => $masterPartai->where('id', $id)->first(),
+            'post' => $masterPartai->find($id)->first(),
         ]);
     }
 
@@ -68,7 +68,7 @@ class MasterPartaiController extends Controller
             'name' => 'required|string'
         ]);
 
-        $masterPartai->where('id', $id)->update($validatedData);
+        $masterPartai->find($id)->update($validatedData);
 
         return redirect()->route('partaiIndex')->with('success', 'Your data has been updated!!');
     }
@@ -78,7 +78,7 @@ class MasterPartaiController extends Controller
      */
     public function destroy(MasterPartai $masterPartai, $id)
     {
-        $masterPartai->where('id', $id)->delete();
+        $masterPartai->find($id)->delete();
 
         return redirect()->route('partaiIndex')->with('success', 'Your data has been deleted');
     }

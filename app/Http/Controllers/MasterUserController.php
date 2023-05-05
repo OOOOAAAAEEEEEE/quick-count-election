@@ -24,7 +24,7 @@ class MasterUserController extends Controller
     public function create()
     {
         return view('master.user.create',[
-
+            
         ]);
     }
 
@@ -62,7 +62,7 @@ class MasterUserController extends Controller
     public function edit(User $user, $id)
     {
         return view('master.user.edit', [
-            'post' => $user->where('id', $id)->first(),
+            'post' => $user->find($id)->first(),
         ]);
     }
 
@@ -91,7 +91,7 @@ class MasterUserController extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        $user->where('id', $id)->update($validatedData);
+        $user->find($id)->update($validatedData);
 
         return redirect()->route('userIndex')->with('success', 'Your data has been updated successfully!');
     }
@@ -101,7 +101,7 @@ class MasterUserController extends Controller
      */
     public function destroy(User $user, $id)
     {
-        $user->where('id', $id)->delete();
+        $user->find($id)->delete();
         
         return redirect()->route('userIndex')->with('success', 'Your data has been deleted successfully!');
     }

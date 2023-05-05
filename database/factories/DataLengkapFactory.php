@@ -17,6 +17,7 @@ class DataLengkapFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => fake()->uuid(),
             'user_id' => fake()->numberBetween(3, 7),
             'kecamatan_id' => fake()->numberBetween(1, 10),
             'kelurahan_id' => fake()->numberBetween(1, 25),

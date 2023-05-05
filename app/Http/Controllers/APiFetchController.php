@@ -58,7 +58,7 @@ class APiFetchController extends Controller
         ->join('master_kecamatans', 'data_lengkaps.kecamatan_id', 'master_kecamatans.id')
         ->join('master_kelurahans', 'data_lengkaps.kelurahan_id', 'master_kelurahans.id')
         ->join('master_calegs', 'data_lengkaps.caleg_id', 'master_calegs.id')
-        ->get())
+        ->limit(100))
         ->addColumn('action', 'components.action-icon')
         ->make(true);
     }
@@ -92,7 +92,7 @@ class APiFetchController extends Controller
         ->join('master_kecamatans', 'data_lengkaps.kecamatan_id', 'master_kecamatans.id')
         ->join('master_kelurahans', 'data_lengkaps.kelurahan_id', 'master_kelurahans.id')
         ->join('master_calegs', 'data_lengkaps.caleg_id', 'master_calegs.id')
-        ->get())
+        ->limit(100))
         ->addColumn('action', 'components.action-icon')
         ->make(true);
     }

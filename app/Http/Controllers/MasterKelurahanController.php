@@ -57,7 +57,7 @@ class MasterKelurahanController extends Controller
     public function edit(MasterKelurahan $masterKelurahan, $id)
     {
         return view('master.kelurahan.edit',[
-            'post' => $masterKelurahan->where('id', $id)->first(),
+            'post' => $masterKelurahan->find($id)->first(),
             'datas' => MasterKecamatan::all(),
         ]);
     }
@@ -72,7 +72,7 @@ class MasterKelurahanController extends Controller
             'kecamatan_id' => 'required|numeric'
         ]);
 
-        $masterKelurahan->where('id', $id)->update($validatedData);
+        $masterKelurahan->find($id)->update($validatedData);
 
         return redirect()->route('kelurahanIndex')->with('success', 'Your data has been updated successfully!');
     }
@@ -82,7 +82,7 @@ class MasterKelurahanController extends Controller
      */
     public function destroy(MasterKelurahan $masterKelurahan, $id)
     {
-        $masterKelurahan->where('id', $id)->delete();
+        $masterKelurahan->find($id)->delete();
 
         return redirect()->route('kelurahanIndex')->with('success', 'Your data has been deleted successfully!');
     }
