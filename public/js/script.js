@@ -1,5 +1,7 @@
 function validateDelete() {
-    let confirmDelete = document.getElementById(`confirmDelete${model}`);
+    let confirmDelete = document.getElementById(`confirmDelete`);
+
+    console.log(confirmDelete);
 
     Swal.fire({
         title: "Apakah anda yakin?",
@@ -15,7 +17,7 @@ function validateDelete() {
                     confirmDelete.click();
                 }
             );
-        }   
+        }
     });
 }
 

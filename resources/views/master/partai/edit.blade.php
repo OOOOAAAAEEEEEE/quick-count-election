@@ -27,6 +27,14 @@
                     @enderror
                 </div>  
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            <div class="mt-5 sm:inline-block text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" role="button" onclick="return validateDelete()">
+                Delete
+            </div>
+        </form>
+        <form class="inline" action="{{ route('partaiDestroy', ['id' => $post->id]) }}" method="post">
+            @csrf
+            @method('delete')
+            <button id="confirmDelete" class="hidden"></button>
         </form>
     </div>
 </x-app-layout>

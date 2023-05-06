@@ -57,7 +57,7 @@ class MasterCalegController extends Controller
     public function edit(MasterCaleg $masterCaleg, $id)
     {
         return view('master.caleg.edit',[
-            'post' => $masterCaleg->where('id', $id)->first(),
+            'post' => $masterCaleg->where('id', $id)->firstOrFail(),
             'datas' => MasterPartai::all()
         ]);
     }

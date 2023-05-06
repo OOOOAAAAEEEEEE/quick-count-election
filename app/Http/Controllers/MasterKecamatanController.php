@@ -57,7 +57,7 @@ class MasterKecamatanController extends Controller
     public function edit(MasterKecamatan $masterKecamatan, $id)
     {
         return view('master.kecamatan.edit',[
-            'post' => $masterKecamatan->find($id)->first(),
+            'post' => $masterKecamatan->where('id', $id)->firstOrFail(),
         ]);
     }
 
@@ -70,7 +70,7 @@ class MasterKecamatanController extends Controller
             'name' => 'required|string'
         ]);
 
-        $masterKecamatan->find($id)->update($validatedData);
+        $masterKecamatan->where('id', $id)->update($validatedData);
 
         return redirect()->route('kecamatanIndex')->with('success', 'Your data has been updated successfully!!');
     }
@@ -80,7 +80,7 @@ class MasterKecamatanController extends Controller
      */
     public function destroy(MasterKecamatan $masterKecamatan, $id)
     {
-        $masterKecamatan->find($id)->delete();
+        $masterKecamatan->where('id', $id)->delete();
 
         return redirect()->route('kecamatanIndex')->with('success', 'Your data has been deleted');
     }
