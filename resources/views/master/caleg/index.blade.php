@@ -20,6 +20,7 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Partai</th>
+                    <th>Gender</th>
                     <th>Dibuat</th>
                     <th>Diupdate</th>
                     <th>Aksi</th>
@@ -43,6 +44,7 @@
                 {"data" : "id"},
                 {"data" : "caleg"},
                 {"data" : "partai"},
+                {"data" : "gender"},
                 {"data" : "created_at"},
                 {"data" : "updated_at"},
                 {"data" : "action"}

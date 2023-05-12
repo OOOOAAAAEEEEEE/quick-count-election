@@ -55,6 +55,7 @@
 <script>
     $(document).ready( function () {~
         $('#detailTable').DataTable({
+            "searching": false,
             "responsive": true,
             "processing": true,
             "serverSide": true,

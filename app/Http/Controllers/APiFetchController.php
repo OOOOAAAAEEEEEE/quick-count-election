@@ -102,6 +102,7 @@ class APiFetchController extends Controller
             master_calegs.id,
             master_calegs.name AS caleg,
             master_partais.name AS partai,
+            master_calegs.gender,
             master_calegs.created_at,
             master_calegs.updated_at
         ')

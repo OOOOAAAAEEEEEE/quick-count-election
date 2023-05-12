@@ -30,7 +30,7 @@ class DataLengkapFactory extends Factory
             'total_ssr' => fake()->randomNumber(2, false),
             'pemilih_hadir' => fake()->randomNumber(3, true),
             'pemilih_tidak_hadir' => fake()->randomNumber(1, true),
-            'caleg_id' => fake()->numberBetween(1, 2),
+            'caleg_id' => fake()->numberBetween(1, 10),
             'perolehan_suara' => fake()->randomNumber(2, true),
             'image' => 'plano/mOUM1sAsB3KQh2FMbTM7MoNOkst6rkMxVe6fdTCT.jpg',
         ];

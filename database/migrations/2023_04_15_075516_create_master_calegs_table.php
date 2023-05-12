@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('partai_id');
             $table->string('name');
+            $table->string('gender');
             $table->timestamps();
         });
     }

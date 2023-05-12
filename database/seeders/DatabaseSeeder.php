@@ -43,12 +43,20 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(5)->create();
-        DataLengkap::factory(5000)->create();
+        DataLengkap::factory(100)->create();
 
         //MASTER CALEG
 
-        MasterCaleg::create(['name' => 'Gembong Warsono', 'partai_id' => '1']);
-        MasterCaleg::create(['name' => 'Occy', 'partai_id' => '1']);
+        MasterCaleg::create(['name' => 'Gembong Warsono', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Simon A.M Sitorus', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Mirza Riadiani K (Chica Koeswoyo)', 'partai_id' => '1', 'gender' => 'P']);
+        MasterCaleg::create(['name' => 'M. Rayhan Ali', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Satrio S. Herlambang', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Ines Yuana', 'partai_id' => '1', 'gender' => 'P']);
+        MasterCaleg::create(['name' => 'Ashari', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Faisal Najemuddin Afdhal', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Pratama Meidi', 'partai_id' => '1', 'gender' => 'P']);
+        MasterCaleg::create(['name' => 'Niken Indah Kristianti SE', 'partai_id' => '1', 'gender' => 'P']);
 
         //END MASTER CALEG
 
