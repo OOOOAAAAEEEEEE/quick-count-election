@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(5)->create();
-        DataLengkap::factory(100)->create();
+        // DataLengkap::factory(100)->create();
 
         //MASTER CALEG
 

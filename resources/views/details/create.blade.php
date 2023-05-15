@@ -137,18 +137,52 @@
                 </div> 
             </div>
             <div class="mb-6">
-                <x-input-label for="caleg_id">Caleg</x-input-label>
-                <x-select-input id="caleg_id" name="caleg_id">
-                    <option value="">PILIH CALEG</option>
-                    @foreach ($calegs as $caleg)
-                        <option value="{{ $caleg->id }}">{{ $caleg->name }}</option>
+                <x-input-label for="partai_id">Partai</x-input-label>
+                <x-select-input id="partai_id" name="partai_id">
+                    <option value="">PILIH PARTAI</option>
+                    @foreach ($partais as $partai)
+                        <option value="{{ $partai->id }}">{{ $partai->name }}</option>
                     @endforeach
                 </x-select-input>
-                    @error('caleg_id')
+                    @error('partai_id')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
                         </p>
                     @enderror
+            </div>
+            <div class="grid gap-6 mb-6 p-3 rounded-xl md:grid-cols-2 bg-slate-200">
+                <div class="mb-6">
+                    <x-input-label for="caleg1">Caleg</x-input-label>
+                    <x-input-text disabled id="caleg1" value="Gembong Warsono" name="caleg1">
+                        
+                    </x-input-text>
+                        @error('caleg1')
+                            <p class="text-red-500 text-sm">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    
+                    <x-input-label for="suara1">Perolehan Suara</x-input-label>
+                    <x-input-text id="suara1" name="suara1">
+
+                    </x-input-text>
+                </div>
+                <div class="mb-6">
+                    <x-input-label for="caleg1">Caleg</x-input-label>
+                    <x-input-text disabled id="caleg1" value="Gembong Warsono" name="caleg1">
+                        
+                    </x-input-text>
+                        @error('caleg1')
+                            <p class="text-red-500 text-sm">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    
+                    <x-input-label for="suara1">Perolehan Suara</x-input-label>
+                    <x-input-text id="suara1" name="suara1">
+
+                    </x-input-text>
+                </div>
             </div>
             <div class="mb-6">
                 <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload Gambar Plano</label>
@@ -182,7 +216,7 @@
 
     let kecamatan = document.getElementById("kecamatan_id");
 
-    function filterKecamatan() {
+    function filterKelurahan() {
         kecamatan.addEventListener("change", () => {
             const select = document.getElementById("kelurahan_id");
             let kecamatanID = kecamatan.value;
@@ -206,5 +240,9 @@
         });
     }
 
-filterKecamatan();
+filterKelurahan();
+
+    function filterPartai(){
+
+    }
 </script>

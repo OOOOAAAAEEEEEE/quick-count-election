@@ -7,6 +7,7 @@ use App\Models\MasterKecamatan;
 use App\Models\MasterCaleg;
 use Illuminate\Http\Request;
 use App\Exports\DataExport;
+use App\Models\MasterPartai;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +31,8 @@ class DataLengkapController extends Controller
         return view('details.create', [
             'kecamatans' => MasterKecamatan::all(),
             'kelurahans' => $dataLengkap->fetchKelurahan()->toJson(),
-            'calegs' => MasterCaleg::all()
+            'calegs' => MasterCaleg::all(),
+            'partais' => MasterPartai::all()
         ]);
     }
 
