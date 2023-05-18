@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataLengkap;
+use App\Models\CalegGroup;
+use App\Models\SuaraGroup;
 use App\Models\MasterKecamatan;
 use App\Models\MasterCaleg;
 use Illuminate\Http\Request;
@@ -31,7 +33,7 @@ class DataLengkapController extends Controller
         return view('details.create', [
             'kecamatans' => MasterKecamatan::all(),
             'kelurahans' => $dataLengkap->fetchKelurahan()->toJson(),
-            'calegs' => MasterCaleg::all(),
+            'calegs' => $dataLengkap->fetchCaleg()->toJson(),
             'partais' => MasterPartai::all()
         ]);
     }
@@ -41,26 +43,74 @@ class DataLengkapController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validatedCaleg = $request->validate([
+            'no_tps' => 'required|numeric',
+            'kelurahan_id' => 'required|numeric',
+            'partai_id' => 'required|numeric',
+            'caleg1' => 'required|string',
+            'caleg2' => 'required|string',
+            'caleg3' => 'required|string',
+            'caleg4' => 'required|string',
+            'caleg5' => 'required|string',
+            'caleg6' => 'required|string',
+            'caleg7' => 'required|string',
+            'caleg8' => 'required|string',
+            'caleg9' => 'required|string',
+            'caleg10' => 'required|string'
+        ]);
+
+        CalegGroup::create($validatedCaleg);
+
+        $validatedSuara = $request->validate([
+            'no_tps' => 'required|numeric',
+            'kelurahan_id' => 'required|numeric',
+            'partai_id' => 'required|numeric',
+            'suara1' => 'required|numeric',
+            'suara2' => 'required|numeric',
+            'suara3' => 'required|numeric',
+            'suara4' => 'required|numeric',
+            'suara5' => 'required|numeric',
+            'suara6' => 'required|numeric',
+            'suara7' => 'required|numeric',
+            'suara8' => 'required|numeric',
+            'suara9' => 'required|numeric',
+            'suara10' => 'required|numeric'
+        ]);
+
+        SuaraGroup::create($validatedSuara);
+
         $validatedData = $request->validate([
             'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
+            'partai_id' => 'required|numeric',
             'rw' => 'required|numeric',
             'rt' => 'required|numeric',
             'no_tps' => 'required|numeric',
-            'perolehan_suara' => 'required|numeric',
             'total_dpt' => 'required|numeric',
             'total_sss' => 'required|numeric',
             'total_ssts' => 'required|numeric',
             'total_ssr' => 'required|numeric',
             'pemilih_hadir' => 'required|numeric',
             'pemilih_tidak_hadir' => 'required|numeric',
-            'caleg_id' => 'required|numeric',
             'image' => 'required|image|max:10240',
-            'agree' => 'accepted',
+            'agree' => 'accepted'
         ]);
-
         $validatedData['user_id'] = auth()->user()->id;
+
+        $validatedData['caleg_group_id'] = CalegGroup::select('id')
+        ->where('no_tps', $validatedData['no_tps'])
+        ->where('kelurahan_id', $validatedData['kelurahan_id'])
+        ->where('partai_id', $validatedData['partai_id'])
+        ->value('id');
+
+        $validatedData['suara_group_id'] = SuaraGroup::select('id')
+        ->where('no_tps', $validatedData['no_tps'])
+        ->where('kelurahan_id', $validatedData['kelurahan_id'])
+        ->where('partai_id', $validatedData['partai_id'])
+        ->value('id');
+
         $validatedData['image'] = $request->file('image')->store('plano');
         DataLengkap::create($validatedData);
 

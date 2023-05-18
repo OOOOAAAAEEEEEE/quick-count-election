@@ -19,7 +19,8 @@ class DataLengkap extends Model
         'id'
     ];
 
-    public function fetchDataLengkap($id){
+    public function fetchDataLengkap($id)
+    {
         return DataLengkap::selectRaw('
             data_lengkaps.id,
             data_lengkaps.uuid,
@@ -66,5 +67,17 @@ class DataLengkap extends Model
         ')
             ->join('master_kecamatans', 'master_kelurahans.kecamatan_id', 'master_kecamatans.id')
             ->get();
+    }
+
+    public function fetchCaleg()
+    {
+        return MasterCaleg::selectRaw('
+            master_calegs.id AS calegID,
+            master_calegs.partai_id AS partaiID,
+            master_calegs.name AS caleg,
+            master_partais.name AS partai
+        ')
+        ->join('master_partais', 'master_calegs.partai_id', 'master_partais.id')
+        ->get();
     }
 }

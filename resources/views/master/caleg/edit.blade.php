@@ -30,6 +30,20 @@
                     @enderror
                 </div>
                 <div>
+                    <x-input-label for="gender">Jenis Kelamin</x-input-label>
+                    <x-select-input id="gender" name="gender">
+                        <option value="{{ $post->gender }}">
+                            @if ($post->gender == 'L')
+                                Laki-Laki
+                            @else
+                                Perempuan
+                            @endif
+                        </option>
+                        <option value="L"> Laki-Laki </option>
+                        <option value="P"> Perempuan </option>
+                    </x-select-input>
+                </div>
+                <div>
                     <x-input-label for="name">Caleg</x-input-label>
                     <x-input-text value="{{ $post->name }}" type="text" name="name" id="name" placeholder="Isi nama caleg"></x-input-text>
                     @error('name')

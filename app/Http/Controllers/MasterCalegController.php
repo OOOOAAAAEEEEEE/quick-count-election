@@ -36,6 +36,7 @@ class MasterCalegController extends Controller
         $validatedData = $request->validate([
             'partai_id' => 'required|numeric',
             'name' => 'required|string|max:50',
+            'gender' => 'required|string'
         ]);
 
         MasterCaleg::create($validatedData);
@@ -69,7 +70,8 @@ class MasterCalegController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'partai_id' => 'required|numeric'
+            'partai_id' => 'required|numeric',
+            'gender' => 'required|string'
         ]);
 
         $masterCaleg->where('id', $id)->update($validatedData);

@@ -16,16 +16,16 @@ return new class extends Migration
             $table->integer('no_tps');
             $table->foreignId('kelurahan_id');
             $table->foreignId('partai_id');
-            $table->string('caleg1');
-            $table->string('caleg2');
-            $table->string('caleg3');
-            $table->string('caleg4');
-            $table->string('caleg5');
-            $table->string('caleg6');
-            $table->string('caleg7');
-            $table->string('caleg8');
-            $table->string('caleg9');
-            $table->string('caleg10');
+            $table->string('caleg1')->nullable();
+            $table->string('caleg2')->nullable();
+            $table->string('caleg3')->nullable();
+            $table->string('caleg4')->nullable();
+            $table->string('caleg5')->nullable();
+            $table->string('caleg6')->nullable();
+            $table->string('caleg7')->nullable();
+            $table->string('caleg8')->nullable();
+            $table->string('caleg9')->nullable();
+            $table->string('caleg10')->nullable();
             $table->timestamps();
         });
     }

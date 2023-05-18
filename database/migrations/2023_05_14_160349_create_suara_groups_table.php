@@ -16,16 +16,16 @@ return new class extends Migration
             $table->integer('no_tps');
             $table->foreignId('kelurahan_id');
             $table->foreignId('partai_id');
-            $table->string('suara1');
-            $table->string('suara2');
-            $table->string('suara3');
-            $table->string('suara4');
-            $table->string('suara5');
-            $table->string('suara6');
-            $table->string('suara7');
-            $table->string('suara8');
-            $table->string('suara9');
-            $table->string('suara10');
+            $table->string('suara1')->nullable();
+            $table->string('suara2')->nullable();
+            $table->string('suara3')->nullable();
+            $table->string('suara4')->nullable();
+            $table->string('suara5')->nullable();
+            $table->string('suara6')->nullable();
+            $table->string('suara7')->nullable();
+            $table->string('suara8')->nullable();
+            $table->string('suara9')->nullable();
+            $table->string('suara10')->nullable();
             $table->timestamps();
         });
     }
