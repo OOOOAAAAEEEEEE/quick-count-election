@@ -16,6 +16,9 @@
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
         <form method="POST" action="{{ route('dataLengkapStore') }}" enctype="multipart/form-data">
             @csrf
+
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                     <input type="hidden" name="uuid" value="{{ Str::uuid() }}">
@@ -162,7 +165,7 @@
             {{--!! LAH KOK GITU SIH --}}
             
             <div class="mb-6">
-                <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload Gambar Plano</label>
+                <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Gambar Plano</label>
                 <input name="image" id="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
                 @error('image')
                     <p class="text-red-500 text-sm">
@@ -198,8 +201,6 @@
     const unhide = document.getElementById("unhide");
     const inputValue = document.getElementById("inputValue");
 
-    // console.log(objectCaleg);
-
     function filterCaleg(){
         partai.addEventListener("change", () => {
             let partaiID = partai.value;
@@ -225,8 +226,6 @@
                     inputSuara.classList.add('bg-gray-50', 'disabled', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'w-full', 'p-2.5');
                     inputSuara.name = `suara${index+1}`;
                     inputValue.appendChild(inputSuara);
-
-                    console.log(result);
                 });
 
             }else{

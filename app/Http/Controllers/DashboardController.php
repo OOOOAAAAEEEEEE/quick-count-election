@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DataLengkap;
 use Illuminate\Http\Request;
 use App\Charts\Summary;
+use App\Models\SuaraGroup;
 
 class DashboardController extends Controller
 {
@@ -14,7 +15,7 @@ class DashboardController extends Controller
     public function index(Summary $chart)
     {
         return view('dashboard.index', [
-            'chart' => $chart->build()
+            'chart_pdip' => $chart->build()
         ]);
     }
 
