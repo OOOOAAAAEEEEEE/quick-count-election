@@ -1,5 +1,5 @@
 <x-app-layout>
-    {{-- @dd($post->image) --}}
+    {{-- @dd($calegs) --}}
     <x-slot name="header">
         <div class="flex justify-between">
             <a href="{{ route('dataLengkapMember') }}" class="font-semibold text-xl text-gray-800 leading-tight">
@@ -16,6 +16,9 @@
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
         <form method="POST" action="{{ route('dataLengkapMemberStore') }}" enctype="multipart/form-data">
             @csrf
+
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                     <input type="hidden" name="uuid" value="{{ Str::uuid() }}">
@@ -136,22 +139,33 @@
                     @enderror
                 </div> 
             </div>
+
+            {{--!! LAH KOK GITU SIH --}}
+
             <div class="mb-6">
-                <x-input-label for="caleg_id">Caleg</x-input-label>
-                <x-select-input id="caleg_id" name="caleg_id">
-                    <option value="">PILIH CALEG</option>
-                    @foreach ($calegs as $caleg)
-                        <option value="{{ $caleg->id }}">{{ $caleg->name }}</option>
+                <x-input-label for="partai_id">Partai</x-input-label>
+                <x-select-input id="partai_id" name="partai_id">
+                    <option value="">PILIH PARTAI</option>
+                    @foreach ($partais as $partai)
+                        <option value="{{ $partai->id }}">{{ $partai->name }}</option>
                     @endforeach
                 </x-select-input>
-                    @error('caleg_id')
+                    @error('partai_id')
                         <p class="text-red-500 text-sm">
                             {{ $message }}
                         </p>
                     @enderror
             </div>
+            <div id="unhide" class="hidden">
+                <div id="inputValue" class="grid gap-6 mb-6 p-3 rounded-xl md:grid-cols-2 bg-slate-200">
+                    
+                </div>
+            </div>
+
+            {{--!! LAH KOK GITU SIH --}}
+            
             <div class="mb-6">
-                <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload Gambar Plano</label>
+                <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Gambar Plano</label>
                 <input name="image" id="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
                 @error('image')
                     <p class="text-red-500 text-sm">
@@ -176,18 +190,57 @@
 </x-app-layout>
 
 <script>
-    let data = @json($kelurahans)
+    const dataKelurahan = @json($kelurahans);
+    const dataCaleg = @json($calegs);
 
-    let object = JSON.parse(data);
+    let objectKelurahan = JSON.parse(dataKelurahan);
+    let objectCaleg = JSON.parse(dataCaleg);
 
-    let kecamatan = document.getElementById("kecamatan_id");
+    const kecamatan = document.getElementById("kecamatan_id");
+    const partai = document.getElementById("partai_id");
+    const unhide = document.getElementById("unhide");
+    const inputValue = document.getElementById("inputValue");
 
-    function filterKecamatan() {
+    function filterCaleg(){
+        partai.addEventListener("change", () => {
+            let partaiID = partai.value;
+            
+            if(partaiID != ""){
+                unhide.classList.remove("hidden");
+
+                inputValue.innerHTML= "";
+
+                let filtered = objectCaleg.filter((partai_id) => partai_id.partaiID == partaiID);
+
+                filtered.forEach((result, index) => {
+                    const inputText = document.createElement('input');
+                    inputText.value = result.caleg;
+                    inputText.readOnly = true;
+                    inputText.classList.add('bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'w-full', 'p-2.5');
+                    inputText.name = `caleg${index+1}`;
+                    inputValue.appendChild(inputText);
+
+                    const inputSuara = document.createElement('input');
+                    inputSuara.setAttribute('type', 'number');
+                    inputSuara.placeholder = `Perolehan Suara ${result.caleg}`;
+                    inputSuara.classList.add('bg-gray-50', 'disabled', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'w-full', 'p-2.5');
+                    inputSuara.name = `suara${index+1}`;
+                    inputValue.appendChild(inputSuara);
+                });
+
+            }else{
+                unhide.classList.add("hidden");
+            }
+        })
+    }
+
+
+    function filterKelurahan() {
         kecamatan.addEventListener("change", () => {
             const select = document.getElementById("kelurahan_id");
             let kecamatanID = kecamatan.value;
 
-            let filtered = object.filter((id) => id.kecamatanID == kecamatanID);
+            let filtered = objectKelurahan.filter((id) => id.kecamatanID == kecamatanID);
 
             select.innerHTML = "";
 
@@ -206,5 +259,6 @@
         });
     }
 
-filterKecamatan();
+filterCaleg();
+filterKelurahan();
 </script>
