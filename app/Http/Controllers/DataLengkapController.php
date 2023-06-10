@@ -10,6 +10,7 @@ use App\Models\MasterPartai;
 use App\Exports\DataExport;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -81,8 +82,6 @@ class DataLengkapController extends Controller
         SuaraGroup::create($validatedSuara);
 
         $validatedData = Validator::make($request->all(), [
-            'uuid' => 'required|string',
-            'user_id' => 'required|numeric',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
             'partai_id' => 'required|numeric',
@@ -117,6 +116,10 @@ class DataLengkapController extends Controller
         }
 
         $validatedData = $validatedData->validate();
+
+        $validatedData['uuid'] = Str::uuid();
+
+        $validatedData['user_id'] = auth()->user()->id;
 
         $validatedData['caleg_group_id'] = CalegGroup::select('id')
         ->where('no_tps', $validatedData['no_tps'])
@@ -164,6 +167,8 @@ class DataLengkapController extends Controller
     public function update(Request $request, DataLengkap $dataLengkap, $id)
     {
 
+        $oldData = $dataLengkap->where('uuid', $id)->first();
+
         $validatedCaleg = $request->validate([
             'no_tps' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
@@ -180,10 +185,14 @@ class DataLengkapController extends Controller
             'caleg10' => 'string'
         ]);
 
-        CalegGroup::where('no_tps', $validatedCaleg['no_tps'])
-                    ->where('kelurahan_id', $validatedCaleg['kelurahan_id'])
-                    ->where('partai_id', $validatedCaleg['partai_id'])
-                    ->update($validatedCaleg);
+        if(array_key_exists('caleg1', $validatedCaleg)){
+            CalegGroup::where('no_tps', $oldData->no_tps)
+            ->where('kelurahan_id', $oldData->kelurahan_id)
+            ->where('partai_id', $oldData->partai_id)
+            ->delete();
+    
+            CalegGroup::create($validatedCaleg);
+        }
 
         $validatedSuara = $request->validate([
             'no_tps' => 'numeric|required',
@@ -201,13 +210,16 @@ class DataLengkapController extends Controller
             'suara10' => 'numeric'
         ]);
 
-        SuaraGroup::where('no_tps', $validatedSuara['no_tps'])
-                    ->where('kelurahan_id', $validatedSuara['kelurahan_id'])
-                    ->where('partai_id', $validatedSuara['partai_id'])
-                    ->update($validatedSuara);
+        if(array_key_exists('suara1', $validatedSuara)){
+            SuaraGroup::where('no_tps', $oldData->no_tps)
+            ->where('kelurahan_id', $oldData->kelurahan_id)
+            ->where('partai_id', $oldData->partai_id)
+            ->delete();
+
+            SuaraGroup::create($validatedSuara);
+        }
 
         $validatedData = $request->validate([
-            'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
             'partai_id' => 'required|numeric',
@@ -223,7 +235,7 @@ class DataLengkapController extends Controller
             'image' => '|file|image|max:10240'
         ]);
 
-        $validatedData['user_id'] = auth()->user()->id;
+        $dataLengkap->where('uuid', $id)->update($validatedData);
 
         $validatedData['caleg_group_id'] = CalegGroup::select('id')
         ->where('no_tps', $validatedData['no_tps'])

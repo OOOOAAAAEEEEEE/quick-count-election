@@ -19,7 +19,6 @@
             @method('patch')
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
-                    <input type="hidden" name="uuid" value="{{ Str::uuid() }}">
                     <x-input-label for="kecamatan_id">Kecamatan</x-input-label>
                     <x-select-input id="kecamatan_id" name="kecamatan_id">
                         <option value="{{ $post->kecamatan_id }}">{{ $post->kecamatan }} | Current</option>
@@ -143,7 +142,7 @@
             {{--!! LAH KOK GITU SIH --}}
             <div class="mb-6">
                 <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload Gambar Plano</label>
-                <a class="text-indigo-500 active:text-indigo-900 hover:text-indigo-700" href="/storage/{{ $post->image }}">{{ $post->image }}</a>
+                <a class="text-sm text-indigo-500 active:text-indigo-900 hover:text-indigo-700" href="/storage/{{ $post->image }}">{{ $post->image }}</a>
                 <input name="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
                 @error('image')
                     <p class="text-red-500 text-sm">
@@ -191,12 +190,12 @@
                 let filtered = objectCaleg.filter((partai_id) => partai_id.partaiID == partaiID);
 
                 filtered.forEach((result, index) => {
-                    const inputText = document.createElement('input');
-                    inputText.value = result.caleg;
-                    inputText.readOnly = true;
-                    inputText.classList.add('bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'w-full', 'p-2.5');
-                    inputText.name = `caleg${index+1}`;
-                    inputValue.appendChild(inputText);
+                    const InputCaleg = document.createElement('input');
+                    InputCaleg.value = result.caleg;
+                    InputCaleg.readOnly = true;
+                    InputCaleg.classList.add('bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'w-full', 'p-2.5');
+                    InputCaleg.name = `caleg${index+1}`;
+                    inputValue.appendChild(InputCaleg);
 
                     const inputSuara = document.createElement('input');
                     inputSuara.setAttribute('type', 'number');
@@ -205,6 +204,11 @@
                     inputSuara.name = `suara${index+1}`;
                     inputValue.appendChild(inputSuara);
                 });
+
+                if(filtered.length === 0){
+                    error = document.createTextNode('Data Not Found')
+                    inputValue.appendChild(error);
+                }
 
             }else{
                 unhide.classList.add("hidden");

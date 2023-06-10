@@ -38,12 +38,12 @@ Route::controller(DataLengkapMemberController::class)->prefix('/member/')->group
 
 Route::controller(DashboardController::class)->group(function(){
     Route::get('dashboard', 'index')->name('dashboard')->middleware('auth');
-    Route::get('dashboard/create', 'create')->name('dashboardCreate')->middleware(['auth','check.role']);
-    Route::post('dashboard/store', 'store')->name('dashboardStore')->middleware(['auth','check.role']);
-    Route::get('dashboard/{id}/show', 'show')->name('dashboardShow')->middleware(['auth','check.role']);
-    Route::get('dashboard/{id}/edit', 'edit')->name('dashboardEdit')->middleware(['auth','check.role']);
-    Route::patch('dashboard/{id}', 'update')->name('dashboardUpdate')->middleware(['auth','check.role']);
-    Route::delete('dashboard/delete/{id}', 'delete')->name('dashboardDelete')->middleware(['auth','check.role']);
+    // Route::get('dashboard/create', 'create')->name('dashboardCreate')->middleware(['auth','check.role']);
+    // Route::post('dashboard/store', 'store')->name('dashboardStore')->middleware(['auth','check.role']);
+    // Route::get('dashboard/{id}/show', 'show')->name('dashboardShow')->middleware(['auth','check.role']);
+    // Route::get('dashboard/{id}/edit', 'edit')->name('dashboardEdit')->middleware(['auth','check.role']);
+    // Route::patch('dashboard/{id}', 'update')->name('dashboardUpdate')->middleware(['auth','check.role']);
+    // Route::delete('dashboard/delete/{id}', 'delete')->name('dashboardDelete')->middleware(['auth','check.role']);
 });
 
 Route::middleware('auth')->group(function () {
