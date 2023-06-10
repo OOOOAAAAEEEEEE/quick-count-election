@@ -158,6 +158,8 @@ class DataLengkapMemberController extends Controller
      */
     public function update(Request $request, DataLengkap $dataLengkap, $id)
     {
+        $oldData = $dataLengkap->where('uuid', $id)->first();
+
         $validatedCaleg = $request->validate([
             'no_tps' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
@@ -174,10 +176,20 @@ class DataLengkapMemberController extends Controller
             'caleg10' => 'string'
         ]);
 
-        CalegGroup::where('no_tps', $validatedCaleg['no_tps'])
-                    ->where('kelurahan_id', $validatedCaleg['kelurahan_id'])
-                    ->where('partai_id', $validatedCaleg['partai_id'])
-                    ->update($validatedCaleg);
+        if(array_key_exists('caleg1', $validatedCaleg)){
+            CalegGroup::where('no_tps', $oldData->no_tps)
+            ->where('kelurahan_id', $oldData->kelurahan_id)
+            ->where('partai_id', $oldData->partai_id)
+            ->delete();
+
+            CalegGroup::create($validatedCaleg);
+        }else{
+            CalegGroup::where('no_tps', $oldData->no_tps)
+            ->where('kelurahan_id', $oldData->kelurahan_id)
+            ->where('partai_id', $oldData->partai_id)
+            ->update($validatedCaleg);
+        }
+
 
         $validatedSuara = $request->validate([
             'no_tps' => 'numeric|required',
@@ -195,13 +207,23 @@ class DataLengkapMemberController extends Controller
             'suara10' => 'numeric'
         ]);
 
-        SuaraGroup::where('no_tps', $validatedSuara['no_tps'])
-                    ->where('kelurahan_id', $validatedSuara['kelurahan_id'])
-                    ->where('partai_id', $validatedSuara['partai_id'])
-                    ->update($validatedSuara);
+        if(array_key_exists('suara1', $validatedSuara)){
+            SuaraGroup::where('no_tps', $oldData->no_tps)
+            ->where('kelurahan_id', $oldData->kelurahan_id)
+            ->where('partai_id', $oldData->partai_id)
+            ->delete();
+
+            SuaraGroup::create($validatedSuara);
+        }else{
+            SuaraGroup::where('no_tps', $oldData->no_tps)
+            ->where('kelurahan_id', $oldData->kelurahan_id)
+            ->where('partai_id', $oldData->partai_id)
+            ->update($validatedSuara);
+        }
+
+        
 
         $validatedData = $request->validate([
-            'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
             'partai_id' => 'required|numeric',
@@ -217,18 +239,16 @@ class DataLengkapMemberController extends Controller
             'image' => '|file|image|max:10240'
         ]);
 
-        $validatedData['user_id'] = auth()->user()->id;
-
         $validatedData['caleg_group_id'] = CalegGroup::select('id')
-        ->where('no_tps', $validatedData['no_tps'])
-        ->where('kelurahan_id', $validatedData['kelurahan_id'])
-        ->where('partai_id', $validatedData['partai_id'])
+        ->where('no_tps', $request->no_tps)
+        ->where('kelurahan_id', $request->kelurahan_id)
+        ->where('partai_id', $request->partai_id)
         ->value('id');
 
         $validatedData['suara_group_id'] = SuaraGroup::select('id')
-        ->where('no_tps', $validatedData['no_tps'])
-        ->where('kelurahan_id', $validatedData['kelurahan_id'])
-        ->where('partai_id', $validatedData['partai_id'])
+        ->where('no_tps', $request->no_tps)
+        ->where('kelurahan_id', $request->kelurahan_id)
+        ->where('partai_id', $request->partai_id)
         ->value('id');
 
         if (array_key_exists('image', $validatedData)) {

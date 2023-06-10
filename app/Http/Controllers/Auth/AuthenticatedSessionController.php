@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        $user->createToken('Api Token Of' . $user->name)->plainTextToken;
+        $user->createToken('Api Token Of ' . $user->name)->plainTextToken;
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

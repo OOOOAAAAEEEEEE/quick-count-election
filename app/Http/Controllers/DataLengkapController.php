@@ -190,9 +190,15 @@ class DataLengkapController extends Controller
             ->where('kelurahan_id', $oldData->kelurahan_id)
             ->where('partai_id', $oldData->partai_id)
             ->delete();
-    
+
             CalegGroup::create($validatedCaleg);
+        }else{
+            CalegGroup::where('no_tps', $oldData->no_tps)
+            ->where('kelurahan_id', $oldData->kelurahan_id)
+            ->where('partai_id', $oldData->partai_id)
+            ->update($validatedCaleg);
         }
+
 
         $validatedSuara = $request->validate([
             'no_tps' => 'numeric|required',
@@ -217,7 +223,14 @@ class DataLengkapController extends Controller
             ->delete();
 
             SuaraGroup::create($validatedSuara);
+        }else{
+            SuaraGroup::where('no_tps', $oldData->no_tps)
+            ->where('kelurahan_id', $oldData->kelurahan_id)
+            ->where('partai_id', $oldData->partai_id)
+            ->update($validatedSuara);
         }
+
+        
 
         $validatedData = $request->validate([
             'kecamatan_id' => 'required|numeric',
@@ -235,18 +248,16 @@ class DataLengkapController extends Controller
             'image' => '|file|image|max:10240'
         ]);
 
-        $dataLengkap->where('uuid', $id)->update($validatedData);
-
         $validatedData['caleg_group_id'] = CalegGroup::select('id')
-        ->where('no_tps', $validatedData['no_tps'])
-        ->where('kelurahan_id', $validatedData['kelurahan_id'])
-        ->where('partai_id', $validatedData['partai_id'])
+        ->where('no_tps', $request->no_tps)
+        ->where('kelurahan_id', $request->kelurahan_id)
+        ->where('partai_id', $request->partai_id)
         ->value('id');
 
         $validatedData['suara_group_id'] = SuaraGroup::select('id')
-        ->where('no_tps', $validatedData['no_tps'])
-        ->where('kelurahan_id', $validatedData['kelurahan_id'])
-        ->where('partai_id', $validatedData['partai_id'])
+        ->where('no_tps', $request->no_tps)
+        ->where('kelurahan_id', $request->kelurahan_id)
+        ->where('partai_id', $request->partai_id)
         ->value('id');
 
         if (array_key_exists('image', $validatedData)) {

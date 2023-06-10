@@ -78,7 +78,7 @@ class Summary
         ->where('partai_id', 1)
         ->value('suara10'));
 
-        return $this->chart->pieChart()
+        return $this->chart->donutChart()
             ->setTitle('Summary Perolehan Suara By Caleg')
             ->addData([$suara1, $suara2, $suara3, $suara4, $suara5, $suara6, $suara7, $suara8, $suara9, $suara10])
             ->setLabels(MasterCaleg::select('name')->where('partai_id', 1)->pluck('name')->toArray());
