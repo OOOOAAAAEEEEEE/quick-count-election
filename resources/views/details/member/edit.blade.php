@@ -2,7 +2,7 @@
     {{-- @dd($post->image) --}}
     <x-slot name="header">
         <div class="flex justify-between">
-            <a href="{{ route('dataLengkap') }}" class="font-semibold text-xl text-gray-800 leading-tight">
+            <a href="{{ route('dataLengkapMember') }}" class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Edit Data') }}
             </a>
             <x-button-group-init>

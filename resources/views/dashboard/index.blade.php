@@ -5,11 +5,11 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Dashboard') }}
             </h2>
-            <x-button-group-init>
+            {{-- <x-button-group-init>
                 <x-button-group-content-middle :href="route('dashboardCreate')">
                     <i class="fa fa-plus text-blue-600 text-lg"></i>
                 </x-button-group-content-middle>
-            </x-button-group-init>
+            </x-button-group-init> --}}
         </div>
     </x-slot>
 
