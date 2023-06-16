@@ -76,15 +76,6 @@
             </div>
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div class="mb-6">
-                    <x-input-label for="perolehan_suara">Perolehan Suara</x-input-label>
-                    <x-input-text type="number" value="{{ old('perolehan_suara') }}" name="perolehan_suara" id="perolehan_suara" placeholder="Harus angka"></x-input-text>
-                    @error('perolehan_suara')
-                        <p class="text-red-500 text-sm">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                <div class="mb-6">
                     <x-input-label for="total_dpt">Total DPT</x-input-label>
                     <x-input-text type="number" value="{{ old('total_dpt') }}" name="total_dpt" id="total_dpt" placeholder="Harus angka"></x-input-text>
                     @error('total_dpt')

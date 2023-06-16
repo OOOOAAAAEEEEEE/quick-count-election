@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\MasterKecamatan;
-use Illuminate\Http\Request;
+use App\Http\Requests\Master\MasterKecamatan\UpdateMasterKecamatan;
+use App\Http\Requests\Master\MasterKecamatan\StoreMasterKecamatan;
 
 
 class MasterKecamatanController extends Controller
@@ -32,13 +33,9 @@ class MasterKecamatanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMasterKecamatan $request)
     {
-        $validatedData = request()->validate([
-            'name' => 'required|string|max:50'
-        ]);
-
-        MasterKecamatan::create($validatedData);
+        MasterKecamatan::create($request->validated());
 
         return redirect()->route('kecamatanIndex')->with('success', 'Your data has been add successfully!');
     }
@@ -64,13 +61,9 @@ class MasterKecamatanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MasterKecamatan $masterKecamatan, $id)
+    public function update(UpdateMasterKecamatan $request, MasterKecamatan $masterKecamatan, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string'
-        ]);
-
-        $masterKecamatan->where('id', $id)->update($validatedData);
+        $masterKecamatan->where('id', $id)->update($request->validated());
 
         return redirect()->route('kecamatanIndex')->with('success', 'Your data has been updated successfully!!');
     }

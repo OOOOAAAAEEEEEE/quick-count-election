@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Master\MasterCaleg\StoreMasterCaleg;
+use App\Http\Requests\Master\MasterCaleg\UpdateMasterCaleg;
 use App\Models\MasterCaleg;
 use App\Models\MasterPartai;
-use Illuminate\Http\Request;
 
 class MasterCalegController extends Controller
 {
@@ -31,15 +32,9 @@ class MasterCalegController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMasterCaleg $request)
     {
-        $validatedData = $request->validate([
-            'partai_id' => 'required|numeric',
-            'name' => 'required|string|max:50',
-            'gender' => 'required|string'
-        ]);
-
-        MasterCaleg::create($validatedData);
+        MasterCaleg::create($request->validated());
 
         return redirect()->route('calegIndex')->with('success', 'Your data has been added successfully!');
     }
@@ -66,15 +61,9 @@ class MasterCalegController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MasterCaleg $masterCaleg, $id)
+    public function update(UpdateMasterCaleg $request, MasterCaleg $masterCaleg, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'partai_id' => 'required|numeric',
-            'gender' => 'required|string'
-        ]);
-
-        $masterCaleg->where('id', $id)->update($validatedData);
+        $masterCaleg->where('id', $id)->update($request->validated());
 
         return redirect()->route('calegIndex')->with('success', 'Your data has been updated successfully!');
     }

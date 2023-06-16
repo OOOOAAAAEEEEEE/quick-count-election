@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Master\MasterPartai\StoreMasterPartai;
+use App\Http\Requests\Master\MasterPartai\UpdateMasterPartai;
 use App\Models\MasterPartai;
-use Illuminate\Http\Request;
 
 class MasterPartaiController extends Controller
 {
@@ -30,13 +31,10 @@ class MasterPartaiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMasterPartai $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:20',
-        ]);
 
-        MasterPartai::create($validatedData);
+        MasterPartai::create($request->validated());
 
         return redirect()->route('partaiIndex')->with('success', 'Your data has been added successfully!');
     }
@@ -62,13 +60,9 @@ class MasterPartaiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MasterPartai $masterPartai, $id)
+    public function update(UpdateMasterPartai $request, MasterPartai $masterPartai, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string'
-        ]);
-
-        $masterPartai->where('id',$id)->update($validatedData);
+        $masterPartai->where('id',$id)->update($request->validated());
 
         return redirect()->route('partaiIndex')->with('success', 'Your data has been updated!!');
     }

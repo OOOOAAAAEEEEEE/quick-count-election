@@ -72,15 +72,6 @@
             </div>
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div class="mb-6">
-                    <x-input-label for="perolehan_suara">Perolehan Suara</x-input-label>
-                    <x-input-text type="number" value="{{ old('perolehan_suara') }}" name="perolehan_suara" id="perolehan_suara" placeholder="Harus angka"></x-input-text>
-                    @error('perolehan_suara')
-                        <p class="text-red-500 text-sm">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                <div class="mb-6">
                     <x-input-label for="total_dpt">Total DPT</x-input-label>
                     <x-input-text type="number" value="{{ old('total_dpt') }}" name="total_dpt" id="total_dpt" placeholder="Harus angka"></x-input-text>
                     @error('total_dpt')
@@ -171,14 +162,9 @@
             </div>
             <div class="flex items-start my-10">
                 <div class="flex items-center h-5">
-                <input id="agree" name="agree" type="checkbox" value="true" class="w-9 h-9 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
+                <input id="agree" name="agree" type="checkbox" required value="true" class="w-9 h-9 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
                 </div>
-                <label for="agree" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Klik tombol ini jika anda sudah yakin dengan isian anda!! </label>
-                @error('agree')
-                    <p class="text-red-500 text-sm">
-                        {{ $message }}
-                    </p>
-                @enderror
+                <label for="agree" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"> Klik tombol ini jika anda sudah yakin dengan isian anda!! </label>
             </div>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
         </form>

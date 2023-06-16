@@ -12,11 +12,9 @@ function validateDelete() {
         confirmButtonText: "Ya, Hapus",
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire("Memproses!", "Klik untuk memproses!.", "info").then(
-                () => {
-                    confirmDelete.click();
-                }
-            );
+            Swal.fire("Memproses!", "Klik untuk kembali.", "info").then(() => {
+                confirmDelete.click();
+            });
         }
     });
 }

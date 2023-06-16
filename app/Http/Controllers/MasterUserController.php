@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\Master\MasterUser\StoreMasterUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class MasterUserController extends Controller
 {
@@ -31,16 +32,9 @@ class MasterUserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMasterUser $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'telp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11|unique:users,telp',
-            'password' => 'required|string',
-            'role' => 'required|string'
-        ]);
-
+        $validatedData = $request->validated();
         $validatedData['password'] = Hash::make($validatedData['password']);
 
         User::create($validatedData);
@@ -73,23 +67,25 @@ class MasterUserController extends Controller
     {
         $rules = [
             'name' => 'required|string',
-            'password' => 'required|string',
-            'role' => 'required|string'
+            'role' => 'required|string',
+            'password' => 'nullable'
         ];
 
-        $query = $user->select('email', 'telp')->where('id', $id)->first();
+        $oldData = $user->select('email', 'telp')->where('id', $id)->first();
 
-        if ($request->email != $query->email){
+        if ($request->email != $oldData->email){
             $rules['email'] = 'required|email|unique:users,email';
         }
 
-        if($request->telp != $query->telp){
+        if($request->telp != $oldData->telp){
             $rules['telp'] = 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:14|unique:users,telp';
         }
 
         $validatedData = $request->validate($rules);
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
+        if(array_key_exists('password', $validatedData)){
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        };
 
         $user->where('id', $id)->update($validatedData);
 

@@ -43,7 +43,7 @@
                 </div>
                 <div class="mb-6">
                     <x-input-label for="password">Password</x-input-label>
-                    <x-input-text value="{{ $post->password }}" type="password" name="password" id="password" placeholder="Password"></x-input-text>
+                    <x-input-text type="password" name="password" id="password" placeholder="Password"></x-input-text>
                     @error('password')
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
