@@ -150,8 +150,6 @@ class DataLengkapController extends Controller
             
             $validatedData['image'] = $request->file('image')->store('plano');
             DataLengkap::create($validatedData);
-            
-            dd('run');
 
             return redirect()->route('dataLengkap')->with('success', 'Your data has been added successfully!');
             

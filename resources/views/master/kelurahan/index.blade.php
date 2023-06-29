@@ -18,7 +18,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
+                    <th>Kelurahan</th>
                     <th>Kecamatan</th>
                     <th>Dibuat</th>
                     <th>Diedit</th>
@@ -27,6 +27,8 @@
             </thead>
             <tbody>
             </tbody>
+            <tfoot>
+            </tfoot>
         </table>
     </div>
 </x-app-layout>
@@ -41,8 +43,8 @@
             "ajax": "{{ route('ApiMasterKelurahan') }}",
             "columns" : [
                 {"data" : "id"},
-                {"data" : "kelurahan"},
-                {"data" : "kecamatan"},
+                {"data" : "kelurahan", "name" : "master_kelurahans.name"},
+                {"data" : "kecamatan", "name" : "master_kecamatans.name"},
                 {"data" : "created_at"},
                 {"data" : "updated_at"},
                 {"data" : "action"}

@@ -6,7 +6,7 @@
 {{-- <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css"> --}}
 {{-- <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.dataTables.min.css"> --}}
 
-
 <link rel="stylesheet" href="{{ asset('css/dataTables@1.13.4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/dataTables.responsive@2.4.1.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/dataTables.fixed-header@3.3.2.min.css') }}">    
+<link href="https://cdn.datatables.net/searchpanes/2.1.2/css/searchPanes.dataTables.min.css" rel="stylesheet"/>

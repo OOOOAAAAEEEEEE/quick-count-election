@@ -42,8 +42,8 @@
             "ajax": "{{ route('ApiMasterCaleg') }}",
             "columns" : [
                 {"data" : "id"},
-                {"data" : "caleg"},
-                {"data" : "partai"},
+                {"data" : "caleg", "name" : "master_calegs.name"},
+                {"data" : "partai", "name" : "master_partais.name"},
                 {"data" : "gender"},
                 {"data" : "created_at"},
                 {"data" : "updated_at"},

@@ -17,19 +17,19 @@ class APiFetchController extends Controller
     public function MasterKecamatanData(){
         return DataTables::of(MasterKecamatan::query())
         ->addColumn('action', 'components.action-icon')
-        ->make(true);
+        ->toJson();
     }
 
     public function MasterPartaiData(){
         return DataTables::of(MasterPartai::query())
         ->addColumn('action', 'components.action-icon')
-        ->make(true);
+        ->toJson();
     }
 
     public function MasterUserData(){
         return DataTables::of(User::query())
         ->addColumn('action', 'components.action-icon')
-        ->make(true);
+        ->toJson();
     }
 
     public function DataLengkap(){
@@ -80,7 +80,7 @@ class APiFetchController extends Controller
         ->join('suara_groups', 'data_lengkaps.suara_group_id', 'suara_groups.id')
         ->join('master_partais', 'data_lengkaps.partai_id', 'master_partais.id'))
         ->addColumn('action', 'components.action-icon')
-        ->make(true);
+        ->toJson();
     }
 
     public function DataLengkapMember($user_id){
@@ -132,10 +132,9 @@ class APiFetchController extends Controller
         ->join('master_kelurahans', 'data_lengkaps.kelurahan_id', 'master_kelurahans.id')
         ->join('caleg_groups', 'data_lengkaps.caleg_group_id', 'caleg_groups.id')
         ->join('suara_groups', 'data_lengkaps.suara_group_id', 'suara_groups.id')
-        ->join('master_partais', 'data_lengkaps.partai_id', 'master_partais.id')
-        ->limit(100))
+        ->join('master_partais', 'data_lengkaps.partai_id', 'master_partais.id'))
         ->addColumn('action', 'components.action-icon')
-        ->make(true);
+        ->toJson();
     }
 
     public function MasterCalegData(){
@@ -147,10 +146,9 @@ class APiFetchController extends Controller
             master_calegs.created_at,
             master_calegs.updated_at
         ')
-        ->join('master_partais', 'master_calegs.partai_id', '=', 'master_partais.id')
-        ->get())
+        ->join('master_partais', 'master_calegs.partai_id', '=', 'master_partais.id'))
         ->addColumn('action', 'components.action-icon')
-        ->make(true);
+        ->toJson();
     }
 
     public function MasterKelurahanData(){
@@ -160,9 +158,8 @@ class APiFetchController extends Controller
                 master_kecamatans.name AS kecamatan,
                 master_kelurahans.created_at,
                 master_kelurahans.updated_at ')
-        ->join('master_kecamatans', 'master_kelurahans.kecamatan_id', '=', 'master_kecamatans.id')
-        ->get())
+        ->join('master_kecamatans', 'master_kelurahans.kecamatan_id', '=', 'master_kecamatans.id'))
         ->addColumn('action', 'components.action-icon')
-        ->make(true);
+        ->toJson();
     }
 }

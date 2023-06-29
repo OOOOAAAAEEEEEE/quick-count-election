@@ -19,20 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/data/master-kecamatan', [APiFetchController::class, 'MasterKecamatanData'])->name('ApiMasterKecamatan');
-    Route::get('/data/master-kelurahan', [APiFetchController::class, 'MasterKelurahanData'])->name('ApiMasterKelurahan');
-    Route::get('/data/master-caleg', [APiFetchController::class, 'MasterCalegData'])->name('ApiMasterCaleg');
-    Route::get('/data/master-partai', [APiFetchController::class, 'MasterPartaiData'])->name('ApiMasterPartai');
-    Route::get('/data/master-user', [APiFetchController::class, 'MasterUserData'])->name('ApiMasterUser');
-    Route::get('/data/dataLengkap', [APiFetchController::class, 'DataLengkap'])->name('ApiDataLengkap');
-    Route::get('/data/dataLengkapMember/{user_id}', [APiFetchController::class, 'DataLengkapMember'])->name('ApiDataLengkapMember');
+Route::middleware('auth:sanctum')->group( function (){
 });
 
-// Route::get('/data/master-kecamatan', [APiFetchController::class, 'MasterKecamatanData'])->name('ApiMasterKecamatan');
-// Route::get('/data/master-kelurahan', [APiFetchController::class, 'MasterKelurahanData'])->name('ApiMasterKelurahan');
-// Route::get('/data/master-caleg', [APiFetchController::class, 'MasterCalegData'])->name('ApiMasterCaleg');
-// Route::get('/data/master-partai', [APiFetchController::class, 'MasterPartaiData'])->name('ApiMasterPartai');
-// Route::get('/data/master-user', [APiFetchController::class, 'MasterUserData'])->name('ApiMasterUser');
-// Route::get('/data/dataLengkap', [APiFetchController::class, 'DataLengkap'])->name('ApiDataLengkap');
-// Route::get('/data/dataLengkapMember/{user_id}', [APiFetchController::class, 'DataLengkapMember'])->name('ApiDataLengkapMember');
+Route::get('/data/master-kecamatan', [APiFetchController::class, 'MasterKecamatanData'])->name('ApiMasterKecamatan');
+Route::get('/data/master-kelurahan', [APiFetchController::class, 'MasterKelurahanData'])->name('ApiMasterKelurahan');
+Route::get('/data/master-caleg', [APiFetchController::class, 'MasterCalegData'])->name('ApiMasterCaleg');
+Route::get('/data/master-partai', [APiFetchController::class, 'MasterPartaiData'])->name('ApiMasterPartai');
+Route::get('/data/master-user', [APiFetchController::class, 'MasterUserData'])->name('ApiMasterUser');
+Route::get('/data/dataLengkap', [APiFetchController::class, 'DataLengkap'])->name('ApiDataLengkap');
+Route::get('/data/dataLengkapMember/{user_id}', [APiFetchController::class, 'DataLengkapMember'])->name('ApiDataLengkapMember');

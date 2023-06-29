@@ -25,7 +25,7 @@
                     </div>
                 </header>
             @endif
-            
+
             <!-- Page Content -->
             <main>
                 @if (session()->has('success'))
