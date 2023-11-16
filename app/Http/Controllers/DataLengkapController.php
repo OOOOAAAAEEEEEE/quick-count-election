@@ -46,9 +46,10 @@ class DataLengkapController extends Controller
     {
 
         $request->validate([
+            'user_id' => 'required|numeric',
+            'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
             'rw' => 'required|numeric',
             'rt' => 'required|numeric',
             'no_tps' => 'required|numeric',
@@ -58,7 +59,28 @@ class DataLengkapController extends Controller
             'total_ssr' => 'required|numeric',
             'pemilih_hadir' => 'required|numeric',
             'pemilih_tidak_hadir' => 'required|numeric',
-            'image' => 'required|image|max:10240',
+            'partai_id' => 'required|numeric',
+            'caleg1' => 'string|required',
+            'suara1' => 'numeric|required',
+            'caleg2' => 'string|required',
+            'suara2' => 'numeric|required',
+            'caleg3' => 'string|required',
+            'suara3' => 'numeric|required',
+            'caleg4' => 'string|required',
+            'suara4' => 'numeric|required',
+            'caleg5' => 'string|required',
+            'suara5' => 'numeric|required',
+            'caleg6' => 'string|required',
+            'suara6' => 'numeric|required',
+            'caleg7' => 'string|required',
+            'suara7' => 'numeric|required',
+            'caleg8' => 'string|required',
+            'suara8' => 'numeric|required',
+            'caleg9' => 'string|required',
+            'suara9' => 'numeric|required',
+            'caleg10' => 'string|required',
+            'suara10' => 'numeric|required',
+            'image' => 'required|image|max:10240'
         ]);
 
         $validatedCaleg = $request->validate([
@@ -98,9 +120,10 @@ class DataLengkapController extends Controller
         SuaraGroup::create($validatedSuara);
 
         $validatedData = Validator::make($request->all(), [
+            'user_id' => 'required|numeric',
+            'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
             'rw' => 'required|numeric',
             'rt' => 'required|numeric',
             'no_tps' => 'required|numeric',
@@ -110,7 +133,8 @@ class DataLengkapController extends Controller
             'total_ssr' => 'required|numeric',
             'pemilih_hadir' => 'required|numeric',
             'pemilih_tidak_hadir' => 'required|numeric',
-            'image' => 'required|image|max:10240',
+            'partai_id' => 'required|numeric',
+            'image' => 'required|image|max:10240'
         ]);
 
         if($validatedData->fails()){

@@ -137,11 +137,15 @@
                         <option value="{{ $partai->id }}">{{ $partai->name }}</option>
                     @endforeach
                 </x-select-input>
-                    @error('partai_id')
+                    @if ($errors->has('partai_id') || $errors->has('suara1') || $errors->has('suara2') || $errors->has('suara3') || $errors->has('suara4') ||
+                        $errors->has('suara5') || $errors->has('suara6') || $errors->has('suara7') || $errors->has('suara8') || $errors->has('suara9') || 
+                        $errors->has('suara10'))
                         <p class="text-red-500 text-sm">
-                            {{ $message }}
+                            {{ $errors->first('partai_id') }} {{ $errors->first('suara1') }} {{ $errors->first('suara2') }} {{ $errors->first('suara3') }} 
+                            {{ $errors->first('suara4') }} {{ $errors->first('suara5') }} {{ $errors->first('suara6') }} {{ $errors->first('suara7') }} 
+                            {{ $errors->first('suara8') }} {{ $errors->first('suara9') }} {{ $errors->first('suara10') }}
                         </p>
-                    @enderror
+                    @endif
             </div>
             <div id="unhide" class="hidden">
                 <div id="inputValue" class="grid gap-6 mb-6 p-3 rounded-xl md:grid-cols-2 bg-slate-200">
