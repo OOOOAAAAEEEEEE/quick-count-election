@@ -26,14 +26,14 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware("guest");
 
-Route::controller(DataLengkapMemberController::class)->prefix('/member/')->group(function(){
-    Route::get('dataLengkap', 'index')->name('dataLengkapMember')->middleware('auth');
-    Route::get('dataLengkap/create', 'create')->name('dataLengkapMemberCreate')->middleware('auth');
-    Route::post('dataLengkap/store', 'store')->name('dataLengkapMemberStore')->middleware('auth');
-    Route::get('dataLengkap/{id}/show', 'show')->name('dataLengkapMemberShow')->middleware('auth');
-    Route::get('dataLengkap/{id}/edit', 'edit')->name('dataLengkapMemberEdit')->middleware('auth');
-    Route::patch('dataLengkap/{id}', 'update')->name('dataLengkapMemberUpdate')->middleware('auth');
-    Route::delete('dataLengkap/delete/{id}', 'destroy')->name('dataLengkapMemberDelete')->middleware('auth');
+Route::controller(DataLengkapMemberController::class)->prefix('/member/')->middleware('auth')->group(function(){
+    Route::get('dataLengkap', 'index')->name('dataLengkapMember');
+    Route::get('dataLengkap/create', 'create')->name('dataLengkapMemberCreate');
+    Route::post('dataLengkap/store', 'store')->name('dataLengkapMemberStore');
+    Route::get('dataLengkap/{id}/show', 'show')->name('dataLengkapMemberShow');
+    Route::get('dataLengkap/{id}/edit', 'edit')->name('dataLengkapMemberEdit');
+    Route::patch('dataLengkap/{id}', 'update')->name('dataLengkapMemberUpdate');
+    Route::delete('dataLengkap/delete/{id}', 'destroy')->name('dataLengkapMemberDelete');
 });
 
 Route::controller(DashboardController::class)->group(function(){
