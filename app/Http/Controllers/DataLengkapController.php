@@ -114,7 +114,7 @@ class DataLengkapController extends Controller
         ]);
 
         if($validatedData->fails()){
-           
+
             CalegGroup::where('no_tps', $request->no_tps)
             ->where('kelurahan_id', $request->kelurahan_id)
             ->where('partai_id', $request->partai_id)
@@ -128,7 +128,6 @@ class DataLengkapController extends Controller
             return redirect()->route('dataLengkapCreate')
             ->withErrors($validatedData)
             ->withInput();
-            dd('error');
         }else{
             $validatedData = $validatedData->validate();
             

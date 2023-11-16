@@ -10,6 +10,7 @@ use App\Models\MasterCaleg;
 use App\Models\MasterPartai;
 use App\Models\DataLengkap;
 use App\Models\User;
+use Database\Factories\DataLengkapFactory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -200,5 +201,7 @@ class DatabaseSeeder extends Seeder
         MasterPartai::create(['name' => 'DEMOKRAT']);
 
         //END MASTER PARTAI
+
+        DataLengkap::factory()->count(100000)->create();
     }
 }
