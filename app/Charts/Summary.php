@@ -3,8 +3,8 @@
 namespace App\Charts;
 
 use ArielMejiaDev\LarapexCharts\LarapexChart;
-use App\Models\DataLengkap;
 use App\Models\MasterCaleg;
+use App\Models\MasterPartai;
 use App\Models\SuaraGroup;
 
 class Summary
@@ -80,7 +80,7 @@ class Summary
 
         return $this->chart->donutChart()
             ->setTitle('Summary Perolehan Suara By Caleg')
-            ->setSubtitle('PDIP')
+            ->setSubtitle(MasterPartai::selectRaw('name')->where('id', 1)->value('name'))
             ->addData([$suara1, $suara2, $suara3, $suara4, $suara5, $suara6, $suara7, $suara8, $suara9, $suara10])
             ->setLabels(MasterCaleg::select('name')->where('partai_id', 1)->pluck('name')->toArray());
     }
