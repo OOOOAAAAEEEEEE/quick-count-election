@@ -202,6 +202,6 @@ class DatabaseSeeder extends Seeder
 
         //END MASTER PARTAI
 
-        DataLengkap::factory()->count(100000)->create();
+        // DataLengkap::factory()->count(100000)->create();
     }
 }

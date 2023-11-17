@@ -16,12 +16,8 @@
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
         <form method="POST" action="{{ route('dataLengkapMemberStore') }}" enctype="multipart/form-data">
             @csrf
-
-            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
-                    <input type="hidden" name="uuid" value="{{ Str::uuid() }}">
                     <x-input-label for="kecamatan_id">Kecamatan</x-input-label>
                     <x-select-input id="kecamatan_id" name="kecamatan_id">
                         <option value="">PILIH KECAMATAN</option>
@@ -141,11 +137,15 @@
                         <option value="{{ $partai->id }}">{{ $partai->name }}</option>
                     @endforeach
                 </x-select-input>
-                    @error('partai_id')
+                    @if ($errors->has('partai_id') || $errors->has('suara1') || $errors->has('suara2') || $errors->has('suara3') || $errors->has('suara4') ||
+                        $errors->has('suara5') || $errors->has('suara6') || $errors->has('suara7') || $errors->has('suara8') || $errors->has('suara9') || 
+                        $errors->has('suara10'))
                         <p class="text-red-500 text-sm">
-                            {{ $message }}
+                            {{ $errors->first('partai_id') }} {{ $errors->first('suara1') }} {{ $errors->first('suara2') }} {{ $errors->first('suara3') }} 
+                            {{ $errors->first('suara4') }} {{ $errors->first('suara5') }} {{ $errors->first('suara6') }} {{ $errors->first('suara7') }} 
+                            {{ $errors->first('suara8') }} {{ $errors->first('suara9') }} {{ $errors->first('suara10') }}
                         </p>
-                    @enderror
+                    @endif
             </div>
             <div id="unhide" class="hidden">
                 <div id="inputValue" class="grid gap-6 mb-6 p-3 rounded-xl md:grid-cols-2 bg-slate-200">
@@ -166,7 +166,7 @@
             </div>
             <div class="flex items-start my-10">
                 <div class="flex items-center h-5">
-                <input id="agree" name="agree" type="checkbox" value="true" class="w-9 h-9 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
+                <input id="agree" name="agree" required type="checkbox" value="true" class="w-9 h-9 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
                 </div>
                 <label for="agree" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Klik tombol ini jika anda sudah yakin dengan isian anda!! </label>
                 @error('agree')

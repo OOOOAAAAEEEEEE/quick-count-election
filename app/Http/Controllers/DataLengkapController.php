@@ -48,7 +48,6 @@ class DataLengkapController extends Controller
         $request->validate([
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
             'rw' => 'required|numeric',
             'rt' => 'required|numeric',
             'no_tps' => 'required|numeric',
@@ -58,7 +57,28 @@ class DataLengkapController extends Controller
             'total_ssr' => 'required|numeric',
             'pemilih_hadir' => 'required|numeric',
             'pemilih_tidak_hadir' => 'required|numeric',
-            'image' => 'required|image|max:10240',
+            'partai_id' => 'required|numeric',
+            'caleg1' => 'string|required',
+            'suara1' => 'numeric|required',
+            'caleg2' => 'string|required',
+            'suara2' => 'numeric|required',
+            'caleg3' => 'string|required',
+            'suara3' => 'numeric|required',
+            'caleg4' => 'string|required',
+            'suara4' => 'numeric|required',
+            'caleg5' => 'string|required',
+            'suara5' => 'numeric|required',
+            'caleg6' => 'string|required',
+            'suara6' => 'numeric|required',
+            'caleg7' => 'string|required',
+            'suara7' => 'numeric|required',
+            'caleg8' => 'string|required',
+            'suara8' => 'numeric|required',
+            'caleg9' => 'string|required',
+            'suara9' => 'numeric|required',
+            'caleg10' => 'string|required',
+            'suara10' => 'numeric|required',
+            'image' => 'required|image|max:10240'
         ]);
 
         $validatedCaleg = $request->validate([
@@ -100,7 +120,6 @@ class DataLengkapController extends Controller
         $validatedData = Validator::make($request->all(), [
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
             'rw' => 'required|numeric',
             'rt' => 'required|numeric',
             'no_tps' => 'required|numeric',
@@ -110,7 +129,8 @@ class DataLengkapController extends Controller
             'total_ssr' => 'required|numeric',
             'pemilih_hadir' => 'required|numeric',
             'pemilih_tidak_hadir' => 'required|numeric',
-            'image' => 'required|image|max:10240',
+            'partai_id' => 'required|numeric',
+            'image' => 'required|image|max:10240'
         ]);
 
         if($validatedData->fails()){
@@ -182,6 +202,43 @@ class DataLengkapController extends Controller
      */
     public function update(Request $request, DataLengkap $dataLengkap, $id)
     {
+    // dd($request->all());
+        if(array_key_exists('caleg1', $request->all())){
+            $request->validate([
+                'kecamatan_id' => 'required|numeric',
+                'kelurahan_id' => 'required|numeric',
+                'rw' => 'required|numeric',
+                'rt' => 'required|numeric',
+                'no_tps' => 'required|numeric',
+                'total_dpt' => 'required|numeric',
+                'total_sss' => 'required|numeric',
+                'total_ssts' => 'required|numeric',
+                'total_ssr' => 'required|numeric',
+                'pemilih_hadir' => 'required|numeric',
+                'pemilih_tidak_hadir' => 'required|numeric',
+                'partai_id' => 'required|numeric',
+                'caleg1' => 'string|required',
+                'suara1' => 'numeric|required',
+                'caleg2' => 'string|required',
+                'suara2' => 'numeric|required',
+                'caleg3' => 'string|required',
+                'suara3' => 'numeric|required',
+                'caleg4' => 'string|required',
+                'suara4' => 'numeric|required',
+                'caleg5' => 'string|required',
+                'suara5' => 'numeric|required',
+                'caleg6' => 'string|required',
+                'suara6' => 'numeric|required',
+                'caleg7' => 'string|required',
+                'suara7' => 'numeric|required',
+                'caleg8' => 'string|required',
+                'suara8' => 'numeric|required',
+                'caleg9' => 'string|required',
+                'suara9' => 'numeric|required',
+                'caleg10' => 'string|required',
+                'suara10' => 'numeric|required',
+            ]);
+        }
 
         $oldData = $dataLengkap->where('uuid', $id)->first();
 
@@ -245,8 +302,6 @@ class DataLengkapController extends Controller
             ->where('partai_id', $oldData->partai_id)
             ->update($validatedSuara);
         }
-
-        
 
         $validatedData = $request->validate([
             'kecamatan_id' => 'required|numeric',
