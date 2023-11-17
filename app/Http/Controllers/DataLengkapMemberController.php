@@ -182,13 +182,15 @@ class DataLengkapMemberController extends Controller
      */
     public function edit(DataLengkap $dataLengkap, $id)
     {
-        return view('details.member.edit', [
-            'post' => $dataLengkap->fetchDataLengkapMember($id),
-            'kecamatans' => MasterKecamatan::all(),
-            'kelurahans' => $dataLengkap->fetchKelurahan()->toJson(),
-            'calegs' => $dataLengkap->fetchCaleg()->toJson(),
-            'partais' => MasterPartai::all()
-        ]);
+        return redirect()->route('dataLengkapMember');
+
+        // return view('details.member.edit', [
+        //     'post' => $dataLengkap->fetchDataLengkapMember($id),
+        //     'kecamatans' => MasterKecamatan::all(),
+        //     'kelurahans' => $dataLengkap->fetchKelurahan()->toJson(),
+        //     'calegs' => $dataLengkap->fetchCaleg()->toJson(),
+        //     'partais' => MasterPartai::all()
+        // ]);
     }
 
     /**
@@ -196,110 +198,110 @@ class DataLengkapMemberController extends Controller
      */
     public function update(Request $request, DataLengkap $dataLengkap, $id)
     {
-        $oldData = $dataLengkap->where('uuid', $id)->first();
+        // $oldData = $dataLengkap->where('uuid', $id)->first();
 
-        $validatedCaleg = $request->validate([
-            'no_tps' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'caleg1' => 'string',
-            'caleg2' => 'string',
-            'caleg3' => 'string',
-            'caleg4' => 'string',
-            'caleg5' => 'string',
-            'caleg6' => 'string',
-            'caleg7' => 'string',
-            'caleg8' => 'string',
-            'caleg9' => 'string',
-            'caleg10' => 'string'
-        ]);
+        // $validatedCaleg = $request->validate([
+        //     'no_tps' => 'required|numeric',
+        //     'kelurahan_id' => 'required|numeric',
+        //     'partai_id' => 'required|numeric',
+        //     'caleg1' => 'string',
+        //     'caleg2' => 'string',
+        //     'caleg3' => 'string',
+        //     'caleg4' => 'string',
+        //     'caleg5' => 'string',
+        //     'caleg6' => 'string',
+        //     'caleg7' => 'string',
+        //     'caleg8' => 'string',
+        //     'caleg9' => 'string',
+        //     'caleg10' => 'string'
+        // ]);
 
-        if(array_key_exists('caleg1', $validatedCaleg)){
-            CalegGroup::where('no_tps', $oldData->no_tps)
-            ->where('kelurahan_id', $oldData->kelurahan_id)
-            ->where('partai_id', $oldData->partai_id)
-            ->delete();
+        // if(array_key_exists('caleg1', $validatedCaleg)){
+        //     CalegGroup::where('no_tps', $oldData->no_tps)
+        //     ->where('kelurahan_id', $oldData->kelurahan_id)
+        //     ->where('partai_id', $oldData->partai_id)
+        //     ->delete();
 
-            CalegGroup::create($validatedCaleg);
-        }else{
-            CalegGroup::where('no_tps', $oldData->no_tps)
-            ->where('kelurahan_id', $oldData->kelurahan_id)
-            ->where('partai_id', $oldData->partai_id)
-            ->update($validatedCaleg);
-        }
+        //     CalegGroup::create($validatedCaleg);
+        // }else{
+        //     CalegGroup::where('no_tps', $oldData->no_tps)
+        //     ->where('kelurahan_id', $oldData->kelurahan_id)
+        //     ->where('partai_id', $oldData->partai_id)
+        //     ->update($validatedCaleg);
+        // }
 
 
-        $validatedSuara = $request->validate([
-            'no_tps' => 'numeric|required',
-            'kelurahan_id' => 'numeric|required',
-            'partai_id' => 'numeric|required',
-            'suara1' => 'numeric',
-            'suara2' => 'numeric',
-            'suara3' => 'numeric',
-            'suara4' => 'numeric',
-            'suara5' => 'numeric',
-            'suara6' => 'numeric',
-            'suara7' => 'numeric',
-            'suara8' => 'numeric',
-            'suara9' => 'numeric',
-            'suara10' => 'numeric'
-        ]);
+        // $validatedSuara = $request->validate([
+        //     'no_tps' => 'numeric|required',
+        //     'kelurahan_id' => 'numeric|required',
+        //     'partai_id' => 'numeric|required',
+        //     'suara1' => 'numeric',
+        //     'suara2' => 'numeric',
+        //     'suara3' => 'numeric',
+        //     'suara4' => 'numeric',
+        //     'suara5' => 'numeric',
+        //     'suara6' => 'numeric',
+        //     'suara7' => 'numeric',
+        //     'suara8' => 'numeric',
+        //     'suara9' => 'numeric',
+        //     'suara10' => 'numeric'
+        // ]);
 
-        if(array_key_exists('suara1', $validatedSuara)){
-            SuaraGroup::where('no_tps', $oldData->no_tps)
-            ->where('kelurahan_id', $oldData->kelurahan_id)
-            ->where('partai_id', $oldData->partai_id)
-            ->delete();
+        // if(array_key_exists('suara1', $validatedSuara)){
+        //     SuaraGroup::where('no_tps', $oldData->no_tps)
+        //     ->where('kelurahan_id', $oldData->kelurahan_id)
+        //     ->where('partai_id', $oldData->partai_id)
+        //     ->delete();
 
-            SuaraGroup::create($validatedSuara);
-        }else{
-            SuaraGroup::where('no_tps', $oldData->no_tps)
-            ->where('kelurahan_id', $oldData->kelurahan_id)
-            ->where('partai_id', $oldData->partai_id)
-            ->update($validatedSuara);
-        }
+        //     SuaraGroup::create($validatedSuara);
+        // }else{
+        //     SuaraGroup::where('no_tps', $oldData->no_tps)
+        //     ->where('kelurahan_id', $oldData->kelurahan_id)
+        //     ->where('partai_id', $oldData->partai_id)
+        //     ->update($validatedSuara);
+        // }
 
         
 
-        $validatedData = $request->validate([
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'image' => '|file|image|max:10240'
-        ]);
+        // $validatedData = $request->validate([
+        //     'kecamatan_id' => 'required|numeric',
+        //     'kelurahan_id' => 'required|numeric',
+        //     'partai_id' => 'required|numeric',
+        //     'rw' => 'required|numeric',
+        //     'rt' => 'required|numeric',
+        //     'no_tps' => 'required|numeric',
+        //     'total_dpt' => 'required|numeric',
+        //     'total_sss' => 'required|numeric',
+        //     'total_ssts' => 'required|numeric',
+        //     'total_ssr' => 'required|numeric',
+        //     'pemilih_hadir' => 'required|numeric',
+        //     'pemilih_tidak_hadir' => 'required|numeric',
+        //     'image' => '|file|image|max:10240'
+        // ]);
 
-        $validatedData['caleg_group_id'] = CalegGroup::select('id')
-        ->where('no_tps', $request->no_tps)
-        ->where('kelurahan_id', $request->kelurahan_id)
-        ->where('partai_id', $request->partai_id)
-        ->value('id');
+        // $validatedData['caleg_group_id'] = CalegGroup::select('id')
+        // ->where('no_tps', $request->no_tps)
+        // ->where('kelurahan_id', $request->kelurahan_id)
+        // ->where('partai_id', $request->partai_id)
+        // ->value('id');
 
-        $validatedData['suara_group_id'] = SuaraGroup::select('id')
-        ->where('no_tps', $request->no_tps)
-        ->where('kelurahan_id', $request->kelurahan_id)
-        ->where('partai_id', $request->partai_id)
-        ->value('id');
+        // $validatedData['suara_group_id'] = SuaraGroup::select('id')
+        // ->where('no_tps', $request->no_tps)
+        // ->where('kelurahan_id', $request->kelurahan_id)
+        // ->where('partai_id', $request->partai_id)
+        // ->value('id');
 
-        if (array_key_exists('image', $validatedData)) {
-            $post = $dataLengkap->where('uuid', $id)->first();
+        // if (array_key_exists('image', $validatedData)) {
+        //     $post = $dataLengkap->where('uuid', $id)->first();
 
-            Storage::delete($post->image);
+        //     Storage::delete($post->image);
 
-            $validatedData['image'] = $request->file('image')->store('plano');
-        }
+        //     $validatedData['image'] = $request->file('image')->store('plano');
+        // }
 
-        $dataLengkap->where('uuid', $id)->update($validatedData);
+        // $dataLengkap->where('uuid', $id)->update($validatedData);
 
-        return redirect()->route('dataLengkapMember')->with('success', 'Your data has been updated successfully!');
+        // return redirect()->route('dataLengkapMember')->with('success', 'Your data has been updated successfully!');
     }
 
     /**

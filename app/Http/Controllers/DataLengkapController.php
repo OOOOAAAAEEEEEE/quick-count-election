@@ -266,8 +266,6 @@ class DataLengkapController extends Controller
             ->update($validatedSuara);
         }
 
-        
-
         $validatedData = $request->validate([
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',

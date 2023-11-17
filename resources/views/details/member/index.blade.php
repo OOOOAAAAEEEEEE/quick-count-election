@@ -53,7 +53,7 @@
                     <th>Suara9</th>
                     <th>Caleg10</th>
                     <th>Suara10</th>
-                    <th>Aksi</th>
+                    {{-- <th>Aksi</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -112,8 +112,8 @@
                 {"data" : "caleg9"},
                 {"data" : "suara9"},
                 {"data" : "caleg10"},
-                {"data" : "suara10"},
-                {"data" : "action"}
+                {"data" : "suara10"}
+                // {"data" : "action"}
             ]
         });
     });
