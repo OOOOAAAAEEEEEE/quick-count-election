@@ -7,7 +7,7 @@ use App\Models\MasterPartai;
 use App\Models\MasterKecamatan;
 use App\Models\CalegGroup;
 use App\Models\SuaraGroup;
-use Illuminate\Contracts\Support\ValidatedData;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -41,8 +41,6 @@ class DataLengkapMemberController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|numeric',
-            'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
             'rw' => 'required|numeric',
@@ -115,8 +113,6 @@ class DataLengkapMemberController extends Controller
         SuaraGroup::create($validatedSuara);
 
         $validatedData = Validator::make($request->all(), [
-            'user_id' => 'required|numeric',
-            'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
             'rw' => 'required|numeric',
@@ -149,6 +145,10 @@ class DataLengkapMemberController extends Controller
             ->withInput();
         }else{
             $validatedData = $validatedData->validate();
+
+            $validatedData['uuid'] = Str::uuid();
+            
+            $validatedData['user_id'] = auth()->user()->id;
 
             $validatedData['caleg_group_id'] = CalegGroup::select('id')
             ->where('no_tps', $validatedData['no_tps'])

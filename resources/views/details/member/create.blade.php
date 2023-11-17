@@ -16,12 +16,8 @@
     <div class="max-w-sm lg:max-w-7xl mx-auto mb-5">
         <form method="POST" action="{{ route('dataLengkapMemberStore') }}" enctype="multipart/form-data">
             @csrf
-
-            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
-                    <input type="hidden" name="uuid" value="{{ Str::uuid() }}">
                     <x-input-label for="kecamatan_id">Kecamatan</x-input-label>
                     <x-select-input id="kecamatan_id" name="kecamatan_id">
                         <option value="">PILIH KECAMATAN</option>

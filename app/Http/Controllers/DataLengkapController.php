@@ -46,8 +46,6 @@ class DataLengkapController extends Controller
     {
 
         $request->validate([
-            'user_id' => 'required|numeric',
-            'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
             'rw' => 'required|numeric',
@@ -120,8 +118,6 @@ class DataLengkapController extends Controller
         SuaraGroup::create($validatedSuara);
 
         $validatedData = Validator::make($request->all(), [
-            'user_id' => 'required|numeric',
-            'uuid' => 'required|string',
             'kecamatan_id' => 'required|numeric',
             'kelurahan_id' => 'required|numeric',
             'rw' => 'required|numeric',
