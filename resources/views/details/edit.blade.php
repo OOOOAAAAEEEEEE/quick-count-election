@@ -250,15 +250,19 @@ filterKelurahan();
 
     let buttonSubmit = document.getElementById("submit");
     let elementClicked = false;
+    let checkbox = document.getElementById("agree");
 
+    checkbox.addEventListener("change", () => {
+    checkbox.disabled = true;
     buttonSubmit.addEventListener("click", function(){
-        if(elementClicked){
+        if(elementClicked && checkbox.checked == true){
             buttonSubmit.disabled = true;
-        };
-
-        console.log("element get clicked");
-
+        }
         elementClicked = true;
     });
+        elementClicked = false;
+        buttonSubmit.disabled = false;
+});
+
 
 </script>
