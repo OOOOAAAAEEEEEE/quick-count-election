@@ -8,6 +8,7 @@ use App\Models\SuaraGroup;
 use App\Models\MasterKecamatan;
 use App\Models\MasterPartai;
 use App\Exports\DataExport;
+use App\Models\MasterCaleg;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -58,62 +59,28 @@ class DataLengkapController extends Controller
             'pemilih_hadir' => 'required|numeric',
             'pemilih_tidak_hadir' => 'required|numeric',
             'partai_id' => 'required|numeric',
-            'caleg1' => 'string|required',
-            'suara1' => 'numeric|required',
-            'caleg2' => 'string|required',
-            'suara2' => 'numeric|required',
-            'caleg3' => 'string|required',
-            'suara3' => 'numeric|required',
-            'caleg4' => 'string|required',
-            'suara4' => 'numeric|required',
-            'caleg5' => 'string|required',
-            'suara5' => 'numeric|required',
-            'caleg6' => 'string|required',
-            'suara6' => 'numeric|required',
-            'caleg7' => 'string|required',
-            'suara7' => 'numeric|required',
-            'caleg8' => 'string|required',
-            'suara8' => 'numeric|required',
-            'caleg9' => 'string|required',
-            'suara9' => 'numeric|required',
-            'caleg10' => 'string|required',
-            'suara10' => 'numeric|required',
             'image' => 'required|image|max:10240'
         ]);
 
-        $validatedCaleg = $request->validate([
-            'no_tps' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'caleg1' => 'string|required',
-            'caleg2' => 'string|required',
-            'caleg3' => 'string|required',
-            'caleg4' => 'string|required',
-            'caleg5' => 'string|required',
-            'caleg6' => 'string|required',
-            'caleg7' => 'string|required',
-            'caleg8' => 'string|required',
-            'caleg9' => 'string|required',
-            'caleg10' => 'string|required'
-        ]);
+        $jmlCaleg = MasterCaleg::select('id')->where('partai_id', $request->partai_id)->count();;
+        for($i = 1; $i <= $jmlCaleg; $i++){
+            $request->validate([
+                "caleg$i" => 'required|string',
+                "suara$i" => 'required|string'
+            ]);
+        }
+
+        $validatedCaleg = $request->except(
+            '_token', 'kecamatan_id', 'rw', 'rt', 'total_dpt', 'total_sss', 'total_ssts', 'total_ssr', 'pemilih_hadir', 'image', 'agree',
+            'pemilih_tidak_hadir', 'suara1', 'suara2', 'suara3', 'suara3', 'suara4', 'suara5', 'suara6', 'suara7', 'suara8', 'suara9', 'suara10'  
+        );
 
         CalegGroup::create($validatedCaleg);
 
-        $validatedSuara = $request->validate([
-            'no_tps' => 'numeric|required',
-            'kelurahan_id' => 'numeric|required',
-            'partai_id' => 'numeric|required',
-            'suara1' => 'numeric|required',
-            'suara2' => 'numeric|required',
-            'suara3' => 'numeric|required',
-            'suara4' => 'numeric|required',
-            'suara5' => 'numeric|required',
-            'suara6' => 'numeric|required',
-            'suara7' => 'numeric|required',
-            'suara8' => 'numeric|required',
-            'suara9' => 'numeric|required',
-            'suara10' => 'numeric|required'
-        ]);
+        $validatedSuara = $request->except(
+            '_token', 'kecamatan_id', 'rw', 'rt', 'total_dpt', 'total_sss', 'total_ssts', 'total_ssr', 'pemilih_hadir', 'image', 'agree',
+            'pemilih_tidak_hadir', 'caleg1', 'caleg2', 'caleg3', 'caleg3', 'caleg4', 'caleg5', 'caleg6', 'caleg7', 'caleg8', 'caleg9', 'caleg10'  
+        );
 
         SuaraGroup::create($validatedSuara);
 
@@ -202,7 +169,6 @@ class DataLengkapController extends Controller
      */
     public function update(Request $request, DataLengkap $dataLengkap, $id)
     {
-    // dd($request->all());
         if(array_key_exists('caleg1', $request->all())){
             $request->validate([
                 'kecamatan_id' => 'required|numeric',
