@@ -169,105 +169,53 @@ class DataLengkapController extends Controller
      */
     public function update(Request $request, DataLengkap $dataLengkap, $id)
     {
-        if(array_key_exists('caleg1', $request->all())){
-            $request->validate([
-                'kecamatan_id' => 'required|numeric',
-                'kelurahan_id' => 'required|numeric',
-                'rw' => 'required|numeric',
-                'rt' => 'required|numeric',
-                'no_tps' => 'required|numeric',
-                'total_dpt' => 'required|numeric',
-                'total_sss' => 'required|numeric',
-                'total_ssts' => 'required|numeric',
-                'total_ssr' => 'required|numeric',
-                'pemilih_hadir' => 'required|numeric',
-                'pemilih_tidak_hadir' => 'required|numeric',
-                'partai_id' => 'required|numeric',
-                'caleg1' => 'string|required',
-                'suara1' => 'numeric|required',
-                'caleg2' => 'string|required',
-                'suara2' => 'numeric|required',
-                'caleg3' => 'string|required',
-                'suara3' => 'numeric|required',
-                'caleg4' => 'string|required',
-                'suara4' => 'numeric|required',
-                'caleg5' => 'string|required',
-                'suara5' => 'numeric|required',
-                'caleg6' => 'string|required',
-                'suara6' => 'numeric|required',
-                'caleg7' => 'string|required',
-                'suara7' => 'numeric|required',
-                'caleg8' => 'string|required',
-                'suara8' => 'numeric|required',
-                'caleg9' => 'string|required',
-                'suara9' => 'numeric|required',
-                'caleg10' => 'string|required',
-                'suara10' => 'numeric|required',
-            ]);
-        }
+
+        $request->validate([
+            'kecamatan_id' => 'required|numeric',
+            'kelurahan_id' => 'required|numeric',
+            'rw' => 'required|numeric',
+            'rt' => 'required|numeric',
+            'no_tps' => 'required|numeric',
+            'total_dpt' => 'required|numeric',
+            'total_sss' => 'required|numeric',
+            'total_ssts' => 'required|numeric',
+            'total_ssr' => 'required|numeric',
+            'pemilih_hadir' => 'required|numeric',
+            'pemilih_tidak_hadir' => 'required|numeric',
+            'partai_id' => 'required|numeric',
+        ]);
 
         $oldData = $dataLengkap->where('uuid', $id)->first();
 
-        $validatedCaleg = $request->validate([
-            'no_tps' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'caleg1' => 'string',
-            'caleg2' => 'string',
-            'caleg3' => 'string',
-            'caleg4' => 'string',
-            'caleg5' => 'string',
-            'caleg6' => 'string',
-            'caleg7' => 'string',
-            'caleg8' => 'string',
-            'caleg9' => 'string',
-            'caleg10' => 'string'
-        ]);
-
-        if(array_key_exists('caleg1', $validatedCaleg)){
-            CalegGroup::where('no_tps', $oldData->no_tps)
-            ->where('kelurahan_id', $oldData->kelurahan_id)
-            ->where('partai_id', $oldData->partai_id)
-            ->delete();
-
-            CalegGroup::create($validatedCaleg);
-        }else{
-            CalegGroup::where('no_tps', $oldData->no_tps)
-            ->where('kelurahan_id', $oldData->kelurahan_id)
-            ->where('partai_id', $oldData->partai_id)
-            ->update($validatedCaleg);
+        if(array_key_exists('caleg1', $request->all())){
+            $jmlCaleg = MasterCaleg::select('id')->where('partai_id', $request->partai_id)->count();;
+            for($i = 1; $i <= $jmlCaleg; $i++){
+                $request->validate([
+                    "caleg$i" => 'required|string',
+                    "suara$i" => 'required|string'
+                ]);
+            }
         }
 
+        $validatedCaleg = $request->except(
+            '_token', '_method', 'kecamatan_id', 'rw', 'rt', 'total_dpt', 'total_sss', 'total_ssts', 'total_ssr', 'pemilih_hadir', 'image', 'agree',
+            'pemilih_tidak_hadir', 'suara1', 'suara2', 'suara3', 'suara3', 'suara4', 'suara5', 'suara6', 'suara7', 'suara8', 'suara9', 'suara10'  
+        );
 
-        $validatedSuara = $request->validate([
-            'no_tps' => 'numeric|required',
-            'kelurahan_id' => 'numeric|required',
-            'partai_id' => 'numeric|required',
-            'suara1' => 'numeric',
-            'suara2' => 'numeric',
-            'suara3' => 'numeric',
-            'suara4' => 'numeric',
-            'suara5' => 'numeric',
-            'suara6' => 'numeric',
-            'suara7' => 'numeric',
-            'suara8' => 'numeric',
-            'suara9' => 'numeric',
-            'suara10' => 'numeric'
-        ]);
+        CalegGroup::where('no_tps', $oldData->no_tps)
+                ->where('kelurahan_id', $oldData->kelurahan_id)
+                ->where('partai_id', $oldData->partai_id)
+                ->update($validatedCaleg);
 
-        if(array_key_exists('suara1', $validatedSuara)){
-            SuaraGroup::where('no_tps', $oldData->no_tps)
-            ->where('kelurahan_id', $oldData->kelurahan_id)
-            ->where('partai_id', $oldData->partai_id)
-            ->delete();
+        $validatedSuara = $request->except(
+            '_token', '_method', 'kecamatan_id', 'rw', 'rt', 'total_dpt', 'total_sss', 'total_ssts', 'total_ssr', 'pemilih_hadir', 'image', 'agree',
+            'pemilih_tidak_hadir', 'caleg1', 'caleg2', 'caleg3', 'caleg3', 'caleg4', 'caleg5', 'caleg6', 'caleg7', 'caleg8', 'caleg9', 'caleg10'  
+        );
 
-            SuaraGroup::create($validatedSuara);
-        }else{
-            SuaraGroup::where('no_tps', $oldData->no_tps)
-            ->where('kelurahan_id', $oldData->kelurahan_id)
-            ->where('partai_id', $oldData->partai_id)
-            ->update($validatedSuara);
-        }
+        SuaraGroup::where('no_tps', $oldData->no_tps)
+                ->where('kelurahan_id', $oldData->kelurahan_id)
+                ->where('partai_id', $oldData->partai_id)
+                ->update($validatedSuara);
 
         $validatedData = $request->validate([
             'kecamatan_id' => 'required|numeric',
