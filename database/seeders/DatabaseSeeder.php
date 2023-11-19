@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'role' => 'Superadmin',
             'name' => 'Arif Laksonodhewo',
-            'email' => 'arifldhewo234@gmail.com',
+            'email' => 'superadmin@gmail.com',
             'telp' => '087882552668',
             'password' => bcrypt('password'),
         ]);
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'role' => 'Admin',
             'name' => 'Arif Laksonodhewo',
-            'email' => 'arifldhewo@gmail.com',
+            'email' => 'admin@gmail.com',
             'telp' => '087882552669',
             'password' => bcrypt('password'),
         ]);
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'role' => 'Member',
             'name' => 'Rohim Nur Islam',
-            'email' => 'ghaunther@gmail.com',
+            'email' => 'member@gmail.com',
             'telp' => '081111111111',
             'password' => bcrypt('password'),
         ]);
@@ -48,16 +48,16 @@ class DatabaseSeeder extends Seeder
 
         //MASTER CALEG
 
-        MasterCaleg::create(['name' => 'Gembong Warsono', 'partai_id' => '1', 'gender' => 'L']);
-        MasterCaleg::create(['name' => 'Simon A.M Sitorus', 'partai_id' => '1', 'gender' => 'L']);
-        MasterCaleg::create(['name' => 'Mirza Riadiani K (Chica Koeswoyo)', 'partai_id' => '1', 'gender' => 'P']);
+        // MasterCaleg::create(['name' => 'Gembong Warsono', 'partai_id' => '1', 'gender' => 'L']);
+        // MasterCaleg::create(['name' => 'Simon A.M Sitorus', 'partai_id' => '1', 'gender' => 'L']);
+        // MasterCaleg::create(['name' => 'Mirza Riadiani K (Chica Koeswoyo)', 'partai_id' => '1', 'gender' => 'P']);
         MasterCaleg::create(['name' => 'M. Rayhan Ali', 'partai_id' => '1', 'gender' => 'L']);
-        MasterCaleg::create(['name' => 'Satrio S. Herlambang', 'partai_id' => '1', 'gender' => 'L']);
-        MasterCaleg::create(['name' => 'Ines Yuana', 'partai_id' => '1', 'gender' => 'P']);
-        MasterCaleg::create(['name' => 'Ashari', 'partai_id' => '1', 'gender' => 'L']);
-        MasterCaleg::create(['name' => 'Faisal Najemuddin Afdhal', 'partai_id' => '1', 'gender' => 'L']);
-        MasterCaleg::create(['name' => 'Pratama Meidi', 'partai_id' => '1', 'gender' => 'P']);
-        MasterCaleg::create(['name' => 'Niken Indah Kristianti SE', 'partai_id' => '1', 'gender' => 'P']);
+        // MasterCaleg::create(['name' => 'Satrio S. Herlambang', 'partai_id' => '1', 'gender' => 'L']);
+        // MasterCaleg::create(['name' => 'Ines Yuana', 'partai_id' => '1', 'gender' => 'P']);
+        // MasterCaleg::create(['name' => 'Ashari', 'partai_id' => '1', 'gender' => 'L']);
+        // MasterCaleg::create(['name' => 'Faisal Najemuddin Afdhal', 'partai_id' => '1', 'gender' => 'L']);
+        // MasterCaleg::create(['name' => 'Pratama Meidi', 'partai_id' => '1', 'gender' => 'P']);
+        // MasterCaleg::create(['name' => 'Niken Indah Kristianti SE', 'partai_id' => '1', 'gender' => 'P']);
 
         //END MASTER CALEG
 
@@ -195,10 +195,10 @@ class DatabaseSeeder extends Seeder
         //MASTER PARTAI
 
         MasterPartai::create(['name' => 'PDIP']);
-        MasterPartai::create(['name' => 'PAN']);
-        MasterPartai::create(['name' => 'PKS']);
-        MasterPartai::create(['name' => 'GOLKAR']);
-        MasterPartai::create(['name' => 'DEMOKRAT']);
+        // MasterPartai::create(['name' => 'PAN']);
+        // MasterPartai::create(['name' => 'PKS']);
+        // MasterPartai::create(['name' => 'GOLKAR']);
+        // MasterPartai::create(['name' => 'DEMOKRAT']);
 
         //END MASTER PARTAI
 
