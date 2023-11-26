@@ -38,6 +38,14 @@
             </main>
         </div>
 
+        {{-- Discord Widget --}}
+        <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+            new Crate({
+                server: '1178213380134289458',
+                channel: '1178213380738260994',
+                location: ['bottom', 'right']
+            })
+        </script>
         @include('layouts.js')
     </body>
 </html>
