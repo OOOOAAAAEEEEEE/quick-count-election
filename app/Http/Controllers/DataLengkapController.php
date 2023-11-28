@@ -6,8 +6,8 @@ use App\Models\DataLengkap;
 use App\Models\CalegGroup;
 use App\Models\SuaraGroup;
 use App\Models\MasterKecamatan;
+use App\Models\MasterKelurahan;
 use App\Models\MasterPartai;
-use App\Exports\DataExport;
 use App\Models\MasterCaleg;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Http\Request;
@@ -133,12 +133,16 @@ class DataLengkapController extends Controller
             ->where('kelurahan_id', $validatedData['kelurahan_id'])
             ->where('partai_id', $validatedData['partai_id'])
             ->value('id');
-            
-            $validatedData['image'] = $request->file('image')->store('plano');
+
+            $kecamatan_name = MasterKecamatan::select('name')->where('id', $request->kecamatan_id)->value('name');
+            $kelurahan_name = MasterKelurahan::select('name')->where('id', $request->kelurahan_id)->value('name');
+
+            $file_ext = $request->file('image')->getClientOriginalExtension();
+            $validatedData['image'] = $request->file('image')->storeAs('plano', $kecamatan_name . "_" . $kelurahan_name . "_tps_" . $request->no_tps . "_" . Str::random(9) . "." . $file_ext);
+
             DataLengkap::create($validatedData);
 
             return redirect()->route('dataLengkap')->with('success', 'Your data has been added successfully!');
-            
         }
     }
 
@@ -250,7 +254,11 @@ class DataLengkapController extends Controller
 
             Storage::delete($post->image);
 
-            $validatedData['image'] = $request->file('image')->store('plano');
+            $kecamatan_name = MasterKecamatan::select('name')->where('id', $request->kecamatan_id)->value('name');
+            $kelurahan_name = MasterKelurahan::select('name')->where('id', $request->kelurahan_id)->value('name');
+
+            $file_ext = $request->file('image')->getClientOriginalExtension();
+            $validatedData['image'] = $request->file('image')->storeAs('plano', $kecamatan_name . "_" . $kelurahan_name . "_tps_" . $request->no_tps . "_" . Str::random(9) . "." . $file_ext);
         }
 
         $dataLengkap->where('uuid', $id)->update($validatedData);
@@ -270,13 +278,6 @@ class DataLengkapController extends Controller
         DataLengkap::where('id', '=', $id)->delete();
 
         return redirect()->route('dataLengkap')->with('success', 'Your data has been deleted successfully!');
-    }
-
-    public function export(Request $request) 
-    {
-        (new DataExport)->queue('dataLengkap.xlsx');
-
-        return back()->withSuccess('Data Export in progress, please wait');
     }
 
     public function spatie()

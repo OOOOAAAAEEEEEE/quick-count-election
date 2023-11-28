@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\DataLengkap;
 use App\Models\MasterPartai;
 use App\Models\MasterKecamatan;
+use App\Models\MasterKelurahan;
 use App\Models\CalegGroup;
 use App\Models\MasterCaleg;
 use App\Models\SuaraGroup;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\Storage;
 
 class DataLengkapMemberController extends Controller
 {
@@ -114,7 +115,7 @@ class DataLengkapMemberController extends Controller
             $validatedData = $validatedData->validate();
 
             $validatedData['uuid'] = Str::uuid();
-            
+
             $validatedData['user_id'] = auth()->user()->id;
 
             $validatedData['caleg_group_id'] = CalegGroup::select('id')
@@ -122,16 +123,21 @@ class DataLengkapMemberController extends Controller
             ->where('kelurahan_id', $validatedData['kelurahan_id'])
             ->where('partai_id', $validatedData['partai_id'])
             ->value('id');
-    
+
             $validatedData['suara_group_id'] = SuaraGroup::select('id')
             ->where('no_tps', $validatedData['no_tps'])
             ->where('kelurahan_id', $validatedData['kelurahan_id'])
             ->where('partai_id', $validatedData['partai_id'])
             ->value('id');
-    
-            $validatedData['image'] = $request->file('image')->store('plano');
+
+            $kecamatan_name = MasterKecamatan::select('name')->where('id', $request->kecamatan_id)->value('name');
+            $kelurahan_name = MasterKelurahan::select('name')->where('id', $request->kelurahan_id)->value('name');
+
+            $file_ext = $request->file('image')->getClientOriginalExtension();
+            $validatedData['image'] = $request->file('image')->storeAs('plano', $kecamatan_name . "_" . $kelurahan_name . "_tps_" . $request->no_tps . "_" . Str::random(9) . "." . $file_ext);
+
             DataLengkap::create($validatedData);
-    
+
             return redirect()->route('dataLengkapMember')->with('success', 'Your data has been added successfully!');
         }
     }
@@ -276,12 +282,12 @@ class DataLengkapMemberController extends Controller
      */
     public function destroy(DataLengkap $dataLengkap, $id)
     {
-        $post = $dataLengkap->where('id', $id)->first();
+        // $post = $dataLengkap->where('id', $id)->first();
 
-        Storage::delete($post->image);
+        // Storage::delete($post->image);
 
-        DataLengkap::where('id', '=', $id)->delete();
+        // DataLengkap::where('id', '=', $id)->delete();
 
-        return redirect()->route('dataLengkapMember')->with('success', 'Your data has been deleted successfully!');
+        // return redirect()->route('dataLengkapMember')->with('success', 'Your data has been deleted successfully!');
     }
 }

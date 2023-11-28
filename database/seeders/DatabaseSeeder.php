@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'role' => 'Superadmin',
-            'name' => 'Arif Laksonodhewo',
+            'name' => 'Superadmin',
             'email' => 'superadmin@gmail.com',
             'telp' => '087882552668',
             'password' => bcrypt('password'),
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'role' => 'Admin',
-            'name' => 'Arif Laksonodhewo',
+            'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'telp' => '087882552669',
             'password' => bcrypt('password'),
@@ -37,27 +37,59 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'role' => 'Member',
-            'name' => 'Rohim Nur Islam',
-            'email' => 'member@gmail.com',
+            'name' => 'MemberA',
+            'email' => 'membera@gmail.com',
             'telp' => '081111111111',
             'password' => bcrypt('password'),
         ]);
 
-        User::factory(5)->create();
+        User::create([
+            'role' => 'Member',
+            'name' => 'MemberB',
+            'email' => 'memberb@gmail.com',
+            'telp' => '081111111112',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::create([
+            'role' => 'Member',
+            'name' => 'MemberC',
+            'email' => 'memberc@gmail.com',
+            'telp' => '081111111113',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::create([
+            'role' => 'Member',
+            'name' => 'MemberD',
+            'email' => 'memberd@gmail.com',
+            'telp' => '081111111114',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::create([
+            'role' => 'Member',
+            'name' => 'MemberE',
+            'email' => 'membere@gmail.com',
+            'telp' => '081111111115',
+            'password' => bcrypt('password'),
+        ]);
+
+        // User::factory(5)->create();
         // DataLengkap::factory(100)->create();
 
         //MASTER CALEG
 
-        // MasterCaleg::create(['name' => 'Gembong Warsono', 'partai_id' => '1', 'gender' => 'L']);
-        // MasterCaleg::create(['name' => 'Simon A.M Sitorus', 'partai_id' => '1', 'gender' => 'L']);
-        // MasterCaleg::create(['name' => 'Mirza Riadiani K (Chica Koeswoyo)', 'partai_id' => '1', 'gender' => 'P']);
+        MasterCaleg::create(['name' => 'Yanuar Prabowo', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Simon A.M Sitorus', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Mirza Riadiani K (Chica Koeswoyo)', 'partai_id' => '1', 'gender' => 'P']);
         MasterCaleg::create(['name' => 'M. Rayhan Ali', 'partai_id' => '1', 'gender' => 'L']);
-        // MasterCaleg::create(['name' => 'Satrio S. Herlambang', 'partai_id' => '1', 'gender' => 'L']);
-        // MasterCaleg::create(['name' => 'Ines Yuana', 'partai_id' => '1', 'gender' => 'P']);
-        // MasterCaleg::create(['name' => 'Ashari', 'partai_id' => '1', 'gender' => 'L']);
-        // MasterCaleg::create(['name' => 'Faisal Najemuddin Afdhal', 'partai_id' => '1', 'gender' => 'L']);
-        // MasterCaleg::create(['name' => 'Pratama Meidi', 'partai_id' => '1', 'gender' => 'P']);
-        // MasterCaleg::create(['name' => 'Niken Indah Kristianti SE', 'partai_id' => '1', 'gender' => 'P']);
+        MasterCaleg::create(['name' => 'Satrio S. Herlambang', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Ines Yuana', 'partai_id' => '1', 'gender' => 'P']);
+        MasterCaleg::create(['name' => 'Ashari', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Faisal Najemuddin Afdhal', 'partai_id' => '1', 'gender' => 'L']);
+        MasterCaleg::create(['name' => 'Pratama Meidi', 'partai_id' => '1', 'gender' => 'P']);
+        MasterCaleg::create(['name' => 'Niken Indah Kristianti SE', 'partai_id' => '1', 'gender' => 'P']);
 
         //END MASTER CALEG
 

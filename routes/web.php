@@ -33,7 +33,7 @@ Route::controller(DataLengkapMemberController::class)->prefix('/member/')->middl
     Route::get('dataLengkap/{id}/show', 'show')->name('dataLengkapMemberShow');
     Route::get('dataLengkap/{id}/edit', 'edit')->name('dataLengkapMemberEdit');
     Route::patch('dataLengkap/{id}', 'update')->name('dataLengkapMemberUpdate');
-    Route::delete('dataLengkap/delete/{id}', 'destroy')->name('dataLengkapMemberDelete');
+    // Route::delete('dataLengkap/delete/{id}', 'destroy')->name('dataLengkapMemberDelete');
 });
 
 Route::controller(DashboardController::class)->group(function(){
@@ -65,7 +65,6 @@ Route::prefix('/admin/')->middleware(['auth', 'check.role'])->group(function () 
     Route::get('dataLengkap/{id}/edit', [DataLengkapController::class, 'edit'])->name('dataLengkapEdit');
     Route::patch('dataLengkap/{id}', [DataLengkapController::class, 'update'])->name('dataLengkapUpdate');
     Route::delete('dataLengkap/delete/{id}/', [DataLengkapController::class, 'destroy'])->name('dataLengkapDelete');
-    // Route::get('dataLengkap/export/queue', [DataLengkapController::class, 'export'])->name('dataLengkapExport');
     Route::get('dataLengkap/export/queue/spatie', [DataLengkapController::class, 'spatie'])->name('spatie');
 
     //END DATA LENGKAP
