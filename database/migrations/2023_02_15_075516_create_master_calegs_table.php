@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('master_calegs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('partai_id');
+            $table->foreignId('partai_id')->index();
             $table->string('name');
             $table->string('gender');
             $table->timestamps();

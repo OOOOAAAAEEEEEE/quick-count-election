@@ -168,7 +168,7 @@
                 <div class="flex items-center h-5">
                 <input id="agree" name="agree" required type="checkbox" value="true" class="w-9 h-9 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
                 </div>
-                <label for="agree" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Klik tombol ini jika anda sudah yakin dengan isian anda!! </label>
+                <label for="agree" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sentuh tombol ini jika anda sudah yakin dengan isian anda!! </label>
                 @error('agree')
                     <p class="text-red-500 text-sm">
                         {{ $message }}
@@ -176,6 +176,10 @@
                 @enderror
             </div>
             <button id="submit" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        
+            <div class="flex justify-center my-16">
+                <a id="refresh" href="{{route('dataLengkapMemberCreate')}}" class="hidden hover:text-purple-500 active:text-purple-500 text-center">Sentuh tulisan ini jika tulisan ini muncul untuk mengisi ulang data, Pastikan data tidak ada yang salah!</a>
+            </div>
         </form>
     </div>
 </x-app-layout>
@@ -256,18 +260,20 @@ filterKelurahan();
     let buttonSubmit = document.getElementById("submit");
     let elementClicked = false;
     let checkbox = document.getElementById("agree");
+    let refreshText = document.getElementById("refresh");
 
     checkbox.addEventListener("change", () => {
-    checkbox.disabled = true;
-    buttonSubmit.addEventListener("click", function(){
-        if(elementClicked && checkbox.checked == true){
-            buttonSubmit.disabled = true;
-        }
-        elementClicked = true;
+        checkbox.disabled = true;
+            buttonSubmit.addEventListener("click", function(){
+                if(elementClicked && checkbox.checked == true){
+                    buttonSubmit.disabled = true;
+                    setTimeout(() => {
+                        refreshText.classList.remove("hidden");
+                    }, 10000); // tambahkan timeout jika tombol tidak bisa di klik karena adanya kesalahan data input.
+                }
+                    elementClicked = true;
+                });
     });
-        elementClicked = false;
-        buttonSubmit.disabled = false;
-});
 
 
 </script>

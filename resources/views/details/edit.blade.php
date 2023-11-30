@@ -253,16 +253,17 @@ filterKelurahan();
     let checkbox = document.getElementById("agree");
 
     checkbox.addEventListener("change", () => {
-    checkbox.disabled = true;
-    buttonSubmit.addEventListener("click", function(){
-        if(elementClicked && checkbox.checked == true){
-            buttonSubmit.disabled = true;
-        }
-        elementClicked = true;
+        checkbox.disabled = true;
+            buttonSubmit.addEventListener("click", function(){
+                if(elementClicked && checkbox.checked == true){
+                    buttonSubmit.disabled = true;
+                    setTimeout(() => {
+                        refreshText.classList.remove("hidden");
+                    }, 10000); // tambahkan timeout jika tombol tidak bisa di klik karena adanya kesalahan data input.
+                }
+                    elementClicked = true;
+                });
     });
-        elementClicked = false;
-        buttonSubmit.disabled = false;
-});
 
 
 </script>

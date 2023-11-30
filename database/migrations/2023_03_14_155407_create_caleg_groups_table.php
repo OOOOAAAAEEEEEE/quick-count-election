@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('caleg_groups', function (Blueprint $table) {
             $table->id();
             $table->integer('no_tps');
-            $table->foreignId('kelurahan_id');
-            $table->foreignId('partai_id');
+            $table->foreignId('kelurahan_id')->constrained('master_kelurahans');
+            $table->foreignId('partai_id')->constrained('master_partais');
             $table->string('caleg1')->nullable();
             $table->string('caleg2')->nullable();
             $table->string('caleg3')->nullable();
