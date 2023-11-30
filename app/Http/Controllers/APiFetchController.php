@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use App\Models\User;
 use App\Models\DataLengkap;
 use App\Models\MasterKecamatan;
 use App\Models\MasterKelurahan;
 use App\Models\MasterCaleg;
 use App\Models\MasterPartai;
+Use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 class APiFetchController extends Controller
@@ -17,18 +16,36 @@ class APiFetchController extends Controller
     public function MasterKecamatanData(){
         return DataTables::of(MasterKecamatan::query())
         ->addColumn('action', 'components.action-icon')
+        ->editColumn('created_at', function($master_kecamatan){
+            return Carbon::parse($master_kecamatan->created_at)->format('d-M-Y H:i:s');
+        })
+        ->editColumn('updated_at', function($master_kecamatan){
+            return Carbon::parse($master_kecamatan->updated_at)->format('d-M-Y H:i:s');
+        })
         ->toJson();
     }
 
     public function MasterPartaiData(){
         return DataTables::of(MasterPartai::query())
         ->addColumn('action', 'components.action-icon')
+        ->editColumn('created_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->created_at)->format('d-M-Y H:i:s');
+        })
+        ->editColumn('updated_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->updated_at)->format('d-M-Y H:i:s');
+        })
         ->toJson();
     }
 
     public function MasterUserData(){
         return DataTables::of(User::query())
         ->addColumn('action', 'components.action-icon')
+        ->editColumn('created_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->created_at)->format('d-M-Y H:i:s');
+        })
+        ->editColumn('updated_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->updated_at)->format('d-M-Y H:i:s');
+        })
         ->toJson();
     }
 
@@ -80,6 +97,12 @@ class APiFetchController extends Controller
         ->join('suara_groups', 'data_lengkaps.suara_group_id', 'suara_groups.id')
         ->join('master_partais', 'data_lengkaps.partai_id', 'master_partais.id'))
         ->addColumn('action', 'components.action-icon')
+        ->editColumn('created_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->created_at)->format('d-M-Y H:i:s');
+        })
+        ->editColumn('updated_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->updated_at)->format('d-M-Y H:i:s');
+        })
         ->toJson();
     }
 
@@ -134,6 +157,12 @@ class APiFetchController extends Controller
         ->join('suara_groups', 'data_lengkaps.suara_group_id', 'suara_groups.id')
         ->join('master_partais', 'data_lengkaps.partai_id', 'master_partais.id'))
         ->addColumn('action', 'components.action-icon')
+        ->editColumn('created_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->created_at)->format('d-M-Y H:i:s');
+        })
+        ->editColumn('updated_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->updated_at)->format('d-M-Y H:i:s');
+        })
         ->toJson();
     }
 
@@ -148,6 +177,12 @@ class APiFetchController extends Controller
         ')
         ->join('master_partais', 'master_calegs.partai_id', '=', 'master_partais.id'))
         ->addColumn('action', 'components.action-icon')
+        ->editColumn('created_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->created_at)->format('d-M-Y H:i:s');
+        })
+        ->editColumn('updated_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->updated_at)->format('d-M-Y H:i:s');
+        })
         ->toJson();
     }
 
@@ -160,6 +195,12 @@ class APiFetchController extends Controller
                 master_kelurahans.updated_at ')
         ->join('master_kecamatans', 'master_kelurahans.kecamatan_id', '=', 'master_kecamatans.id'))
         ->addColumn('action', 'components.action-icon')
+        ->editColumn('created_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->created_at)->format('d-M-Y H:i:s');
+        })
+        ->editColumn('updated_at', function($dataLengkap){
+            return Carbon::parse($dataLengkap->updated_at)->format('d-M-Y H:i:s');
+        })
         ->toJson();
     }
 }

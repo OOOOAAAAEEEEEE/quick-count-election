@@ -6,9 +6,10 @@ use App\Models\DataLengkap;
 use App\Models\CalegGroup;
 use App\Models\SuaraGroup;
 use App\Models\MasterKecamatan;
+use App\Models\MasterKelurahan;
 use App\Models\MasterPartai;
-use App\Exports\DataExport;
 use App\Models\MasterCaleg;
+use Carbon\Carbon;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -23,7 +24,7 @@ class DataLengkapController extends Controller
     public function index()
     {
         return view('details.index', [
-            
+
         ]);
     }
 
@@ -47,26 +48,26 @@ class DataLengkapController extends Controller
     {
 
         $request->validate([
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'image' => 'required|image|max:10240'
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'partai_id'           => 'required|numeric',
+            'image'               => 'required|image|max:10240'
         ]);
 
         $jmlCaleg = MasterCaleg::select('id')->where('partai_id', $request->partai_id)->count();;
         for($i = 1; $i <= $jmlCaleg; $i++){
             $request->validate([
                 "caleg$i" => 'required|string',
-                "suara$i" => 'required|string'
+                "suara$i" => 'required|numeric|gte:0'
             ]);
         }
 
@@ -85,19 +86,19 @@ class DataLengkapController extends Controller
         SuaraGroup::create($validatedSuara);
 
         $validatedData = Validator::make($request->all(), [
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'image' => 'required|image|max:10240'
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'partai_id'           => 'required|numeric',
+            'image'               => 'required|image|max:10240'
         ]);
 
         if($validatedData->fails()){
@@ -133,12 +134,16 @@ class DataLengkapController extends Controller
             ->where('kelurahan_id', $validatedData['kelurahan_id'])
             ->where('partai_id', $validatedData['partai_id'])
             ->value('id');
-            
-            $validatedData['image'] = $request->file('image')->store('plano');
+
+            $kecamatan_name = MasterKecamatan::select('name')->where('id', $request->kecamatan_id)->value('name');
+            $kelurahan_name = MasterKelurahan::select('name')->where('id', $request->kelurahan_id)->value('name');
+
+            $file_ext = $request->file('image')->getClientOriginalExtension();
+            $validatedData['image'] = $request->file('image')->storeAs('plano', $kecamatan_name . "_" . $kelurahan_name . "_tps_" . $request->no_tps . "_" . Str::random(9) . "." . $file_ext);
+
             DataLengkap::create($validatedData);
 
             return redirect()->route('dataLengkap')->with('success', 'Your data has been added successfully!');
-            
         }
     }
 
@@ -171,18 +176,18 @@ class DataLengkapController extends Controller
     {
 
         $request->validate([
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'partai_id' => 'required|numeric',
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'partai_id'           => 'required|numeric',
         ]);
 
         $oldData = $dataLengkap->where('uuid', $id)->first();
@@ -192,7 +197,7 @@ class DataLengkapController extends Controller
             for($i = 1; $i <= $jmlCaleg; $i++){
                 $request->validate([
                     "caleg$i" => 'required|string',
-                    "suara$i" => 'required|string'
+                    "suara$i" => 'required|numeric|gte:0'
                 ]);
             }
         }
@@ -218,19 +223,19 @@ class DataLengkapController extends Controller
                 ->update($validatedSuara);
 
         $validatedData = $request->validate([
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'image' => '|file|image|max:10240'
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'partai_id'           => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'image'               => '|file|image|max:10240'
         ]);
 
         $validatedData['caleg_group_id'] = CalegGroup::select('id')
@@ -250,7 +255,11 @@ class DataLengkapController extends Controller
 
             Storage::delete($post->image);
 
-            $validatedData['image'] = $request->file('image')->store('plano');
+            $kecamatan_name = MasterKecamatan::select('name')->where('id', $request->kecamatan_id)->value('name');
+            $kelurahan_name = MasterKelurahan::select('name')->where('id', $request->kelurahan_id)->value('name');
+
+            $file_ext = $request->file('image')->getClientOriginalExtension();
+            $validatedData['image'] = $request->file('image')->storeAs('plano', $kecamatan_name . "_" . $kelurahan_name . "_tps_" . $request->no_tps . "_" . Str::random(9) . "." . $file_ext);
         }
 
         $dataLengkap->where('uuid', $id)->update($validatedData);
@@ -272,13 +281,6 @@ class DataLengkapController extends Controller
         return redirect()->route('dataLengkap')->with('success', 'Your data has been deleted successfully!');
     }
 
-    public function export(Request $request) 
-    {
-        (new DataExport)->queue('dataLengkap.xlsx');
-
-        return back()->withSuccess('Data Export in progress, please wait');
-    }
-
     public function spatie()
     {
         $rows = [];
@@ -287,6 +289,7 @@ class DataLengkapController extends Controller
         data_lengkaps.id,
         data_lengkaps.uuid,
         users.name AS pengirim,
+        users.telp,
         master_kecamatans.name AS kecamatan,
         master_kelurahans.name AS kelurahan,
         data_lengkaps.rt,
@@ -331,6 +334,8 @@ class DataLengkapController extends Controller
         ->join('master_partais', 'data_lengkaps.partai_id', 'master_partais.id')
         ->chunk(2000, function($dataLengkaps) use (&$rows){
             foreach ($dataLengkaps->toArray() as $dataLengkap) {
+                $dataLengkap['created_at'] = Carbon::parse($dataLengkap['created_at'])->tz('Asia/Jakarta')->format("d-M-Y H:i:s");
+                $dataLengkap['updated_at'] = Carbon::parse($dataLengkap['updated_at'])->tz('Asia/Jakarta')->format("d-M-Y H:i:s");
                 $rows[] = $dataLengkap;
             }
         });

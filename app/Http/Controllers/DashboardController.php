@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\DataLengkap;
 use Illuminate\Http\Request;
 use App\Charts\Summary;
-use App\Models\SuaraGroup;
 
 class DashboardController extends Controller
 {

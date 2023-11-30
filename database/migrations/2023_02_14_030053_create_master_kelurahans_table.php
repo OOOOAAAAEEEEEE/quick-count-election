@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('master_kelurahans', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('kecamatan_id');
+            $table->foreignId('kecamatan_id')->constrained('master_kecamatans');
             $table->timestamps();
         });
     }
