@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('data_lengkaps', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            $table->foreignId('user_id');
-            $table->foreignId('kecamatan_id');
-            $table->foreignId('kelurahan_id');
-            $table->foreignId('caleg_group_id');
-            $table->foreignId('suara_group_id');
-            $table->foreignId('partai_id');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('kecamatan_id')->constrained('master_kecamatans');
+            $table->foreignId('kelurahan_id')->constrained('master_kelurahans');
+            $table->foreignId('caleg_group_id')->constrained('caleg_groups');
+            $table->foreignId('suara_group_id')->constrained('suara_groups');
+            $table->foreignId('partai_id')->constrained('master_partais');
             $table->string('rt');
             $table->string('rw');
             $table->integer('no_tps');

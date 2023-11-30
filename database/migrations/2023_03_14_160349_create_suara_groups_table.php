@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('suara_groups', function (Blueprint $table) {
             $table->id();
             $table->integer('no_tps');
-            $table->foreignId('kelurahan_id');
-            $table->foreignId('partai_id');
+            $table->foreignId('kelurahan_id')->constrained('master_kelurahans');
+            $table->foreignId('partai_id')->constrained('master_partais');
             $table->integer('suara1')->nullable();
             $table->integer('suara2')->nullable();
             $table->integer('suara3')->nullable();

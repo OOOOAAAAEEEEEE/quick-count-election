@@ -9,6 +9,7 @@ use App\Models\MasterKecamatan;
 use App\Models\MasterKelurahan;
 use App\Models\MasterPartai;
 use App\Models\MasterCaleg;
+use Carbon\Carbon;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -23,7 +24,7 @@ class DataLengkapController extends Controller
     public function index()
     {
         return view('details.index', [
-            
+
         ]);
     }
 
@@ -47,26 +48,26 @@ class DataLengkapController extends Controller
     {
 
         $request->validate([
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'image' => 'required|image|max:10240'
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'partai_id'           => 'required|numeric',
+            'image'               => 'required|image|max:10240'
         ]);
 
         $jmlCaleg = MasterCaleg::select('id')->where('partai_id', $request->partai_id)->count();;
         for($i = 1; $i <= $jmlCaleg; $i++){
             $request->validate([
                 "caleg$i" => 'required|string',
-                "suara$i" => 'required|string'
+                "suara$i" => 'required|numeric|gte:0'
             ]);
         }
 
@@ -85,19 +86,19 @@ class DataLengkapController extends Controller
         SuaraGroup::create($validatedSuara);
 
         $validatedData = Validator::make($request->all(), [
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'image' => 'required|image|max:10240'
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'partai_id'           => 'required|numeric',
+            'image'               => 'required|image|max:10240'
         ]);
 
         if($validatedData->fails()){
@@ -175,18 +176,18 @@ class DataLengkapController extends Controller
     {
 
         $request->validate([
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'partai_id' => 'required|numeric',
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'partai_id'           => 'required|numeric',
         ]);
 
         $oldData = $dataLengkap->where('uuid', $id)->first();
@@ -196,7 +197,7 @@ class DataLengkapController extends Controller
             for($i = 1; $i <= $jmlCaleg; $i++){
                 $request->validate([
                     "caleg$i" => 'required|string',
-                    "suara$i" => 'required|string'
+                    "suara$i" => 'required|numeric|gte:0'
                 ]);
             }
         }
@@ -222,19 +223,19 @@ class DataLengkapController extends Controller
                 ->update($validatedSuara);
 
         $validatedData = $request->validate([
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'image' => '|file|image|max:10240'
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'partai_id'           => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'image'               => '|file|image|max:10240'
         ]);
 
         $validatedData['caleg_group_id'] = CalegGroup::select('id')
@@ -288,6 +289,7 @@ class DataLengkapController extends Controller
         data_lengkaps.id,
         data_lengkaps.uuid,
         users.name AS pengirim,
+        users.telp,
         master_kecamatans.name AS kecamatan,
         master_kelurahans.name AS kelurahan,
         data_lengkaps.rt,
@@ -332,6 +334,8 @@ class DataLengkapController extends Controller
         ->join('master_partais', 'data_lengkaps.partai_id', 'master_partais.id')
         ->chunk(2000, function($dataLengkaps) use (&$rows){
             foreach ($dataLengkaps->toArray() as $dataLengkap) {
+                $dataLengkap['created_at'] = Carbon::parse($dataLengkap['created_at'])->tz('Asia/Jakarta')->format("d-M-Y H:i:s");
+                $dataLengkap['updated_at'] = Carbon::parse($dataLengkap['updated_at'])->tz('Asia/Jakarta')->format("d-M-Y H:i:s");
                 $rows[] = $dataLengkap;
             }
         });

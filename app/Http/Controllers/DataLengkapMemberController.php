@@ -43,26 +43,26 @@ class DataLengkapMemberController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'image' => 'required|image|max:10240'
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'partai_id'           => 'required|numeric',
+            'image'               => 'required|image|max:10240'
         ]);
 
         $jmlCaleg = MasterCaleg::select('id')->where('partai_id', $request->partai_id)->count();;
         for($i = 1; $i <= $jmlCaleg; $i++){
             $request->validate([
                 "caleg$i" => 'required|string',
-                "suara$i" => 'required|string'
+                "suara$i" => 'required|numeric|gte:0'
             ]);
         }
 
@@ -81,19 +81,19 @@ class DataLengkapMemberController extends Controller
         SuaraGroup::create($validatedSuara);
 
         $validatedData = Validator::make($request->all(), [
-            'kecamatan_id' => 'required|numeric',
-            'kelurahan_id' => 'required|numeric',
-            'rw' => 'required|numeric',
-            'rt' => 'required|numeric',
-            'no_tps' => 'required|numeric',
-            'total_dpt' => 'required|numeric',
-            'total_sss' => 'required|numeric',
-            'total_ssts' => 'required|numeric',
-            'total_ssr' => 'required|numeric',
-            'pemilih_hadir' => 'required|numeric',
-            'pemilih_tidak_hadir' => 'required|numeric',
-            'partai_id' => 'required|numeric',
-            'image' => 'required|image|max:10240'
+            'kecamatan_id'        => 'required|numeric',
+            'kelurahan_id'        => 'required|numeric',
+            'rw'                  => 'required|numeric|gte:0',
+            'rt'                  => 'required|numeric|gte:0',
+            'no_tps'              => 'required|numeric|gte:0',
+            'total_dpt'           => 'required|numeric|gte:0',
+            'total_sss'           => 'required|numeric|gte:0',
+            'total_ssts'          => 'required|numeric|gte:0',
+            'total_ssr'           => 'required|numeric|gte:0',
+            'pemilih_hadir'       => 'required|numeric|gte:0',
+            'pemilih_tidak_hadir' => 'required|numeric|gte:0',
+            'partai_id'           => 'required|numeric',
+            'image'               => 'required|image|max:10240'
         ]);
 
         if($validatedData->fails()){
